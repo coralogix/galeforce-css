@@ -1,0 +1,7 @@
+{
+  "name": "nesting/list-cross-product",
+  "description": "Parent selector list × child selector list expands to the full cross product. postcss-nested 6.2.0 does NOT wrap parent in `:is(…)`.",
+  "inputCss": ".a, .b { .x, .y { color: red; } }",
+  "candidates": [],
+  "nesting": true
+}

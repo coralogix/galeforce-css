@@ -1,0 +1,5 @@
+{
+  "name": "static/visibility",
+  "description": "visible / invisible / collapse.",
+  "candidates": ["visible", "invisible", "collapse"]
+}

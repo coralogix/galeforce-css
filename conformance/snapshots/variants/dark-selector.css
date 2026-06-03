@@ -1,0 +1,3 @@
+.dark\:flex:where(.dark, .dark *) {
+    display: flex
+}

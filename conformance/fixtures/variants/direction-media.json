@@ -1,0 +1,16 @@
+{
+  "name": "variants/direction-media",
+  "description": "Direction (`ltr`/`rtl`) and at-rule-only media variants from `corePlugins.js`: motion-safe/reduce, contrast-more/less, print, portrait/landscape, forced-colors.",
+  "candidates": [
+    "ltr:flex",
+    "rtl:flex",
+    "motion-safe:flex",
+    "motion-reduce:flex",
+    "print:flex",
+    "portrait:flex",
+    "landscape:flex",
+    "contrast-more:flex",
+    "contrast-less:flex",
+    "forced-colors:flex"
+  ]
+}

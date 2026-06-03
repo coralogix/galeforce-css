@@ -1,0 +1,13 @@
+{
+  "name": "value-utilities/arbitrary-color-with-alpha",
+  "description": "Arbitrary color values that already carry their own alpha bypass the `--tw-*-opacity` wrapping path — `bg-[#0b14374d]` (8-char hex), `bg-[#abcd]` (4-char hex), `text-[rgba(255,255,255,0.15)]` (legacy 4-arg rgba), `bg-[hsla(0,_50%,_50%,_0.5)]` (legacy 4-arg hsla). The oracle emits the value verbatim. Without the embedded-alpha detection, Galeforce wrapped them with `var(--tw-*-opacity, 1)` and produced syntactically-broken declarations.",
+  "candidates": [
+    "bg-[#0b14374d]",
+    "bg-[#abcd]",
+    "text-[rgba(255,255,255,0.15)]",
+    "bg-[hsla(0,_50%,_50%,_0.5)]",
+    "bg-[#0b1437]",
+    "text-[rgb(255_255_255)]",
+    "bg-[rgb(11_20_55_/_0.3)]"
+  ]
+}

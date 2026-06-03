@@ -1,0 +1,6 @@
+{
+  "name": "directives/at-layer-tree-shaking",
+  "description": "User `@layer utilities { … }` rules are tree-shaken against the candidate set. `.super-flex` survives because `super-flex` is in candidates; `.unused` is dropped because `unused` isn't. Selector commas pass through wholesale: a multi-class selector like `.used, .also-unused` is kept whole if any of its classes are referenced. Nested at-rules (`@media`) are kept wholesale if any rule inside is referenced.",
+  "inputCss": "@tailwind utilities;\n@layer utilities { .super-flex { display: flex } .unused { color: red } .used, .also-unused { color: blue } @media (min-width: 800px) { .responsive-used { padding: 1rem } .responsive-unused { padding: 2rem } } }",
+  "candidates": ["super-flex", "used", "responsive-used"]
+}

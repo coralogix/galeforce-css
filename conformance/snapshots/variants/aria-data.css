@@ -1,0 +1,24 @@
+.aria-busy\:flex[aria-busy="true"] {
+    display: flex
+}
+.aria-checked\:flex[aria-checked="true"] {
+    display: flex
+}
+.aria-disabled\:hidden[aria-disabled="true"] {
+    display: none
+}
+.aria-\[busy\=true\]\:flex[aria-busy="true"] {
+    display: flex
+}
+.aria-\[expanded\=false\]\:flex[aria-expanded="false"] {
+    display: flex
+}
+.data-\[disabled\]\:flex[data-disabled] {
+    display: flex
+}
+.data-\[state\=open\]\:flex[data-state="open"] {
+    display: flex
+}
+.data-\[state\=closed\]\:hidden[data-state="closed"] {
+    display: none
+}

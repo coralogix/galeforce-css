@@ -1,0 +1,209 @@
+.rounded {
+    border-radius: 0.25rem
+}
+.rounded-2xl {
+    border-radius: 1rem
+}
+.rounded-3xl {
+    border-radius: 1.5rem
+}
+.rounded-\[2\.5rem\] {
+    border-radius: 2.5rem
+}
+.rounded-full {
+    border-radius: 9999px
+}
+.rounded-lg {
+    border-radius: 0.5rem
+}
+.rounded-md {
+    border-radius: 0.375rem
+}
+.rounded-none {
+    border-radius: 0px
+}
+.rounded-sm {
+    border-radius: 0.125rem
+}
+.rounded-xl {
+    border-radius: 0.75rem
+}
+.rounded-b {
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem
+}
+.rounded-e {
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem
+}
+.rounded-l {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem
+}
+.rounded-r {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem
+}
+.rounded-r-lg {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem
+}
+.rounded-s {
+    border-start-start-radius: 0.25rem;
+    border-end-start-radius: 0.25rem
+}
+.rounded-t {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem
+}
+.rounded-bl {
+    border-bottom-left-radius: 0.25rem
+}
+.rounded-bl-2xl {
+    border-bottom-left-radius: 1rem
+}
+.rounded-br {
+    border-bottom-right-radius: 0.25rem
+}
+.rounded-ee {
+    border-end-end-radius: 0.25rem
+}
+.rounded-es {
+    border-end-start-radius: 0.25rem
+}
+.rounded-se {
+    border-start-end-radius: 0.25rem
+}
+.rounded-ss {
+    border-start-start-radius: 0.25rem
+}
+.rounded-tl {
+    border-top-left-radius: 0.25rem
+}
+.rounded-tl-\[3px\] {
+    border-top-left-radius: 3px
+}
+.rounded-tl-md {
+    border-top-left-radius: 0.375rem
+}
+.rounded-tr {
+    border-top-right-radius: 0.25rem
+}
+.border {
+    border-width: 1px
+}
+.border-0 {
+    border-width: 0px
+}
+.border-2 {
+    border-width: 2px
+}
+.border-4 {
+    border-width: 4px
+}
+.border-8 {
+    border-width: 8px
+}
+.border-\[3px\] {
+    border-width: 3px
+}
+.border-x {
+    border-left-width: 1px;
+    border-right-width: 1px
+}
+.border-x-2 {
+    border-left-width: 2px;
+    border-right-width: 2px
+}
+.border-y {
+    border-top-width: 1px;
+    border-bottom-width: 1px
+}
+.border-y-4 {
+    border-top-width: 4px;
+    border-bottom-width: 4px
+}
+.border-b {
+    border-bottom-width: 1px
+}
+.border-e {
+    border-inline-end-width: 1px
+}
+.border-l {
+    border-left-width: 1px
+}
+.border-l-4 {
+    border-left-width: 4px
+}
+.border-r {
+    border-right-width: 1px
+}
+.border-s {
+    border-inline-start-width: 1px
+}
+.border-t {
+    border-top-width: 1px
+}
+.border-t-2 {
+    border-top-width: 2px
+}
+.border-t-\[5px\] {
+    border-top-width: 5px
+}
+.border-solid {
+    border-style: solid
+}
+.border-dashed {
+    border-style: dashed
+}
+.border-dotted {
+    border-style: dotted
+}
+.border-double {
+    border-style: double
+}
+.border-hidden {
+    border-style: hidden
+}
+.border-none {
+    border-style: none
+}
+.border-\[\#ef4444\] {
+    --tw-border-opacity: 1;
+    border-color: rgb(239 68 68 / var(--tw-border-opacity, 1))
+}
+.border-blue-500 {
+    --tw-border-opacity: 1;
+    border-color: rgb(59 130 246 / var(--tw-border-opacity, 1))
+}
+.border-current {
+    border-color: currentColor
+}
+.border-red-500\/50 {
+    border-color: rgb(239 68 68 / 0.5)
+}
+.border-transparent {
+    border-color: transparent
+}
+.border-x-blue-500 {
+    --tw-border-opacity: 1;
+    border-left-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
+    border-right-color: rgb(59 130 246 / var(--tw-border-opacity, 1))
+}
+.border-y-emerald-300 {
+    --tw-border-opacity: 1;
+    border-top-color: rgb(110 231 183 / var(--tw-border-opacity, 1));
+    border-bottom-color: rgb(110 231 183 / var(--tw-border-opacity, 1))
+}
+.border-l-red-500 {
+    --tw-border-opacity: 1;
+    border-left-color: rgb(239 68 68 / var(--tw-border-opacity, 1))
+}
+.border-s-gray-400 {
+    --tw-border-opacity: 1;
+    border-inline-start-color: rgb(156 163 175 / var(--tw-border-opacity, 1))
+}
+.border-t-blue-500 {
+    --tw-border-opacity: 1;
+    border-top-color: rgb(59 130 246 / var(--tw-border-opacity, 1))
+}

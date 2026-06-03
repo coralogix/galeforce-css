@@ -1,0 +1,7 @@
+{
+  "name": "nesting/trailing-ampersand",
+  "description": "`&` doesn't have to lead — `.dark &` puts the parent at the end of the new selector.",
+  "inputCss": ".btn { [theme='dark'] & { color: red; } }",
+  "candidates": [],
+  "nesting": true
+}

@@ -1,0 +1,6 @@
+.dark\:flex:is(.dark *) {
+    display: flex
+}
+.dark\:hidden:is(.dark *) {
+    display: none
+}

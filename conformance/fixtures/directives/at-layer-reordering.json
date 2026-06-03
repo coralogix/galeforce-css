@@ -1,0 +1,7 @@
+{
+  "name": "directives/at-layer-reordering",
+  "description": "User `@layer base | components | utilities` blocks are pulled into the matching `@tailwind X;` slot regardless of source order. Direct port of upstream's `expandTailwindAtRules.js` layer-position semantics. The `@layer base` block here appears AFTER `@tailwind base;` in source — the oracle still places it inside the base slot. Likewise `@layer utilities` lands inside the utilities slot.",
+  "mode": "full",
+  "inputCss": "@tailwind base;\n@tailwind utilities;\n@layer base { html { color: red } }\n@layer utilities { .a { padding: 1rem } }",
+  "candidates": ["flex", "a"]
+}

@@ -1,0 +1,23 @@
+.\[--my-var\:1px\] {
+    --my-var: 1px
+}
+.\[font-feature-settings\:\'cv11\'\] {
+    font-feature-settings: 'cv11'
+}
+.\[font-size\:14px\] {
+    font-size: 14px
+}
+.\[grid-template-columns\:1fr_2fr_1fr\] {
+    grid-template-columns: 1fr 2fr 1fr
+}
+.\[mask-type\:luminance\] {
+    mask-type: luminance
+}
+.hover\:\[mask-type\:alpha\]:hover {
+    mask-type: alpha
+}
+@media (min-width: 768px) {
+    .md\:\[font-weight\:600\] {
+        font-weight: 600
+    }
+}

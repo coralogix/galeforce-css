@@ -1,0 +1,10 @@
+{
+  "name": "directives/theme-fn",
+  "description": "`theme('path')` substitutes the resolved theme value. Falls back to the second argument when the path is missing.",
+  "inputCss": ".x { color: theme('colors.brand.500'); border-color: theme('borderColor.DEFAULT', currentColor); }",
+  "config": {
+    "corePlugins": { "preflight": false },
+    "theme": { "colors": { "brand": { "500": "#ef4444" } } }
+  },
+  "candidates": []
+}

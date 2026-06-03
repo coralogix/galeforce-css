@@ -1,0 +1,13 @@
+{
+  "name": "variants/chained",
+  "description": "Variants chained on a single utility. Source-later variants end up closer to the class in the selector; at-rules nest outermost-first.",
+  "candidates": [
+    "hover:focus:flex",
+    "md:hover:flex",
+    "dark:md:hover:flex",
+    "group-hover:hover:flex",
+    "before:hover:flex",
+    "sm:before:flex",
+    "[&>*]:hover:flex"
+  ]
+}

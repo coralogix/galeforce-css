@@ -1,0 +1,6 @@
+{
+  "name": "directives/apply-sibling-pair",
+  "description": "`@apply` for sibling-pair plugins (`space-x-*`, `divide-x-*`). These resolve with a non-default selector_suffix (` > :not([hidden]) ~ :not([hidden])`); upstream emits them as sibling rules even in the variant-free case so the suffix can land. Variant-bearing `@apply hover:space-x-4` then nests `:hover` BEFORE the suffix.",
+  "inputCss": ".x { @apply space-x-4; }\n.y { @apply divide-x-2; }\n.z { @apply hover:space-x-4; }",
+  "candidates": []
+}

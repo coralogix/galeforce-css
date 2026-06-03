@@ -1,0 +1,48 @@
+.p-0 {
+    padding: 0px
+}
+.p-2 {
+    padding: 0.5rem
+}
+.p-4 {
+    padding: 1rem
+}
+.p-8 {
+    padding: 2rem
+}
+.p-\[14px\] {
+    padding: 14px
+}
+.p-px {
+    padding: 1px
+}
+.px-1 {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem
+}
+.px-\[calc\(2rem\+1px\)\] {
+    padding-left: calc(2rem + 1px);
+    padding-right: calc(2rem + 1px)
+}
+.py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem
+}
+.pb-1 {
+    padding-bottom: 0.25rem
+}
+.pe-2 {
+    padding-inline-end: 0.5rem
+}
+.pl-1 {
+    padding-left: 0.25rem
+}
+.pr-1 {
+    padding-right: 0.25rem
+}
+.ps-2 {
+    padding-inline-start: 0.5rem
+}
+.pt-1 {
+    padding-top: 0.25rem
+}

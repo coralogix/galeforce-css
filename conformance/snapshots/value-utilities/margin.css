@@ -1,0 +1,66 @@
+.-m-4 {
+    margin: -1rem
+}
+.m-0 {
+    margin: 0px
+}
+.m-1 {
+    margin: 0.25rem
+}
+.m-4 {
+    margin: 1rem
+}
+.m-auto {
+    margin: auto
+}
+.m-px {
+    margin: 1px
+}
+.-mx-1 {
+    margin-left: -0.25rem;
+    margin-right: -0.25rem
+}
+.mx-0 {
+    margin-left: 0px;
+    margin-right: 0px
+}
+.mx-2 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem
+}
+.mx-\[calc\(50\%-1rem\)\] {
+    margin-left: calc(50% - 1rem);
+    margin-right: calc(50% - 1rem)
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto
+}
+.my-4 {
+    margin-top: 1rem;
+    margin-bottom: 1rem
+}
+.-mt-2 {
+    margin-top: -0.5rem
+}
+.mb-3 {
+    margin-bottom: 0.75rem
+}
+.me-3 {
+    margin-inline-end: 0.75rem
+}
+.ml-4 {
+    margin-left: 1rem
+}
+.mr-2 {
+    margin-right: 0.5rem
+}
+.ms-3 {
+    margin-inline-start: 0.75rem
+}
+.mt-1 {
+    margin-top: 0.25rem
+}
+.mt-\[12px\] {
+    margin-top: 12px
+}

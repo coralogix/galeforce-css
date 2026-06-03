@@ -1,0 +1,7 @@
+{
+  "name": "nesting/bare-child",
+  "description": "A bare nested selector (no `&`) joins with a descendant combinator. Mirrors postcss-nested's implicit-`&` shape.",
+  "inputCss": ".a { color: red; .b { color: blue; } }",
+  "candidates": [],
+  "nesting": true
+}

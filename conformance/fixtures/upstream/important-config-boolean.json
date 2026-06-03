@@ -1,0 +1,12 @@
+{
+  "name": "upstream/important-config-boolean",
+  "description": "`important: true` in config makes every emitted utility declaration `!important`. Mirrors upstream's `important-boolean.test.js`. Variants and value utilities both pick it up.",
+  "config": { "important": true },
+  "candidates": [
+    "flex",
+    "p-4",
+    "hover:bg-red-500",
+    "md:p-8",
+    "text-red-500/50"
+  ]
+}

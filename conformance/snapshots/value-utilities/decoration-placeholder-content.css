@@ -1,0 +1,75 @@
+.underline {
+    text-decoration-line: underline
+}
+.no-underline {
+    text-decoration-line: none
+}
+.decoration-blue-700\/\[\.31\] {
+    text-decoration-color: rgb(29 78 216 / .31)
+}
+.decoration-current {
+    text-decoration-color: currentColor
+}
+.decoration-red-500 {
+    text-decoration-color: #ef4444
+}
+.decoration-red-500\/50 {
+    text-decoration-color: rgb(239 68 68 / 0.5)
+}
+.decoration-solid {
+    text-decoration-style: solid
+}
+.decoration-dashed {
+    text-decoration-style: dashed
+}
+.decoration-wavy {
+    text-decoration-style: wavy
+}
+.decoration-2 {
+    text-decoration-thickness: 2px
+}
+.decoration-4 {
+    text-decoration-thickness: 4px
+}
+.decoration-\[3px\] {
+    text-decoration-thickness: 3px
+}
+.decoration-auto {
+    text-decoration-thickness: auto
+}
+.decoration-from-font {
+    text-decoration-thickness: from-font
+}
+.placeholder-blue-500\/50::placeholder {
+    color: rgb(59 130 246 / 0.5)
+}
+.placeholder-current::placeholder {
+    color: currentColor
+}
+.placeholder-red-500::placeholder {
+    --tw-placeholder-opacity: 1;
+    color: rgb(239 68 68 / var(--tw-placeholder-opacity, 1))
+}
+.placeholder-transparent::placeholder {
+    color: transparent
+}
+.content-\[\'hello\'\] {
+    --tw-content: 'hello';
+    content: var(--tw-content)
+}
+.content-\[\'hi\'\] {
+    --tw-content: 'hi';
+    content: var(--tw-content)
+}
+.content-none {
+    --tw-content: none;
+    content: var(--tw-content)
+}
+.before\:content-\[\'hi\'\]::before {
+    --tw-content: 'hi';
+    content: var(--tw-content)
+}
+.after\:content-\[\'\*\'\]::after {
+    --tw-content: '*';
+    content: var(--tw-content)
+}

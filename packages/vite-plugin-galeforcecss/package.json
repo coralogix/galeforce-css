@@ -1,0 +1,64 @@
+{
+  "name": "@cx/vite-plugin-galeforcecss",
+  "version": "0.1.7",
+  "description": "Vite plugin for GaleforceCSS — fast Tailwind CSS v3 compilation with incremental HMR.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "directory": "packages/vite-plugin-galeforcecss"
+  },
+  "homepage": "https://github.com/coralogix/internal-galeforce-css",
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "vite",
+    "vite-plugin",
+    "css",
+    "rust",
+    "hmr"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.0",
+    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "postcss": {
+      "optional": false
+    }
+  },
+  "dependencies": {
+    "@cx/galeforcecss": "workspace:*",
+    "tinyglobby": "^0.2.15"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.4.0",
+    "postcss-load-config": "^6.0.1",
+    "typescript": "^5.6.0",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.5"
+  },
+  "publishConfig": {
+    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+  }
+}

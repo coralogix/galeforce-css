@@ -1,0 +1,50 @@
+@media not all and (min-width: 1536px) {
+    .max-2xl\:flex {
+        display: flex
+    }
+}
+@media (max-width: 800px) {
+    .max-\[800px\]\:flex {
+        display: flex
+    }
+}
+@media not all and (min-width: 768px) {
+    .max-md\:flex {
+        display: flex
+    }
+}
+@media not all and (min-width: 640px) {
+    .max-sm\:flex {
+        display: flex
+    }
+}
+@media (min-width: 600px) {
+    .min-\[600px\]\:flex {
+        display: flex
+    }
+}
+@media (min-width: 640px) {
+    .sm\:flex {
+        display: flex
+    }
+}
+@media (min-width: 768px) {
+    .md\:flex {
+        display: flex
+    }
+}
+@media (min-width: 1024px) {
+    .lg\:flex {
+        display: flex
+    }
+}
+@media (min-width: 1280px) {
+    .xl\:flex {
+        display: flex
+    }
+}
+@media (min-width: 1536px) {
+    .\32xl\:flex {
+        display: flex
+    }
+}

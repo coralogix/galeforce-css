@@ -1,0 +1,33 @@
+.fill-current {
+    fill: currentColor
+}
+.fill-none {
+    fill: none
+}
+.fill-red-500 {
+    fill: #ef4444
+}
+.fill-transparent {
+    fill: transparent
+}
+.stroke-current {
+    stroke: currentColor
+}
+.stroke-none {
+    stroke: none
+}
+.stroke-red-500 {
+    stroke: #ef4444
+}
+.stroke-0 {
+    stroke-width: 0
+}
+.stroke-1 {
+    stroke-width: 1
+}
+.stroke-2 {
+    stroke-width: 2
+}
+.stroke-\[2\.5\] {
+    stroke-width: 2.5
+}

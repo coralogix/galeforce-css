@@ -1,0 +1,31 @@
+{
+  "name": "value-utilities/colors",
+  "description": "Color utilities for `bg-`, `text-`, `border-`. Exercises the full default palette (slate/red/blue/.../rose with shades 50..950), the special keywords (transparent, current, inherit, black, white), opacity modifiers (named `/50` -> theme.opacity.50 = 0.5; arbitrary `/[.31]` -> literal), arbitrary hex (`text-[#ef4444]`), arbitrary rgb (`bg-[rgb(0_0_0_/_0.5)]`). Mirrors `corePlugins.js`'s backgroundColor/textColor/borderColor plugins driven by `withAlphaVariable.js`.",
+  "candidates": [
+    "bg-red-500",
+    "bg-blue-700",
+    "bg-gray-100",
+    "bg-slate-950",
+    "text-red-500",
+    "text-blue-700",
+    "text-emerald-300",
+    "border-gray-300",
+    "border-red-200",
+    "bg-black",
+    "bg-white",
+    "bg-transparent",
+    "bg-current",
+    "bg-inherit",
+    "text-current",
+    "border-transparent",
+    "bg-red-500/50",
+    "bg-red-500/100",
+    "bg-blue-700/0",
+    "text-blue-700/[.31]",
+    "border-gray-300/75",
+    "text-[#ef4444]",
+    "bg-[#1e293b]",
+    "bg-[rgb(0_0_0_/_0.5)]",
+    "text-[rgb(239_68_68)]"
+  ]
+}

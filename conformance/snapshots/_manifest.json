@@ -1,0 +1,403 @@
+{
+  "tailwind": "3.4.19",
+  "node": "v24.13.0",
+  "generated": "2026-05-11T08:31:17.785Z",
+  "fixtureCount": 79,
+  "fixtures": {
+    "directives/apply-animation.json": {
+      "fixtureHash": "103b58c572fa4ddc",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 241
+    },
+    "directives/apply-bare.json": {
+      "fixtureHash": "f892754320765a64",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 64
+    },
+    "directives/apply-important.json": {
+      "fixtureHash": "78e6cc7ec9df75ea",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 37
+    },
+    "directives/apply-sibling-pair.json": {
+      "fixtureHash": "510ff21d5a9ddf63",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 600
+    },
+    "directives/apply-value-utilities.json": {
+      "fixtureHash": "cd6a9dc980ce579e",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 456
+    },
+    "directives/apply-variants.json": {
+      "fixtureHash": "185e217311f2c725",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 127
+    },
+    "directives/at-import-passthrough.json": {
+      "fixtureHash": "8d1f71368a0ebe16",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 93
+    },
+    "directives/at-layer-reordering.json": {
+      "fixtureHash": "70cbf17cf91796da",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 2510
+    },
+    "directives/at-layer-tree-shaking.json": {
+      "fixtureHash": "80ce6d5c33b1e93f",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 168
+    },
+    "directives/at-layer.json": {
+      "fixtureHash": "c526a41d2d52a5db",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 77
+    },
+    "directives/screen-at-rule.json": {
+      "fixtureHash": "a6de2f10c1001cb2",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 47
+    },
+    "directives/screen-fn.json": {
+      "fixtureHash": "2c59157cd5515f56",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 47
+    },
+    "directives/tailwind-base-preflight-off.json": {
+      "fixtureHash": "e9bd969c4583fa38",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 2853
+    },
+    "directives/tailwind-base.json": {
+      "fixtureHash": "788432b83a0279ca",
+      "configHash": "44136fa355b3678a",
+      "outputBytes": 10210
+    },
+    "directives/tailwind-full-mode.json": {
+      "fixtureHash": "19625839413280f7",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 3053
+    },
+    "directives/tailwind-utilities-passthrough.json": {
+      "fixtureHash": "65631bcc4b2dc77d",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 95
+    },
+    "directives/theme-fn-opacity.json": {
+      "fixtureHash": "f934f6576fe52b2c",
+      "configHash": "2b35fd2589fc7d85",
+      "outputBytes": 113
+    },
+    "directives/theme-fn.json": {
+      "fixtureHash": "9b36932e978b1f24",
+      "configHash": "66dc8626fc02e9e2",
+      "outputBytes": 50
+    },
+    "static/box-sizing-isolation-pointer.json": {
+      "fixtureHash": "d83d4b194306cac4",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 264
+    },
+    "static/display.json": {
+      "fixtureHash": "987167a4db002068",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 848
+    },
+    "static/flex.json": {
+      "fixtureHash": "5bae9e860d60fade",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 28
+    },
+    "static/float-clear.json": {
+      "fixtureHash": "900567c5ab09341b",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 384
+    },
+    "static/long-tail.json": {
+      "fixtureHash": "162b58754476aba9",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 2393
+    },
+    "static/position.json": {
+      "fixtureHash": "32b7226be6ca3d16",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 171
+    },
+    "static/sr-only.json": {
+      "fixtureHash": "99c7da727ae7d561",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 367
+    },
+    "static/visibility.json": {
+      "fixtureHash": "b1af60a819c27104",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 114
+    },
+    "upstream/arbitrary-properties.json": {
+      "fixtureHash": "ce3086c2d63ce8f9",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 452
+    },
+    "upstream/arbitrary-variant-validity.json": {
+      "fixtureHash": "805d3d5d1bfa3257",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 1
+    },
+    "upstream/container-config.json": {
+      "fixtureHash": "c18208efda7d4303",
+      "configHash": "feade4a0a048af4d",
+      "outputBytes": 636
+    },
+    "upstream/container.json": {
+      "fixtureHash": "7a609e5db98eba00",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 426
+    },
+    "upstream/coreplugins-disable.json": {
+      "fixtureHash": "f703152d57a012ef",
+      "configHash": "4521e1020d4a4965",
+      "outputBytes": 131
+    },
+    "upstream/coreplugins-whitelist.json": {
+      "fixtureHash": "489a551bbf1359b1",
+      "configHash": "cb6b1984e77fb584",
+      "outputBytes": 28
+    },
+    "upstream/custom-separator.json": {
+      "fixtureHash": "e9e34a119feb699f",
+      "configHash": "7f30ebdc435b1d9b",
+      "outputBytes": 369
+    },
+    "upstream/dark-mode-class-mode.json": {
+      "fixtureHash": "6b3c0a9f836eab92",
+      "configHash": "06cdf8c223cf018b",
+      "outputBytes": 45
+    },
+    "upstream/dark-mode-custom-class-name.json": {
+      "fixtureHash": "9e39cae0286f0275",
+      "configHash": "a68abcde5c76ffd2",
+      "outputBytes": 50
+    },
+    "upstream/dark-mode-variant.json": {
+      "fixtureHash": "9c7cb16efa391cc4",
+      "configHash": "d657e0950ffceaac",
+      "outputBytes": 634
+    },
+    "upstream/filter-default-bare.json": {
+      "fixtureHash": "92941c8a438f74f6",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 250
+    },
+    "upstream/important-config-boolean.json": {
+      "fixtureHash": "ca1cf4c6434715e5",
+      "configHash": "8638f5ff5c674308",
+      "outputBytes": 364
+    },
+    "upstream/important-config-selector.json": {
+      "fixtureHash": "457e256ad8fbba52",
+      "configHash": "fd488e59989156cf",
+      "outputBytes": 264
+    },
+    "upstream/negative-padding-dropped.json": {
+      "fixtureHash": "dc9daeb586821a2a",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 1
+    },
+    "upstream/prefix-with-apply.json": {
+      "fixtureHash": "9044826c8ba2dec2",
+      "configHash": "3c7b6fff6bcfbb4d",
+      "outputBytes": 148
+    },
+    "upstream/safelist-blocklist.json": {
+      "fixtureHash": "a93ef2c564dcf8cf",
+      "configHash": "55c0a9acec26ea4c",
+      "outputBytes": 230
+    },
+    "value-utilities/animation.json": {
+      "fixtureHash": "7aa9c56a8678eac9",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 762
+    },
+    "value-utilities/arbitrary-color-with-alpha.json": {
+      "fixtureHash": "255547ed2565e548",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 579
+    },
+    "value-utilities/aspect-grow-origin.json": {
+      "fixtureHash": "5a22eb7d887de694",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 946
+    },
+    "value-utilities/borders.json": {
+      "fixtureHash": "eb05ec17e9c1f66a",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 3978
+    },
+    "value-utilities/colors.json": {
+      "fixtureHash": "917e44de1b4f703f",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 2097
+    },
+    "value-utilities/decoration-placeholder-content.json": {
+      "fixtureHash": "049140aa646a27f6",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 1595
+    },
+    "value-utilities/escape-comma-in-arbitrary.json": {
+      "fixtureHash": "a99298a7ae717c4f",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 667
+    },
+    "value-utilities/filters-opacity-outline.json": {
+      "fixtureHash": "5f222c803d4b736c",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 15086
+    },
+    "value-utilities/flex-grid.json": {
+      "fixtureHash": "85a958877dc7fcae",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 4465
+    },
+    "value-utilities/gradients.json": {
+      "fixtureHash": "ffcc58314378babf",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 3603
+    },
+    "value-utilities/line-clamp-underline-offset-numeric.json": {
+      "fixtureHash": "e930cbb772219230",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 2843
+    },
+    "value-utilities/long-tail.json": {
+      "fixtureHash": "d04006604e642299",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 6159
+    },
+    "value-utilities/margin.json": {
+      "fixtureHash": "b6caabdf356b8dd3",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 852
+    },
+    "value-utilities/padding.json": {
+      "fixtureHash": "67076bad85c169ca",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 630
+    },
+    "value-utilities/shadow-no-color.json": {
+      "fixtureHash": "70aa6c581c51d758",
+      "configHash": "d36a5fa62357f418",
+      "outputBytes": 949
+    },
+    "value-utilities/shadow-ring.json": {
+      "fixtureHash": "77efb60f720763b1",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 5972
+    },
+    "value-utilities/sizing.json": {
+      "fixtureHash": "1d5f46c4f65ea21b",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 1186
+    },
+    "value-utilities/space-divide.json": {
+      "fixtureHash": "1dc06f3e06bf9622",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 5702
+    },
+    "value-utilities/svg-fill-stroke.json": {
+      "fixtureHash": "cc924d3a716c8a7b",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 415
+    },
+    "value-utilities/transforms.json": {
+      "fixtureHash": "852b10f3f09d33cf",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 8948
+    },
+    "value-utilities/transition-arbitrary.json": {
+      "fixtureHash": "b3d5cc12df3c9aee",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 620
+    },
+    "value-utilities/typography.json": {
+      "fixtureHash": "288dd27fb94c085d",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 2859
+    },
+    "variants/arbitrary.json": {
+      "fixtureHash": "6cf89e76b6d92efa",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 152
+    },
+    "variants/aria-data.json": {
+      "fixtureHash": "278310baeddf1247",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 537
+    },
+    "variants/chained.json": {
+      "fixtureHash": "9c7d797ed6e84894",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 631
+    },
+    "variants/dark-class-custom.json": {
+      "fixtureHash": "4ea4e76678c5f3d1",
+      "configHash": "7102b13c7e30633d",
+      "outputBytes": 52
+    },
+    "variants/dark-class.json": {
+      "fixtureHash": "49db14dc75772da5",
+      "configHash": "2a39fef3bb202567",
+      "outputBytes": 94
+    },
+    "variants/dark-media.json": {
+      "fixtureHash": "e9332689612bbc39",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 193
+    },
+    "variants/dark-selector.json": {
+      "fixtureHash": "ac76dd8c1f8fa130",
+      "configHash": "194a2c5e44344cff",
+      "outputBytes": 56
+    },
+    "variants/direction-media.json": {
+      "fixtureHash": "f73ca653d81d8542",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 845
+    },
+    "variants/group-peer.json": {
+      "fixtureHash": "0133c1129881b712",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 872
+    },
+    "variants/has.json": {
+      "fixtureHash": "cca7a6223def9dba",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 344
+    },
+    "variants/pseudo-class.json": {
+      "fixtureHash": "9fe21c301c92e5cf",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 1496
+    },
+    "variants/pseudo-element-terminal.json": {
+      "fixtureHash": "77ec83161f47ae16",
+      "configHash": "ac5b699b05f4f9de",
+      "outputBytes": 2020
+    },
+    "variants/pseudo-element.json": {
+      "fixtureHash": "5afd6bab3d4eabf8",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 608
+    },
+    "variants/responsive.json": {
+      "fixtureHash": "931872257259532e",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 818
+    },
+    "variants/supports.json": {
+      "fixtureHash": "2d0b7dc2dd35b0fb",
+      "configHash": "b75e1850c382343e",
+      "outputBytes": 285
+    }
+  }
+}

@@ -1,0 +1,68 @@
+# Node
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build artifacts
+dist/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+.vercel/
+.turbo/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# Native bindings
+*.node
+*.dylib
+*.so
+*.dll
+
+# Platform-binary packages — `galeforcecss` CLI binary + `galeforcecss.exe`
+# get staged into these dirs by CI (release.yml). They MUST NOT be
+# committed; the README + package.json stay in git, the binaries don't.
+packages/galeforcecss-darwin-arm64/galeforcecss
+packages/galeforcecss-darwin-x64/galeforcecss
+packages/galeforcecss-linux-arm64-gnu/galeforcecss
+packages/galeforcecss-linux-x64-gnu/galeforcecss
+packages/galeforcecss-win32-x64-msvc/galeforcecss.exe
+
+# Editor
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Per-user tool state
+.claude/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Conformance scratch
+conformance/snapshots/_failing/
+conformance/.tmp/
+
+# Smoke test scratch — cloned OSS Tailwind v3 projects, not part of the
+# repo. The smoke runner accepts `--project <path>` so anyone can point
+# it at their own checkout.
+smoke-real/

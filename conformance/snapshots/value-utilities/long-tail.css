@@ -1,0 +1,386 @@
+.-inset-1 {
+    inset: -0.25rem
+}
+.inset-0 {
+    inset: 0px
+}
+.inset-auto {
+    inset: auto
+}
+.inset-px {
+    inset: 1px
+}
+.inset-x-2 {
+    left: 0.5rem;
+    right: 0.5rem
+}
+.inset-y-4 {
+    top: 1rem;
+    bottom: 1rem
+}
+.-top-2 {
+    top: -0.5rem
+}
+.bottom-0 {
+    bottom: 0px
+}
+.end-0 {
+    inset-inline-end: 0px
+}
+.left-1\/3 {
+    left: 33.333333%
+}
+.right-4 {
+    right: 1rem
+}
+.start-0 {
+    inset-inline-start: 0px
+}
+.top-0 {
+    top: 0px
+}
+.top-1\/2 {
+    top: 50%
+}
+.top-4 {
+    top: 1rem
+}
+.top-auto {
+    top: auto
+}
+.top-full {
+    top: 100%
+}
+.-z-10 {
+    z-index: -10
+}
+.z-0 {
+    z-index: 0
+}
+.z-10 {
+    z-index: 10
+}
+.z-50 {
+    z-index: 50
+}
+.z-auto {
+    z-index: auto
+}
+.cursor-auto {
+    cursor: auto
+}
+.cursor-col-resize {
+    cursor: col-resize
+}
+.cursor-default {
+    cursor: default
+}
+.cursor-grab {
+    cursor: grab
+}
+.cursor-grabbing {
+    cursor: grabbing
+}
+.cursor-help {
+    cursor: help
+}
+.cursor-move {
+    cursor: move
+}
+.cursor-none {
+    cursor: none
+}
+.cursor-not-allowed {
+    cursor: not-allowed
+}
+.cursor-pointer {
+    cursor: pointer
+}
+.cursor-text {
+    cursor: text
+}
+.cursor-wait {
+    cursor: wait
+}
+.cursor-zoom-in {
+    cursor: zoom-in
+}
+.cursor-zoom-out {
+    cursor: zoom-out
+}
+.select-none {
+    user-select: none
+}
+.select-text {
+    user-select: text
+}
+.select-all {
+    user-select: all
+}
+.resize-none {
+    resize: none
+}
+.resize-x {
+    resize: horizontal
+}
+.resize {
+    resize: both
+}
+.scroll-m-0 {
+    scroll-margin: 0px
+}
+.scroll-mx-2 {
+    scroll-margin-left: 0.5rem;
+    scroll-margin-right: 0.5rem
+}
+.scroll-mt-4 {
+    scroll-margin-top: 1rem
+}
+.scroll-p-1 {
+    scroll-padding: 0.25rem
+}
+.scroll-py-2 {
+    scroll-padding-top: 0.5rem;
+    scroll-padding-bottom: 0.5rem
+}
+.scroll-pt-4 {
+    scroll-padding-top: 1rem
+}
+.list-inside {
+    list-style-position: inside
+}
+.list-outside {
+    list-style-position: outside
+}
+.list-decimal {
+    list-style-type: decimal
+}
+.list-disc {
+    list-style-type: disc
+}
+.list-none {
+    list-style-type: none
+}
+.list-image-none {
+    list-style-image: none
+}
+.appearance-none {
+    appearance: none
+}
+.appearance-auto {
+    appearance: auto
+}
+.overflow-auto {
+    overflow: auto
+}
+.overflow-hidden {
+    overflow: hidden
+}
+.overflow-y-auto {
+    overflow-y: auto
+}
+.overflow-x-hidden {
+    overflow-x: hidden
+}
+.overscroll-contain {
+    overscroll-behavior: contain
+}
+.overscroll-y-none {
+    overscroll-behavior-y: none
+}
+.scroll-auto {
+    scroll-behavior: auto
+}
+.scroll-smooth {
+    scroll-behavior: smooth
+}
+.hyphens-none {
+    hyphens: none
+}
+.hyphens-auto {
+    hyphens: auto
+}
+.whitespace-normal {
+    white-space: normal
+}
+.whitespace-nowrap {
+    white-space: nowrap
+}
+.whitespace-pre {
+    white-space: pre
+}
+.whitespace-pre-wrap {
+    white-space: pre-wrap
+}
+.text-wrap {
+    text-wrap: wrap
+}
+.text-nowrap {
+    text-wrap: nowrap
+}
+.text-balance {
+    text-wrap: balance
+}
+.break-normal {
+    overflow-wrap: normal;
+    word-break: normal
+}
+.break-words {
+    overflow-wrap: break-word
+}
+.break-all {
+    word-break: break-all
+}
+.bg-auto {
+    background-size: auto
+}
+.bg-contain {
+    background-size: contain
+}
+.bg-cover {
+    background-size: cover
+}
+.bg-fixed {
+    background-attachment: fixed
+}
+.bg-local {
+    background-attachment: local
+}
+.bg-scroll {
+    background-attachment: scroll
+}
+.bg-clip-border {
+    background-clip: border-box
+}
+.bg-clip-text {
+    background-clip: text
+}
+.bg-bottom {
+    background-position: bottom
+}
+.bg-center {
+    background-position: center
+}
+.bg-left-bottom {
+    background-position: left bottom
+}
+.bg-top {
+    background-position: top
+}
+.bg-repeat {
+    background-repeat: repeat
+}
+.bg-no-repeat {
+    background-repeat: no-repeat
+}
+.bg-origin-border {
+    background-origin: border-box
+}
+.object-contain {
+    object-fit: contain
+}
+.object-cover {
+    object-fit: cover
+}
+.object-bottom {
+    object-position: bottom
+}
+.object-center {
+    object-position: center
+}
+.caret-red-500 {
+    caret-color: #ef4444
+}
+.caret-transparent {
+    caret-color: transparent
+}
+.accent-auto {
+    accent-color: auto
+}
+.accent-blue-500 {
+    accent-color: #3b82f6
+}
+.accent-transparent {
+    accent-color: transparent
+}
+.mix-blend-multiply {
+    mix-blend-mode: multiply
+}
+.mix-blend-screen {
+    mix-blend-mode: screen
+}
+.mix-blend-difference {
+    mix-blend-mode: difference
+}
+.mix-blend-luminosity {
+    mix-blend-mode: luminosity
+}
+.transition {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.transition-colors {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.transition-none {
+    transition-property: none
+}
+.transition-opacity {
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.transition-shadow {
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.delay-0 {
+    transition-delay: 0s
+}
+.delay-1000 {
+    transition-delay: 1000ms
+}
+.delay-150 {
+    transition-delay: 150ms
+}
+.duration-0 {
+    transition-duration: 0s
+}
+.duration-1000 {
+    transition-duration: 1000ms
+}
+.duration-150 {
+    transition-duration: 150ms
+}
+.duration-300 {
+    transition-duration: 300ms
+}
+.duration-75 {
+    transition-duration: 75ms
+}
+.ease-in {
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1)
+}
+.ease-in-out {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
+}
+.ease-linear {
+    transition-timing-function: linear
+}
+.ease-out {
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1)
+}

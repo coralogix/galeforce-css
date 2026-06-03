@@ -1,0 +1,11 @@
+{
+  "name": "upstream/important-config-selector",
+  "description": "`important: '#app'` in config wraps every rule's selector with the prefix as a descendant combinator (`#app .flex`). Decls stay non-important — the override comes from selector specificity, not `!important`. Mirrors upstream's `important-selector.test.js`.",
+  "config": { "important": "#app" },
+  "candidates": [
+    "flex",
+    "p-4",
+    "hover:bg-red-500",
+    "md:p-8"
+  ]
+}

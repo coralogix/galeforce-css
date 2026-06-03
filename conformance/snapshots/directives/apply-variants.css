@@ -1,0 +1,1 @@
+.btn { display: flex; }.btn:hover { display: none; }@media (min-width: 768px) {.btn { display: flex; } }.btn { padding: 1rem; }

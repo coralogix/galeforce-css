@@ -1,0 +1,3 @@
+.dark\:flex:is(.test-dark *) {
+    display: flex
+}

@@ -1,0 +1,7 @@
+{
+  "name": "nesting/decl-partition",
+  "description": "Declarations BEFORE a nested rule stay in the original. Declarations AFTER nested rules emit as additional parent-rule clones.",
+  "inputCss": ".a { color: red; .b { color: blue; } font-size: 10px; }",
+  "candidates": [],
+  "nesting": true
+}

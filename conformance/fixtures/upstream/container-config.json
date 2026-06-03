@@ -1,0 +1,14 @@
+{
+  "name": "upstream/container-config",
+  "description": "`container` honors `theme.container.center` (adds `margin-right: auto; margin-left: auto`) and `theme.container.padding` (string sets default padding; object form per-screen overrides).",
+  "inputCss": "@tailwind components;\n@tailwind utilities;",
+  "config": {
+    "theme": {
+      "container": {
+        "center": true,
+        "padding": { "DEFAULT": "1rem", "lg": "4rem", "2xl": "8rem" }
+      }
+    }
+  },
+  "candidates": ["container"]
+}

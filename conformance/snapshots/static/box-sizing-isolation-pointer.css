@@ -1,0 +1,18 @@
+.pointer-events-none {
+    pointer-events: none
+}
+.pointer-events-auto {
+    pointer-events: auto
+}
+.isolate {
+    isolation: isolate
+}
+.isolation-auto {
+    isolation: auto
+}
+.box-border {
+    box-sizing: border-box
+}
+.box-content {
+    box-sizing: content-box
+}

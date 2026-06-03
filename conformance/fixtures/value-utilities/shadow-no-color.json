@@ -1,0 +1,21 @@
+{
+  "name": "value-utilities/shadow-no-color",
+  "description": "Custom box-shadow values with NO embedded color literal. Tailwind always appends `var(--tw-shadow-color)` to the --tw-shadow-colored variant so that a sibling `shadow-<color>` utility can override it. Exercises the path where formatBoxShadowValue adds a new color field rather than replacing an existing one. Regression from horizon-tailwind-react audit.",
+  "config": {
+    "corePlugins": { "preflight": false },
+    "theme": {
+      "boxShadow": {
+        "3xl": "14px 17px 40px 4px",
+        "inset-custom": "inset 0px 18px 22px",
+        "multi-no-color": "0px 2px 4px 0px, 0px 4px 6px 2px",
+        "none": "none"
+      }
+    }
+  },
+  "candidates": [
+    "shadow-3xl",
+    "shadow-inset-custom",
+    "shadow-multi-no-color",
+    "shadow-none"
+  ]
+}

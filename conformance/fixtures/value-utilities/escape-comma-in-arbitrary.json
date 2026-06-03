@@ -1,0 +1,9 @@
+{
+  "name": "value-utilities/escape-comma-in-arbitrary",
+  "description": "Selector escaping for arbitrary values with embedded commas. Tailwind's pipeline runs `cssesc` (CSS identifier escape) followed by `escapeCommas` which substitutes `\\,` for `\\2c ` (with trailing space — a `\\2c` not followed by space/non-hex parses as U+02C0). The substitution must happen AFTER the cssesc post-pass (`collapse_hex_escape_spaces`); otherwise the `\\2c ` trailing space gets stripped when followed by `\\.2` and the resulting `\\2c\\.2` is malformed. Surfaced by `before:shadow-[0_2px_5px_rgba(0,_0,_0,_.2)]` in horizon-tailwind-react.",
+  "candidates": [
+    "before:shadow-[0_2px_5px_rgba(0,_0,_0,_.2)]",
+    "shadow-[0_0_10px_rgba(0,0,0,.5)]",
+    "bg-[rgba(255,255,255,0.5)]"
+  ]
+}

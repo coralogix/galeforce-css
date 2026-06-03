@@ -1,0 +1,6 @@
+{
+  "name": "directives/tailwind-utilities-passthrough",
+  "description": "User CSS interleaved with `@tailwind utilities;` should be preserved in source order, with the directive replaced by the compiled candidate stylesheet.",
+  "inputCss": "body { color: red }\n@tailwind utilities;\n.custom { padding: 1rem }",
+  "candidates": ["flex", "block"]
+}

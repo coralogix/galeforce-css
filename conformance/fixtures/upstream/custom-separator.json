@@ -1,0 +1,10 @@
+{
+  "name": "upstream/custom-separator",
+  "description": "`separator: '__'` in config swaps the variant separator from `:` to `__`. Targets templating systems (e.g. some MVC stacks) where `:` can't appear in class attribute strings. Mirrors upstream's `custom-separator.test.js`.",
+  "config": { "separator": "__" },
+  "candidates": [
+    "hover__bg-red-500",
+    "md__p-4",
+    "dark__hover__bg-blue-500"
+  ]
+}

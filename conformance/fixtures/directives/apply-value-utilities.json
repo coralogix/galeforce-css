@@ -1,0 +1,6 @@
+{
+  "name": "directives/apply-value-utilities",
+  "description": "`@apply` for value-bearing utilities. Mirrors upstream's `expandApplyAtRules.js`: variant-free `@apply <util>` inlines decls into the parent rule; variant-bearing `@apply hover:<util>` / `@apply md:<util>` emits sibling rules with the variants applied to the parent selector. Covers color (with `with_alpha_variable` opacity vars), spacing, sizing, modifier (`/50`), and the responsive at-rule path.",
+  "inputCss": ".btn { @apply bg-red-500; padding: 4px; }\n.btn2 { @apply hover:bg-red-500; }\n.btn3 { @apply md:p-4; }\n.btn4 { @apply text-red-500/50; }\n.btn5 { @apply p-4 m-2 text-white; }\n.btn6 { @apply text-sm/6; }",
+  "candidates": []
+}

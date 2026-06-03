@@ -1,0 +1,12 @@
+{
+  "name": "static/box-sizing-isolation-pointer",
+  "description": "box-sizing, isolation, and pointer-events utilities.",
+  "candidates": [
+    "box-border",
+    "box-content",
+    "isolate",
+    "isolation-auto",
+    "pointer-events-none",
+    "pointer-events-auto"
+  ]
+}

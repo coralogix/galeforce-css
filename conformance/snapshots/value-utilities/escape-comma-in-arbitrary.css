@@ -1,0 +1,14 @@
+.bg-\[rgba\(255\2c 255\2c 255\2c 0\.5\)\] {
+    background-color: rgba(255,255,255,0.5)
+}
+.shadow-\[0_0_10px_rgba\(0\2c 0\2c 0\2c \.5\)\] {
+    --tw-shadow: 0 0 10px rgba(0,0,0,.5);
+    --tw-shadow-colored: 0 0 10px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+.before\:shadow-\[0_2px_5px_rgba\(0\2c _0\2c _0\2c _\.2\)\]::before {
+    content: var(--tw-content);
+    --tw-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    --tw-shadow-colored: 0 2px 5px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}

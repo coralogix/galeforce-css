@@ -1,0 +1,7 @@
+{
+  "name": "nesting/apply-in-nested",
+  "description": "`@apply` inside a nested rule resolves against the flattened selector — patterns like `.btn { &:hover { @apply ... } }` depend on this expanding to `.btn:hover { @apply ... }` before the directive processor runs.",
+  "inputCss": ".btn { &:hover { @apply text-red-500; } }",
+  "candidates": ["text-red-500"],
+  "nesting": true
+}

@@ -1,0 +1,10 @@
+{
+  "name": "upstream/dark-mode-class-mode",
+  "description": "Ported from vendor/tailwindcss-v3/tests/dark-mode.test.js, `it('should be possible to use the darkMode \"class\" mode')`. Substituted `font-bold` (value-bearing, not yet implemented) for `flex` (static).",
+  "config": {
+    "darkMode": "class",
+    "corePlugins": { "preflight": false }
+  },
+  "inputCss": "@tailwind utilities;",
+  "candidates": ["dark:flex"]
+}

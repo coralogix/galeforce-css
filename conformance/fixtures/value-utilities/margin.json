@@ -1,0 +1,26 @@
+{
+  "name": "value-utilities/margin",
+  "description": "Margin utilities — full prefix family (m, mx, my, ms, me, mt, mr, mb, ml) across the default spacing scale, the auto value, negation, and arbitrary values. Mirrors `corePlugins.js`'s `margin: createUtilityPlugin('margin', […], { supportsNegativeValues: true })`.",
+  "candidates": [
+    "m-0",
+    "m-1",
+    "m-4",
+    "m-auto",
+    "m-px",
+    "mx-0",
+    "mx-2",
+    "mx-auto",
+    "my-4",
+    "ms-3",
+    "me-3",
+    "mt-1",
+    "mr-2",
+    "mb-3",
+    "ml-4",
+    "-m-4",
+    "-mt-2",
+    "-mx-1",
+    "mt-[12px]",
+    "mx-[calc(50%-1rem)]"
+  ]
+}

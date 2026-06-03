@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<body class="min-h-screen bg-gray-50 text-gray-900 antialiased dark:bg-gray-900 dark:text-gray-100">
+  <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80">
+    <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <a href="/" class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+        <span class="inline-block size-6 rounded-md bg-indigo-500"></span>
+        GaleforceCSS
+      </a>
+      <div class="hidden items-center gap-6 text-sm font-medium md:flex">
+        <a class="hover:text-indigo-600 dark:hover:text-indigo-400" href="#">Docs</a>
+        <a class="hover:text-indigo-600 dark:hover:text-indigo-400" href="#">Blog</a>
+        <a class="hover:text-indigo-600 dark:hover:text-indigo-400" href="#">Community</a>
+      </div>
+      <button class="rounded-md p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-gray-200 dark:hover:bg-gray-800 md:hidden" aria-label="Open menu">
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="18" x2="20" y2="18"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+  <main class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <section class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <p class="mb-3 text-sm font-medium uppercase tracking-wide text-indigo-600 dark:text-indigo-400">Phase G</p>
+        <h1 class="text-balance text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
+          Tailwind v3, ported to Rust.
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+          A drop-in compatible compiler with the same observable output, faster startup, and a cleaner integration story for modern build tools.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900" href="#">
+            Get started
+          </a>
+          <a class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 shadow-sm transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700" href="#">
+            View on GitHub
+          </a>
+        </div>
+      </div>
+      <aside class="lg:col-span-5">
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-800">
+          <div class="border-b border-gray-200 bg-gray-50 px-4 py-3 text-xs font-mono text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+            ./tailwind.config.js
+          </div>
+          <pre class="overflow-x-auto px-4 py-4 text-xs leading-6 text-gray-800 dark:text-gray-200"><code>module.exports = {
+  content: ['./src/**/*.{html,tsx}'],
+  theme: { extend: {} },
+}</code></pre>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <footer class="border-t border-gray-200 dark:border-gray-800">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-sm text-gray-500 sm:px-6 lg:px-8 dark:text-gray-400">
+      &copy; 2026 GaleforceCSS contributors.
+    </div>
+  </footer>
+</body>
+</html>

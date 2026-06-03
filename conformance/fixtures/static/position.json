@@ -1,0 +1,5 @@
+{
+  "name": "static/position",
+  "description": "All five position utilities.",
+  "candidates": ["static", "fixed", "absolute", "relative", "sticky"]
+}

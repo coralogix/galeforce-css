@@ -1,0 +1,17 @@
+{
+  "name": "static/float-clear",
+  "description": "All float and clear utilities, including logical (start/end) variants.",
+  "candidates": [
+    "float-start",
+    "float-end",
+    "float-right",
+    "float-left",
+    "float-none",
+    "clear-start",
+    "clear-end",
+    "clear-left",
+    "clear-right",
+    "clear-both",
+    "clear-none"
+  ]
+}

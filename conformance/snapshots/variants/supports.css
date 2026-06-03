@@ -1,0 +1,15 @@
+@supports (gap:1rem) {
+    .supports-\[gap\:1rem\]\:flex {
+        display: flex
+    }
+}
+@supports (display:grid) {
+    .supports-\[display\:grid\]\:grid {
+        display: grid
+    }
+}
+@supports (display:flex) {
+    .supports-\[display\:flex\]\:hidden {
+        display: none
+    }
+}

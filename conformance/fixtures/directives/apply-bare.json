@@ -1,0 +1,6 @@
+{
+  "name": "directives/apply-bare",
+  "description": "`@apply <static utilities>` inlines each utility's declarations at the directive's position. Multiple utilities concatenate in order.",
+  "inputCss": ".btn { color: red; @apply flex hidden; padding: 1rem }",
+  "candidates": []
+}

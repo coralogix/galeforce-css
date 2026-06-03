@@ -1,0 +1,11 @@
+{
+  "name": "variants/dark-class-custom",
+  "description": "Custom selector for `darkMode: ['class', '.theme-dark']`.",
+  "config": {
+    "corePlugins": { "preflight": false },
+    "darkMode": ["class", ".theme-dark"]
+  },
+  "candidates": [
+    "dark:flex"
+  ]
+}

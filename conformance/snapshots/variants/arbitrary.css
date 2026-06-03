@@ -1,0 +1,9 @@
+.\[\&\:hover\]\:flex:hover {
+    display: flex
+}
+.\[\&\>\*\]\:block>* {
+    display: block
+}
+html:has(.\[html\:has\(\&\)\]\:flex) {
+    display: flex
+}

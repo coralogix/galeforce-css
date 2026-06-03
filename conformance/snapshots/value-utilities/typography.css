@@ -1,0 +1,177 @@
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.text-ellipsis {
+    text-overflow: ellipsis
+}
+.text-clip {
+    text-overflow: clip
+}
+.text-left {
+    text-align: left
+}
+.text-center {
+    text-align: center
+}
+.text-right {
+    text-align: right
+}
+.text-justify {
+    text-align: justify
+}
+.text-start {
+    text-align: start
+}
+.text-end {
+    text-align: end
+}
+.-indent-4 {
+    text-indent: -1rem
+}
+.indent-4 {
+    text-indent: 1rem
+}
+.indent-\[2ch\] {
+    text-indent: 2ch
+}
+.align-baseline {
+    vertical-align: baseline
+}
+.align-top {
+    vertical-align: top
+}
+.align-super {
+    vertical-align: super
+}
+.font-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+}
+.font-sans {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+}
+.font-serif {
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif
+}
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem
+}
+.text-9xl {
+    font-size: 8rem;
+    line-height: 1
+}
+.text-\[14px\] {
+    font-size: 14px
+}
+.text-\[14px\]\/\[1\.5\] {
+    font-size: 14px;
+    line-height: 1.5
+}
+.text-base {
+    font-size: 1rem;
+    line-height: 1.5rem
+}
+.text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem
+}
+.text-lg\/\[1\.4\] {
+    font-size: 1.125rem;
+    line-height: 1.4
+}
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem
+}
+.text-sm\/6 {
+    font-size: 0.875rem;
+    line-height: 1.5rem
+}
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem
+}
+.text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem
+}
+.font-black {
+    font-weight: 900
+}
+.font-bold {
+    font-weight: 700
+}
+.font-normal {
+    font-weight: 400
+}
+.font-thin {
+    font-weight: 100
+}
+.uppercase {
+    text-transform: uppercase
+}
+.lowercase {
+    text-transform: lowercase
+}
+.capitalize {
+    text-transform: capitalize
+}
+.normal-case {
+    text-transform: none
+}
+.italic {
+    font-style: italic
+}
+.not-italic {
+    font-style: normal
+}
+.leading-6 {
+    line-height: 1.5rem
+}
+.leading-\[1\.7\] {
+    line-height: 1.7
+}
+.leading-none {
+    line-height: 1
+}
+.leading-tight {
+    line-height: 1.25
+}
+.-tracking-tighter {
+    letter-spacing: 0.05em
+}
+.tracking-\[0\.123em\] {
+    letter-spacing: 0.123em
+}
+.tracking-normal {
+    letter-spacing: 0em
+}
+.tracking-tight {
+    letter-spacing: -0.025em
+}
+.tracking-tighter {
+    letter-spacing: -0.05em
+}
+.tracking-widest {
+    letter-spacing: 0.1em
+}
+.underline {
+    text-decoration-line: underline
+}
+.overline {
+    text-decoration-line: overline
+}
+.line-through {
+    text-decoration-line: line-through
+}
+.no-underline {
+    text-decoration-line: none
+}
+.decoration-solid {
+    text-decoration-style: solid
+}
+.decoration-wavy {
+    text-decoration-style: wavy
+}

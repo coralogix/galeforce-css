@@ -1,0 +1,29 @@
+{
+  "name": "value-utilities/decoration-placeholder-content",
+  "description": "Three families I'd missed: `text-decoration-color/thickness` (`decoration-red-500/50`, `decoration-2`, `decoration-[3px]`, `decoration-auto`, `decoration-from-font`), `placeholder-<color>` emitting on `::placeholder` with the standard alpha-variable color path, and `content-<value>` (and the static `content-none` reset) using the `--tw-content` cascade var so users can compose `content: var(--tw-content)` rules. Mirrors upstream's `textDecorationColor`, `textDecorationThickness`, `placeholderColor`, and `content` plugins.",
+  "candidates": [
+    "decoration-red-500",
+    "decoration-red-500/50",
+    "decoration-current",
+    "decoration-blue-700/[.31]",
+    "decoration-2",
+    "decoration-4",
+    "decoration-[3px]",
+    "decoration-auto",
+    "decoration-from-font",
+    "decoration-solid",
+    "decoration-dashed",
+    "decoration-wavy",
+    "underline",
+    "no-underline",
+    "placeholder-red-500",
+    "placeholder-blue-500/50",
+    "placeholder-transparent",
+    "placeholder-current",
+    "content-none",
+    "content-['hello']",
+    "content-['hi']",
+    "before:content-['hi']",
+    "after:content-['*']"
+  ]
+}

@@ -1,0 +1,23 @@
+.bg-\[\#0b14374d\] {
+    background-color: #0b14374d
+}
+.bg-\[\#0b1437\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(11 20 55 / var(--tw-bg-opacity, 1))
+}
+.bg-\[\#abcd\] {
+    background-color: #abcd
+}
+.bg-\[hsla\(0\2c _50\%\2c _50\%\2c _0\.5\)\] {
+    background-color: hsla(0, 50%, 50%, 0.5)
+}
+.bg-\[rgb\(11_20_55_\/_0\.3\)\] {
+    background-color: rgb(11 20 55 / 0.3)
+}
+.text-\[rgb\(255_255_255\)\] {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+.text-\[rgba\(255\2c 255\2c 255\2c 0\.15\)\] {
+    color: rgba(255,255,255,0.15)
+}

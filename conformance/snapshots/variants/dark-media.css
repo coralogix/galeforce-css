@@ -1,0 +1,11 @@
+@media (prefers-color-scheme: dark) {
+    .dark\:flex {
+        display: flex
+    }
+    .dark\:hidden {
+        display: none
+    }
+    .dark\:hover\:flex:hover {
+        display: flex
+    }
+}

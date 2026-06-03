@@ -1,0 +1,9 @@
+{
+  "name": "upstream/safelist-blocklist",
+  "description": "`safelist: [<string>, …]` lifts additional class names into the candidate set regardless of scanner output. `blocklist: [<string>, …]` excludes class names from output even if the scanner saw them. Pattern-form safelist (`{ pattern: /…/ }`) is a Phase carry-over — would need to enumerate every possible candidate. Mirrors upstream's `safelist.test.js` and `blocklist.test.js`.",
+  "config": {
+    "safelist": ["p-4", "m-2", "hover:bg-red-500"],
+    "blocklist": ["flex"]
+  },
+  "candidates": ["flex", "p-2", "block"]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "directives/tailwind-base-preflight-off",
+  "description": "`@tailwind base;` with `corePlugins.preflight: false`. The cascade-variable defaults (`--tw-translate-x: 0` etc.) STILL emit because they come from the transform/filter/ring/etc. corePlugins, not preflight. Only the box-sizing reset + element normalizers are skipped.",
+  "inputCss": "@tailwind base;",
+  "config": { "corePlugins": { "preflight": false } },
+  "candidates": []
+}

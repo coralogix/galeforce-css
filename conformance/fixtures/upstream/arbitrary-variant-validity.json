@@ -1,0 +1,10 @@
+{
+  "name": "upstream/arbitrary-variant-validity",
+  "description": "Ported from vendor/tailwindcss-v3/tests/arbitrary-variants.test.js, `test('variants without & or an at-rule are ignored')`. Per `isValidVariantFormatString` in setupContextUtils.js, an arbitrary variant whose format lacks `&` and doesn't start with `@` is dropped. The expected oracle output for these candidates is empty. Substituted `underline` for `flex` (we don't have value-bearing utilities yet).",
+  "candidates": [
+    "[div]:flex",
+    "[:hover]:flex",
+    "[wtf-bbq]:flex",
+    "[lol]:hover:flex"
+  ]
+}
