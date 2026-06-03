@@ -1,0 +1,14 @@
+{
+  "name": "variants/aria-data",
+  "description": "ARIA and data attribute variants: named theme shortcuts, arbitrary `[…]` values (with and without `=`), and the bare-attribute form `data-[disabled]`.",
+  "candidates": [
+    "aria-checked:flex",
+    "aria-disabled:hidden",
+    "aria-busy:flex",
+    "aria-[busy=true]:flex",
+    "aria-[expanded=false]:flex",
+    "data-[state=open]:flex",
+    "data-[state=closed]:hidden",
+    "data-[disabled]:flex"
+  ]
+}

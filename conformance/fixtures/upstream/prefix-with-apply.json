@@ -1,0 +1,7 @@
+{
+  "name": "upstream/prefix-with-apply",
+  "description": "When `prefix: 'tw-'` is configured, both candidate emission AND `@apply` need to honor the prefix. `@apply tw-flex tw-p-4` should resolve via the same parser path that the candidate compile uses, with `prefix: 'tw-'` threaded through ParseOptions.",
+  "config": { "prefix": "tw-" },
+  "inputCss": ".btn { @apply tw-flex tw-p-4; }\n.btn2 { @apply hover:tw-bg-red-500; }",
+  "candidates": ["tw-flex", "tw-p-4"]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "value-utilities/aspect-grow-origin",
+  "description": "Static + value entries surfaced by smoke testing on a real Tailwind v3 dashboard. `aspect-{auto,square,video}` from upstream's `aspectRatio` plugin (named statics — the numeric scale isn't in the default theme). `flex-grow` / `flex-shrink` legacy aliases for `grow` / `shrink` (upstream registers both names). `origin-{center,top,top-right,…}` named keywords from `transformOrigin`, plus the arbitrary `origin-[<value>]` form via the value-utility table.",
+  "candidates": [
+    "aspect-auto",
+    "aspect-square",
+    "aspect-video",
+    "grow",
+    "grow-0",
+    "flex-grow",
+    "flex-grow-0",
+    "shrink",
+    "shrink-0",
+    "flex-shrink",
+    "flex-shrink-0",
+    "origin-center",
+    "origin-top",
+    "origin-top-right",
+    "origin-right",
+    "origin-bottom-right",
+    "origin-bottom",
+    "origin-bottom-left",
+    "origin-left",
+    "origin-top-left",
+    "origin-[65%_0%]",
+    "origin-[75%_0%]"
+  ]
+}

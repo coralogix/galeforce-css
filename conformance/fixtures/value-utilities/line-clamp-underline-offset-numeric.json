@@ -1,0 +1,28 @@
+{
+  "name": "value-utilities/line-clamp-underline-offset-numeric",
+  "description": "Smoke-discovered gaps. `line-clamp-<n>` ports upstream's lineClamp plugin: per-utility four-decl shape `(overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: <n>)` for n=1..6, plus the `line-clamp-none` static reset (different decl shape — `display: block`, `-webkit-box-orient: horizontal`). `underline-offset-<n>` is the standard simple-resolver shape (`text-underline-offset: <n>px`). `tabular-nums` / `lining-nums` / `ordinal` / `slashed-zero` / `proportional-nums` / `diagonal-fractions` / `stacked-fractions` mirror upstream's `fontVariantNumeric` plugin: each writes its own `--tw-*` cascade var AND emits the composed `font-variant-numeric` shorthand referencing all five vars. `normal-nums` is the unambiguous reset. `antialiased` / `subpixel-antialiased` set both vendor-specific font-smoothing properties.",
+  "candidates": [
+    "line-clamp-1",
+    "line-clamp-2",
+    "line-clamp-3",
+    "line-clamp-6",
+    "line-clamp-none",
+    "underline-offset-0",
+    "underline-offset-1",
+    "underline-offset-2",
+    "underline-offset-4",
+    "underline-offset-8",
+    "underline-offset-auto",
+    "tabular-nums",
+    "lining-nums",
+    "oldstyle-nums",
+    "ordinal",
+    "slashed-zero",
+    "proportional-nums",
+    "diagonal-fractions",
+    "stacked-fractions",
+    "normal-nums",
+    "antialiased",
+    "subpixel-antialiased"
+  ]
+}

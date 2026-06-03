@@ -1,0 +1,17 @@
+{
+  "name": "value-utilities/svg-fill-stroke",
+  "description": "SVG `fill` and `stroke` utilities. Color forms (`fill-red-500`, `stroke-current`) use the raw-value path with no `--tw-*-opacity` indirection (mirror upstream's `toColorValue` route). `stroke-<width>` is a numeric scale (`stroke-0/1/2`) on `stroke-width`. `fill-none` and `stroke-none` are static reset keywords.",
+  "candidates": [
+    "fill-red-500",
+    "fill-current",
+    "fill-transparent",
+    "fill-none",
+    "stroke-red-500",
+    "stroke-current",
+    "stroke-none",
+    "stroke-0",
+    "stroke-1",
+    "stroke-2",
+    "stroke-[2.5]"
+  ]
+}

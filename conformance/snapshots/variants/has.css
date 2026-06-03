@@ -1,0 +1,15 @@
+.has-\[\:focus\]\:flex:has(:focus) {
+    display: flex
+}
+.has-\[\.error\]\:hidden:has(.error) {
+    display: none
+}
+.group\/sidebar:has(.is-on) .group-has-\[\.is-on\]\/sidebar\:flex {
+    display: flex
+}
+.group:has(:focus) .group-has-\[\:focus\]\:flex {
+    display: flex
+}
+.peer:has(:focus) ~ .peer-has-\[\:focus\]\:flex {
+    display: flex
+}

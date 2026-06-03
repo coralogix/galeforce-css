@@ -1,0 +1,16 @@
+.m-2 {
+    margin: 0.5rem
+}
+.block {
+    display: block
+}
+.p-2 {
+    padding: 0.5rem
+}
+.p-4 {
+    padding: 1rem
+}
+.hover\:bg-red-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1))
+}

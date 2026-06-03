@@ -1,0 +1,6 @@
+{
+  "name": "upstream/container",
+  "description": "The `container` component utility from upstream's `corePlugins.js` `container` plugin. Emits a base `.container { width: 100% }` rule plus one `@media (min-width: <screen>)` rule per configured screen with `max-width: <screen>`. Lives in the components layer; users include `@tailwind components;` in input.",
+  "inputCss": "@tailwind components;\n@tailwind utilities;",
+  "candidates": ["container"]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "upstream/dark-mode-variant",
+  "description": "`darkMode: ['variant', [<sel-format>, …]]` lets users define multiple custom selector formats for `dark:`. Each format is a string containing `&` (the candidate's class selector substitutes in). Each emits as a separate sibling rule. Mirrors upstream's `setupContextUtils.js` `darkVariant` resolver.",
+  "config": {
+    "darkMode": ["variant", ["&:where(.dark, .dark *)", ".theme-dark &"]]
+  },
+  "candidates": ["dark:bg-red-500", "dark:hover:bg-blue-500", "dark:p-4"]
+}

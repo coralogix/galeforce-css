@@ -1,0 +1,10 @@
+{
+  "name": "upstream/dark-mode-custom-class-name",
+  "description": "Ported from vendor/tailwindcss-v3/tests/dark-mode.test.js, `it('should be possible to change the class name')`. Custom selector `.test-dark` instead of the default `.dark`. Substituted `font-bold` for `flex`.",
+  "config": {
+    "darkMode": ["class", ".test-dark"],
+    "corePlugins": { "preflight": false }
+  },
+  "inputCss": "@tailwind utilities;",
+  "candidates": ["dark:flex"]
+}

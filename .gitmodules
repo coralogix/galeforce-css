@@ -1,0 +1,4 @@
+[submodule "vendor/tailwindcss-v3"]
+	path = vendor/tailwindcss-v3
+	url = https://github.com/tailwindlabs/tailwindcss
+	branch = v3

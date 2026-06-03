@@ -1,0 +1,442 @@
+name: Release
+
+# Manual release. Pick a bump level and the workflow:
+#   1. resolves the next version from the latest `v*` git tag (not from
+#      package.json — the in-repo versions are intentionally stale and
+#      the tag is authoritative, matching @cx/tsgo-strict and
+#      @cx/dataprime-parser),
+#   2. cross-builds the CLI + napi-rs addon for all five target triples,
+#   3. stamps the new version into every publishable package.json
+#      ephemerally in CI (rewriting `workspace:*` deps to concrete pins),
+#   4. publishes each package to JFrog Artifactory
+#      (https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/)
+#      under the `@cx` scope, authenticating via the JFROG_USER /
+#      JFROG_PASSWORD org secrets (the `auth/cx` endpoint returns a
+#      ready-to-use `~/.npmrc`),
+#   5. tags the workflow's source commit `vX.Y.Z` and pushes only the tag,
+#   6. publishes the VitePress docs to GitHub Pages.
+#
+# Nothing is ever pushed to the default branch. The stamped package.json
+# edits are discarded when the runner exits; the in-repo versions stay at
+# their initial value forever. The git tag is the sole source of truth for
+# "what have we released". This sidesteps branch-protection rules (signed
+# commits + PR-only) without giving the workflow any privileged access.
+#
+# If the publish step fails, nothing is tagged — the runner simply exits.
+# If publish succeeded but the tag push fails, the packages are already on
+# JFrog; re-create the tag from the workflow run's SHA.
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump type
+        required: true
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+      dry_run:
+        description: Dry-run (skip npm publish + git push + docs deploy)
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Only one release may run at a time. Two concurrent dispatches would
+# compute the same `next` version from the same tag, and the second would
+# fail with "version already exists" on JFrog. `cancel-in-progress: false`
+# lets the first run finish rather than killing it partway.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  # ── 0. Resolve next version from the latest git tag ──────────────────────
+  prepare:
+    name: Resolve next version
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      version: ${{ steps.next.outputs.version }}
+      tag: ${{ steps.next.outputs.tag }}
+      dist: ${{ steps.next.outputs.dist }}
+    steps:
+      # fetch-depth: 0 is required so git can see previous `v*` tags — we
+      # derive the current version from the latest tag, not from the
+      # in-repo package.json (frozen at its initial value).
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute next version
+        id: next
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Latest strict `vMAJOR.MINOR.PATCH` tag, or v0.0.0 if the repo
+          # has never released. The grep filter excludes pre-release tags
+          # (e.g. v0.2.0-rc1) that would break the three-segment bump.
+          latest_tag=$(git tag --list 'v*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1 || true)
+          current="${latest_tag#v}"
+          current="${current:-0.0.0}"
+          bump="${{ inputs.bump }}"
+          next=$(node -e "
+            const [maj, min, pat] = process.argv[1].split('.').map(Number);
+            const bump = process.argv[2];
+            if (bump === 'patch') console.log(\`\${maj}.\${min}.\${pat + 1}\`);
+            else if (bump === 'minor') console.log(\`\${maj}.\${min + 1}.0\`);
+            else if (bump === 'major') console.log(\`\${maj + 1}.0.0\`);
+            else { console.error('unknown bump ' + bump); process.exit(1); }
+          " "$current" "$bump")
+          echo "current: ${current} (from ${latest_tag:-no tag found})"
+          echo "next:    ${next}"
+          echo "version=${next}" >> "$GITHUB_OUTPUT"
+          echo "tag=v${next}" >> "$GITHUB_OUTPUT"
+          # Stable releases publish under `latest`; pre-release identifiers
+          # get their own dist-tag.
+          if [[ "${next}" =~ -(alpha|beta|rc|next) ]]; then
+            echo "dist=${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+          else
+            echo "dist=latest" >> "$GITHUB_OUTPUT"
+          fi
+          {
+            echo "### Release plan"
+            echo ""
+            echo "| Field | Value |"
+            echo "| --- | --- |"
+            echo "| Current | \`${current}\` |"
+            echo "| Bump | \`${bump}\` |"
+            echo "| Next | \`${next}\` |"
+            echo "| Tag | \`v${next}\` |"
+            echo "| Dry-run | \`${{ inputs.dry_run }}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # ── 1. Build platform binaries + napi addons ─────────────────────────────
+  build-binary:
+    name: Binary / ${{ matrix.pkg }}
+    needs: prepare
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            pkg: galeforcecss-darwin-arm64
+            bin: galeforcecss
+            node_artifact: libgaleforce_node.dylib
+          # macos-13 (Intel) runners were retired by GitHub in 2025.
+          # Cross-compile to x86_64-apple-darwin from a macos-latest
+          # (arm64) host — Xcode ships both architectures of the system
+          # frameworks/linker, so the only extra setup is `rustup target
+          # add` (handled by `dtolnay/rust-toolchain` via `targets`).
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            pkg: galeforcecss-darwin-x64
+            bin: galeforcecss
+            node_artifact: libgaleforce_node.dylib
+          # Pin to ubuntu-22.04 (GLIBC 2.35) rather than ubuntu-latest
+          # (24.04 → GLIBC 2.39). The Rust binary links against the host
+          # GLIBC at build time, and consumers running on common LTS
+          # images — including `mcr.microsoft.com/playwright:*-jammy`
+          # (Ubuntu 22.04) — fail to load a 2.38+-linked binary with
+          # `version 'GLIBC_2.38' not found`. 2.35 is the floor.
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            pkg: galeforcecss-linux-x64-gnu
+            bin: galeforcecss
+            node_artifact: libgaleforce_node.so
+          # aarch64 builds via `cross` in a manylinux container, so the
+          # host runner's GLIBC doesn't matter — ubuntu-latest is fine.
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            pkg: galeforcecss-linux-arm64-gnu
+            bin: galeforcecss
+            node_artifact: libgaleforce_node.so
+            cross: true
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            pkg: galeforcecss-win32-x64-msvc
+            bin: galeforcecss.exe
+            node_artifact: galeforce_node.dll
+
+    steps:
+      # No `ref:` — build the workflow's source commit (GITHUB_SHA). The
+      # release tag does not exist yet; it is created only after publish
+      # succeeds.
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # Pin to the toolchain in `rust-toolchain.toml` (1.82.0). Using
+      # `@stable` adds the cross-compile target to stable (1.95+), but
+      # `cargo build` then re-selects 1.82.0 via rust-toolchain.toml and
+      # finds no rust-std for the target — `can't find crate for core`.
+      - uses: dtolnay/rust-toolchain@1.82.0
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Install cross (Linux ARM64)
+        if: matrix.cross == true
+        run: cargo install cross --locked
+
+      # Build both the CLI binary and the napi-rs `.node` artifact in one
+      # go. `cargo build -p galeforce-cli -p galeforce-node` reuses the
+      # workspace compile cache across both crates.
+      - name: Build (cross)
+        if: matrix.cross == true
+        run: cross build -p galeforce-cli -p galeforce-node --release --target ${{ matrix.target }}
+
+      - name: Build (native)
+        if: matrix.cross != true
+        run: cargo build -p galeforce-cli -p galeforce-node --release --target ${{ matrix.target }}
+
+      # Rename the napi-rs library to `galeforcecss.node` so Node can
+      # `require()` it directly. Cargo emits the platform-default name
+      # (libgaleforce_node.dylib / .so / .dll).
+      - name: Stage napi artifact
+        shell: bash
+        run: |
+          src="target/${{ matrix.target }}/release/${{ matrix.node_artifact }}"
+          dst="target/${{ matrix.target }}/release/galeforcecss.node"
+          cp "$src" "$dst"
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.pkg }}
+          path: |
+            target/${{ matrix.target }}/release/${{ matrix.bin }}
+            target/${{ matrix.target }}/release/galeforcecss.node
+          if-no-files-found: error
+          retention-days: 1
+
+  # ── 2. Publish all npm packages to JFrog & tag ───────────────────────────
+  publish-npm:
+    name: Publish to JFrog & tag
+    needs: [prepare, build-binary]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      TAG: ${{ needs.prepare.outputs.tag }}
+      DIST: ${{ needs.prepare.outputs.dist }}
+    steps:
+      # Default checkout (GITHUB_SHA) + full history so we can tag at the
+      # end. No `ref:` to a tag — the tag doesn't exist yet.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+
+      # Deliberately NO `registry-url:` — that writes an authToken line
+      # that would override the JFrog `~/.npmrc` written below.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      # Fetch a JFrog-scoped auth block and write it to ~/.npmrc. The
+      # returned file contains both the `@cx:registry=...` route and the
+      # credentials npm needs to publish under that scope. No static token
+      # is baked in — only the short-lived reply from the auth endpoint is
+      # persisted.
+      - name: Authenticate to JFrog
+        env:
+          ARTIFACTORY_USERNAME: ${{ secrets.JFROG_USER }}
+          ARTIFACTORY_TOKEN_1: ${{ secrets.JFROG_PASSWORD }}
+        run: |
+          curl --silent --fail -u "${ARTIFACTORY_USERNAME}:${ARTIFACTORY_TOKEN_1}" \
+            https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/auth/cx \
+            | tee ~/.npmrc > /dev/null
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build JS packages
+        run: pnpm build
+
+      # Download every platform binary into binary-<pkg>/ subdirectories.
+      - name: Download binary artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: binary-*
+          merge-multiple: false
+
+      # Copy each binary + napi addon into its npm package directory and
+      # restore the executable bit (upload-artifact@v4 strips it, so the
+      # launcher would otherwise hit EACCES spawning the CLI).
+      - name: Stage binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          for pkg in darwin-arm64 darwin-x64 linux-x64-gnu linux-arm64-gnu; do
+            cp binary-galeforcecss-${pkg}/galeforcecss      packages/galeforcecss-${pkg}/
+            cp binary-galeforcecss-${pkg}/galeforcecss.node packages/galeforcecss-${pkg}/
+            chmod 0755 packages/galeforcecss-${pkg}/galeforcecss
+          done
+          cp binary-galeforcecss-win32-x64-msvc/galeforcecss.exe  packages/galeforcecss-win32-x64-msvc/
+          cp binary-galeforcecss-win32-x64-msvc/galeforcecss.node packages/galeforcecss-win32-x64-msvc/
+
+      # Stamp the resolved version into every publishable package.json and
+      # rewrite each `workspace:*` dep to a concrete pin. `npm publish` does
+      # not resolve the pnpm `workspace:` protocol, so without this the
+      # published packages would install a broken dep tree.
+      - name: Stamp versions into package.json files
+        run: node scripts/stamp-versions.mjs "${VERSION}"
+
+      # Dry-run: exercise the pack + manifest path without hitting the
+      # registry and without tagging.
+      - name: Publish all packages (dry-run)
+        if: inputs.dry_run
+        shell: bash
+        run: |
+          set -euo pipefail
+          for pkg in galeforcecss-darwin-arm64 galeforcecss-darwin-x64 \
+                     galeforcecss-linux-x64-gnu galeforcecss-linux-arm64-gnu \
+                     galeforcecss-win32-x64-msvc galeforcecss-config-loader \
+                     galeforcecss vite-plugin-galeforcecss; do
+            echo "::group::dry-run publish ${pkg}"
+            (cd "packages/$pkg" && npm publish --dry-run --loglevel=error --always_auth=true --unsafe-perm=true --scope=@cx --tag "${DIST}")
+            echo "::endgroup::"
+          done
+
+      # Real publish. Platform packages first so the launcher's
+      # optionalDependencies resolve on the registry by the time it's
+      # published; config-loader before the launcher (direct dependency);
+      # the launcher before the vite plugin (direct dependency). Auth is
+      # routed through ~/.npmrc written earlier.
+      - name: Publish platform + config packages
+        if: '!inputs.dry_run'
+        shell: bash
+        run: |
+          set -euo pipefail
+          for pkg in galeforcecss-darwin-arm64 galeforcecss-darwin-x64 \
+                     galeforcecss-linux-x64-gnu galeforcecss-linux-arm64-gnu \
+                     galeforcecss-win32-x64-msvc galeforcecss-config-loader; do
+            echo "::group::publish ${pkg}"
+            (cd "packages/$pkg" && npm publish --loglevel=error --always_auth=true --unsafe-perm=true --scope=@cx --tag "${DIST}")
+            echo "::endgroup::"
+          done
+
+      - name: Publish @cx/galeforcecss
+        if: '!inputs.dry_run'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd packages/galeforcecss
+          npm publish --loglevel=error --always_auth=true --unsafe-perm=true --scope=@cx --tag "${DIST}"
+
+      - name: Publish @cx/vite-plugin-galeforcecss
+        if: '!inputs.dry_run'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd packages/vite-plugin-galeforcecss
+          npm publish --loglevel=error --always_auth=true --unsafe-perm=true --scope=@cx --tag "${DIST}"
+
+      # Tag + push only happens after publish succeeds, so a failed publish
+      # leaves the remote tag-less. We deliberately do NOT commit or push to
+      # the default branch: branch protection (verified signatures, PR-only)
+      # would reject it, and it's not needed — the tag is the authoritative
+      # record. Stamped package.json edits stay in the runner's ephemeral
+      # workspace and disappear with the job. The tag points at GITHUB_SHA
+      # (the commit the workflow ran against), since nothing was committed.
+      - name: Tag release and push tag
+        if: '!inputs.dry_run'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${TAG}" -m "Release ${TAG}" "${GITHUB_SHA}"
+          git push origin "${TAG}"
+
+      - name: Create GitHub Release
+        if: '!inputs.dry_run'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${TAG}" \
+            --title "${TAG}" \
+            --generate-notes
+
+      - name: Release summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Release ${TAG}"
+            echo ""
+            if [[ "${{ inputs.dry_run }}" == "true" ]]; then
+              echo "- Mode: **dry-run** (no registry writes, no git push)"
+            else
+              echo "- Published \`@cx/galeforcecss@${VERSION}\` + 5 platform packages, \`@cx/galeforcecss-config-loader\`, and \`@cx/vite-plugin-galeforcecss\` to JFrog"
+              echo "- Pushed tag \`${TAG}\` pointing at \`${GITHUB_SHA}\`"
+              echo "- Created GitHub Release \`${TAG}\`"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # ── 3. Deploy docs to GitHub Pages ───────────────────────────────────────
+  deploy-docs:
+    name: Deploy docs
+    needs: [prepare, publish-npm]
+    if: '!inputs.dry_run'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      # Default checkout (GITHUB_SHA) — `publish-npm` never pushed a commit,
+      # so package.json and pnpm-lock.yaml stay in sync for --frozen-lockfile.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build VitePress docs
+        run: pnpm docs:build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

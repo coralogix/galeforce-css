@@ -1,0 +1,6 @@
+{
+  "name": "upstream/coreplugins-whitelist",
+  "description": "Array form: `corePlugins: ['display']` — only the listed plugins are enabled. Everything else (padding, margin, backgroundColor, …) drops out.",
+  "config": { "corePlugins": ["display"] },
+  "candidates": ["flex", "p-4", "m-2", "bg-red-500"]
+}

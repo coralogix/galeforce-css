@@ -1,0 +1,9 @@
+{
+  "name": "variants/supports",
+  "description": "`supports-[…]` arbitrary feature queries. Tailwind synthesizes `: var(--tw)` for property-only checks and wraps in parens.",
+  "candidates": [
+    "supports-[display:grid]:grid",
+    "supports-[gap:1rem]:flex",
+    "supports-[display:flex]:hidden"
+  ]
+}

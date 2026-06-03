@@ -1,0 +1,66 @@
+.aspect-auto {
+    aspect-ratio: auto
+}
+.aspect-square {
+    aspect-ratio: 1 / 1
+}
+.aspect-video {
+    aspect-ratio: 16 / 9
+}
+.flex-shrink {
+    flex-shrink: 1
+}
+.flex-shrink-0 {
+    flex-shrink: 0
+}
+.shrink {
+    flex-shrink: 1
+}
+.shrink-0 {
+    flex-shrink: 0
+}
+.flex-grow {
+    flex-grow: 1
+}
+.flex-grow-0 {
+    flex-grow: 0
+}
+.grow {
+    flex-grow: 1
+}
+.grow-0 {
+    flex-grow: 0
+}
+.origin-\[65\%_0\%\] {
+    transform-origin: 65% 0%
+}
+.origin-\[75\%_0\%\] {
+    transform-origin: 75% 0%
+}
+.origin-bottom {
+    transform-origin: bottom
+}
+.origin-bottom-left {
+    transform-origin: bottom left
+}
+.origin-bottom-right {
+    transform-origin: bottom right
+}
+.origin-center {
+    transform-origin: center
+}
+.origin-left {
+    transform-origin: left
+}
+.origin-right {
+    transform-origin: right
+}
+.origin-top {
+    transform-origin: top
+}
+.origin-top-left {
+    transform-origin: top left
+}
+.origin-top-right {
+    transform-origin: top right
+}

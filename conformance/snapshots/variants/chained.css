@@ -1,0 +1,31 @@
+.before\:hover\:flex:hover::before {
+    content: var(--tw-content);
+    display: flex
+}
+.hover\:focus\:flex:focus:hover {
+    display: flex
+}
+.group:hover .group-hover\:hover\:flex:hover {
+    display: flex
+}
+@media (min-width: 640px) {
+    .sm\:before\:flex::before {
+        content: var(--tw-content);
+        display: flex
+    }
+}
+@media (min-width: 768px) {
+    .md\:hover\:flex:hover {
+        display: flex
+    }
+}
+@media (prefers-color-scheme: dark) {
+    @media (min-width: 768px) {
+        .dark\:md\:hover\:flex:hover {
+            display: flex
+        }
+    }
+}
+.\[\&\>\*\]\:hover\:flex:hover>* {
+    display: flex
+}

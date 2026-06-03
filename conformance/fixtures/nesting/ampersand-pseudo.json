@@ -1,0 +1,7 @@
+{
+  "name": "nesting/ampersand-pseudo",
+  "description": "`&:hover` substitutes literally — `.btn { &:hover { ... } }` flattens to `.btn:hover { ... }`.",
+  "inputCss": ".btn { &:hover { color: red; } }",
+  "candidates": [],
+  "nesting": true
+}

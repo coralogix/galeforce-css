@@ -1,0 +1,14 @@
+.btn { --tw-bg-opacity: 1; background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1)); padding: 4px
+}
+.btn2:hover { --tw-bg-opacity: 1; background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1))
+}
+@media (min-width: 768px) {
+ .btn3 { padding: 1rem
+ }
+}
+.btn4 { color: rgb(239 68 68 / 0.5)
+}
+.btn5 { margin: 0.5rem; padding: 1rem; --tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+.btn6 { font-size: 0.875rem; line-height: 1.5rem
+}

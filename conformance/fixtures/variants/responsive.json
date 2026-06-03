@@ -1,0 +1,16 @@
+{
+  "name": "variants/responsive",
+  "description": "Default-screens responsive variants, plus `min-[…]`, `max-[…]`, and the inverted `max-<screen>` form.",
+  "candidates": [
+    "sm:flex",
+    "md:flex",
+    "lg:flex",
+    "xl:flex",
+    "2xl:flex",
+    "min-[600px]:flex",
+    "max-[800px]:flex",
+    "max-sm:flex",
+    "max-md:flex",
+    "max-2xl:flex"
+  ]
+}

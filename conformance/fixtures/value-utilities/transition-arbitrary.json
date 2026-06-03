@@ -1,0 +1,12 @@
+{
+  "name": "value-utilities/transition-arbitrary",
+  "description": "Arbitrary forms of the transition family: `duration-[450ms]`, `delay-[100ms]`, `ease-[cubic-bezier(...)]` (commas-in-arbitrary triggers the `\\2c` selector escape path), `transition-[width,height]` and `transition-[all_300ms_ease-in-out]` (the underscore-to-space normalization mid-arbitrary). When `transition-property` is set, the `transitionProperty` plugin appends default `transition-timing-function` and `transition-duration` per upstream.",
+  "candidates": [
+    "duration-[450ms]",
+    "duration-[2s]",
+    "delay-[100ms]",
+    "ease-[cubic-bezier(0.1,0.7,1,0.1)]",
+    "transition-[width,height]",
+    "transition-[all_300ms_ease-in-out]"
+  ]
+}

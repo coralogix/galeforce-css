@@ -1,0 +1,6 @@
+{
+  "name": "directives/screen-at-rule",
+  "description": "`@screen md { ... }` rewrites to `@media (min-width: 768px) { ... }` per Tailwind's substituteScreenAtRules.js.",
+  "inputCss": "@screen md { .x { color: red } }",
+  "candidates": []
+}

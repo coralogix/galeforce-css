@@ -1,0 +1,13 @@
+{
+  "name": "@cx/galeforcecss-example-basic-cli",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "galeforcecss build -i src/index.css -o dist/output.css --content .",
+    "watch": "galeforcecss watch -i src/index.css -o dist/output.css --content ."
+  },
+  "devDependencies": {
+    "@cx/galeforcecss": "^0.1.0-alpha.0"
+  }
+}

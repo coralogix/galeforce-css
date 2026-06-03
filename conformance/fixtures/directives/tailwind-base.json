@@ -1,0 +1,7 @@
+{
+  "name": "directives/tailwind-base",
+  "description": "`@tailwind base;` expansion with default config. Tailwind emits the cascade-variable defaults (`*, ::before, ::after { --tw-translate-x: 0; --tw-translate-y: 0; … }` plus the `::backdrop` mirror) followed by the version-banner comment and the preflight reset. We vendor the resolved-default form because all of this is fixed for v3.4.19 with no user theme overrides — `theme()` calls inside the upstream preflight (`borderColor.DEFAULT`, `fontFamily.sans`, the placeholder gray) have already been evaluated.",
+  "inputCss": "@tailwind base;",
+  "config": {},
+  "candidates": []
+}

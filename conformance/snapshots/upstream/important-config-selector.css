@@ -1,0 +1,15 @@
+#app .flex {
+    display: flex
+}
+#app .p-4 {
+    padding: 1rem
+}
+#app .hover\:bg-red-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1))
+}
+@media (min-width: 768px) {
+    #app .md\:p-8 {
+        padding: 2rem
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "upstream/coreplugins-disable",
+  "description": "`corePlugins: { display: false, padding: false }` disables those plugin families. Static `flex` (display plugin) and `p-4` (padding plugin) drop out; `m-2` (margin) and `bg-red-500` (backgroundColor) survive. Mirrors upstream's `configurePlugins.test.js`.",
+  "config": { "corePlugins": { "display": false, "padding": false } },
+  "candidates": ["flex", "p-4", "m-2", "bg-red-500"]
+}

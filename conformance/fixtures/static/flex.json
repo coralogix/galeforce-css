@@ -1,0 +1,5 @@
+{
+  "name": "static/flex",
+  "description": "The bare `flex` utility produces `display: flex`.",
+  "candidates": ["flex"]
+}

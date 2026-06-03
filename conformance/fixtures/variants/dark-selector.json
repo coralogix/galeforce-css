@@ -1,0 +1,11 @@
+{
+  "name": "variants/dark-selector",
+  "description": "`darkMode: 'selector'` — newer form — emits `&:where(.dark, .dark *)`.",
+  "config": {
+    "corePlugins": { "preflight": false },
+    "darkMode": "selector"
+  },
+  "candidates": [
+    "dark:flex"
+  ]
+}

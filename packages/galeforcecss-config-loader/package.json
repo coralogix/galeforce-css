@@ -1,0 +1,56 @@
+{
+  "name": "@cx/galeforcecss-config-loader",
+  "version": "0.1.7",
+  "description": "Load and resolve a tailwind.config.{js,cjs,mjs,ts} file into the JSON shape GaleforceCSS's Rust compiler consumes.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "directory": "packages/galeforcecss-config-loader"
+  },
+  "homepage": "https://github.com/coralogix/internal-galeforce-css",
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "config",
+    "galeforcecss"
+  ],
+  "publishConfig": {
+    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "jiti": "^2.4.0",
+    "tailwindcss": "3.4.19"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.3.0 || ^3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.5"
+  }
+}

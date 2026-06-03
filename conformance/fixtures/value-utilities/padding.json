@@ -1,0 +1,21 @@
+{
+  "name": "value-utilities/padding",
+  "description": "Padding utilities — full prefix family (p, px, py, ps, pe, pt, pr, pb, pl) across the default spacing scale + arbitrary values. Padding does not support negation (mirrors corePlugins.js's `padding: createUtilityPlugin('padding', …)` without `supportsNegativeValues`).",
+  "candidates": [
+    "p-0",
+    "p-px",
+    "p-2",
+    "p-4",
+    "p-8",
+    "px-1",
+    "py-3",
+    "ps-2",
+    "pe-2",
+    "pt-1",
+    "pr-1",
+    "pb-1",
+    "pl-1",
+    "p-[14px]",
+    "px-[calc(2rem+1px)]"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "nesting/media-bubbles",
+  "description": "Nested `@media` bubbles out and the parent selector wraps the decls inside it.",
+  "inputCss": ".a { @media (min-width: 768px) { color: red; } }",
+  "candidates": [],
+  "nesting": true
+}

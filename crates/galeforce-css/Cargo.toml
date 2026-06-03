@@ -1,0 +1,15 @@
+[package]
+name = "galeforce-css"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "CSS AST + directive processor (@tailwind, @apply, @layer, theme(), @screen)."
+
+[dependencies]
+galeforce-core = { workspace = true }
+serde = { workspace = true }
+indexmap = { workspace = true }
+smallvec = { workspace = true }

@@ -1,0 +1,35 @@
+.first-letter\:flex::first-letter {
+    display: flex
+}
+.first-line\:flex::first-line {
+    display: flex
+}
+.marker\:flex *::marker {
+    display: flex
+}
+.marker\:flex::marker {
+    display: flex
+}
+.selection\:flex *::selection {
+    display: flex
+}
+.selection\:flex::selection {
+    display: flex
+}
+.file\:flex::file-selector-button {
+    display: flex
+}
+.placeholder\:flex::placeholder {
+    display: flex
+}
+.backdrop\:flex::backdrop {
+    display: flex
+}
+.before\:flex::before {
+    content: var(--tw-content);
+    display: flex
+}
+.after\:flex::after {
+    content: var(--tw-content);
+    display: flex
+}

@@ -1,0 +1,22 @@
+.transition-\[all_300ms_ease-in-out\] {
+    transition-property: all 300ms ease-in-out;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.transition-\[width\2c height\] {
+    transition-property: width,height;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms
+}
+.delay-\[100ms\] {
+    transition-delay: 100ms
+}
+.duration-\[2s\] {
+    transition-duration: 2s
+}
+.duration-\[450ms\] {
+    transition-duration: 450ms
+}
+.ease-\[cubic-bezier\(0\.1\2c 0\.7\2c 1\2c 0\.1\)\] {
+    transition-timing-function: cubic-bezier(0.1,0.7,1,0.1)
+}

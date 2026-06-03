@@ -1,0 +1,6 @@
+{
+  "name": "directives/at-layer",
+  "description": "`@layer <name> { ... }` is recognized: the wrapper is stripped and the contents emit. Phase E carry-over: tree-shaking @layer rules against the candidate set isn't modeled — fixtures need to list every @layer-declared class in `candidates` so the oracle emits them too.",
+  "inputCss": "@tailwind components;\n@tailwind utilities;\n@layer utilities { .super-flex { display: flex } }\n@layer components { .btn { padding: 1rem } }",
+  "candidates": ["flex", "super-flex", "btn"]
+}

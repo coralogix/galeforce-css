@@ -1,0 +1,6 @@
+{
+  "name": "directives/at-import-passthrough",
+  "description": "`@import` is preserved verbatim — not resolved. This matches Tailwind 3's own behavior: users who want @import resolved add `postcss-import` to their pipeline. Galeforce sits at the same layer Tailwind does in the PostCSS chain.",
+  "inputCss": "@import './other.css';\n@import url('https://example.com/foo.css');\n@tailwind utilities;",
+  "candidates": ["flex"]
+}

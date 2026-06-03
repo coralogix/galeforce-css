@@ -1,0 +1,7 @@
+.m-2 {
+    margin: 0.5rem
+}
+.bg-red-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1))
+}

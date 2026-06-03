@@ -1,0 +1,15 @@
+{
+  "name": "variants/pseudo-element",
+  "description": "Pseudo-element variants. `marker` and `selection` each emit two rules; `before`/`after` auto-prepend `content: var(--tw-content)`.",
+  "candidates": [
+    "first-letter:flex",
+    "first-line:flex",
+    "marker:flex",
+    "selection:flex",
+    "file:flex",
+    "placeholder:flex",
+    "backdrop:flex",
+    "before:flex",
+    "after:flex"
+  ]
+}

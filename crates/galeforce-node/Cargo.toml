@@ -1,0 +1,25 @@
+[package]
+name = "galeforce-node"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Node bindings (napi-rs) for GaleforceCSS."
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+galeforce-core = { workspace = true }
+galeforce-compiler = { workspace = true }
+galeforce-scanner = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+napi = { workspace = true }
+napi-derive = { workspace = true }
+
+[build-dependencies]
+napi-build = { workspace = true }

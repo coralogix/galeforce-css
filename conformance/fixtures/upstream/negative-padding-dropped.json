@@ -1,0 +1,12 @@
+{
+  "name": "upstream/negative-padding-dropped",
+  "description": "Tailwind drops `-p-4`, `-pt-2`, etc. because the `padding` plugin is registered without `supportsNegativeValues: true` (see `corePlugins.js`: `padding: createUtilityPlugin('padding', […])` vs `margin: createUtilityPlugin('margin', […], { supportsNegativeValues: true })`). The expected output here is empty — both Galeforce and the oracle should produce no rules.",
+  "candidates": [
+    "-p-4",
+    "-pt-2",
+    "-px-1",
+    "-py-1",
+    "-ps-1",
+    "-pe-1"
+  ]
+}

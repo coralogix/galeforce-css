@@ -1,0 +1,3 @@
+.dark\:flex:is(.theme-dark *) {
+    display: flex
+}

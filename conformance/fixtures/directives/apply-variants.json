@@ -1,0 +1,6 @@
+{
+  "name": "directives/apply-variants",
+  "description": "Variant-aware `@apply`. Mirrors upstream's rule-splitting behavior in `expandApplyAtRules.js`: `@apply hover:flex` inside `.btn { ... }` emits a sibling rule `.btn:hover { display: flex }`; `@apply md:flex` emits `@media (min-width: 768px) { .btn { display: flex } }`. Variant-free tokens (`@apply flex`) inline at the directive position. The harness's normalizer compares declarations as a multiset per (context, selector) key, so multiple sibling `.btn { … }` chunks merge for the diff.",
+  "inputCss": ".btn { @apply flex hover:hidden md:flex; padding: 1rem; }",
+  "candidates": []
+}

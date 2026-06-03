@@ -1,0 +1,93 @@
+.first\:flex:first-child {
+    display: flex
+}
+.last\:flex:last-child {
+    display: flex
+}
+.only\:flex:only-child {
+    display: flex
+}
+.odd\:flex:nth-child(odd) {
+    display: flex
+}
+.even\:flex:nth-child(even) {
+    display: flex
+}
+.first-of-type\:flex:first-of-type {
+    display: flex
+}
+.last-of-type\:flex:last-of-type {
+    display: flex
+}
+.only-of-type\:flex:only-of-type {
+    display: flex
+}
+.visited\:flex:visited {
+    display: flex
+}
+.target\:flex:target {
+    display: flex
+}
+.open\:flex[open] {
+    display: flex
+}
+.default\:flex:default {
+    display: flex
+}
+.checked\:flex:checked {
+    display: flex
+}
+.indeterminate\:flex:indeterminate {
+    display: flex
+}
+.placeholder-shown\:flex:placeholder-shown {
+    display: flex
+}
+.autofill\:flex:autofill {
+    display: flex
+}
+.optional\:flex:optional {
+    display: flex
+}
+.required\:flex:required {
+    display: flex
+}
+.valid\:flex:valid {
+    display: flex
+}
+.invalid\:flex:invalid {
+    display: flex
+}
+.in-range\:flex:in-range {
+    display: flex
+}
+.out-of-range\:flex:out-of-range {
+    display: flex
+}
+.read-only\:flex:read-only {
+    display: flex
+}
+.empty\:flex:empty {
+    display: flex
+}
+.focus-within\:flex:focus-within {
+    display: flex
+}
+.hover\:flex:hover {
+    display: flex
+}
+.focus\:block:focus {
+    display: block
+}
+.focus-visible\:flex:focus-visible {
+    display: flex
+}
+.active\:hidden:active {
+    display: none
+}
+.enabled\:flex:enabled {
+    display: flex
+}
+.disabled\:hidden:disabled {
+    display: none
+}

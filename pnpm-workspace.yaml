@@ -1,0 +1,5 @@
+packages:
+  - 'packages/*'
+  # examples/* are standalone projects — users `cd` into them and run
+  # `pnpm install` to try GaleforceCSS in isolation. Excluding from the
+  # workspace keeps the monorepo install lean.

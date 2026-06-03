@@ -1,0 +1,7 @@
+{
+  "name": "directives/tailwind-full-mode",
+  "description": "Full-mode `@tailwind base; @tailwind components; @tailwind utilities;` with a small candidate set. End-to-end check that base (cascade vars + preflight) + components (empty) + utilities all flow through the directive processor in the right order.",
+  "mode": "full",
+  "inputCss": "@tailwind base;\n@tailwind components;\n@tailwind utilities;",
+  "candidates": ["flex", "p-4", "text-center", "bg-blue-500"]
+}

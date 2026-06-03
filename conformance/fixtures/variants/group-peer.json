@@ -1,0 +1,19 @@
+{
+  "name": "variants/group-peer",
+  "description": "Group/peer family — bare, named modifier, arbitrary inner, plus `group-aria-*` / `peer-data-*`. The `:merge()` wrapper that Tailwind injects for coalescing is collapsed in the final output.",
+  "candidates": [
+    "group-hover:flex",
+    "group-focus:flex",
+    "group-disabled:hidden",
+    "peer-checked:flex",
+    "peer-disabled:hidden",
+    "group-hover/sidebar:flex",
+    "peer-focus/foo:flex",
+    "group-[.is-active]:flex",
+    "peer-[.is-on]:flex",
+    "group-aria-checked:flex",
+    "peer-aria-disabled:flex",
+    "group-data-[state=open]:flex",
+    "peer-data-[state=open]:flex"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "directives/screen-fn",
+  "description": "`screen(md)` inside `@media` resolves to the media query body — Tailwind's evaluateTailwindFunctions.js path.",
+  "inputCss": "@media screen(md) { .x { color: red } }",
+  "candidates": []
+}

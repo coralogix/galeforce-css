@@ -1,0 +1,15 @@
+.hover__bg-red-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1))
+}
+@media (min-width: 768px) {
+    .md__p-4 {
+        padding: 1rem
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .dark__hover__bg-blue-500:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1))
+    }
+}

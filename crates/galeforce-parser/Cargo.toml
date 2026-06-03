@@ -1,0 +1,14 @@
+[package]
+name = "galeforce-parser"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Tailwind v3 candidate parser."
+
+[dependencies]
+galeforce-core = { workspace = true }
+serde = { workspace = true }
+smallvec = { workspace = true }

@@ -1,0 +1,9 @@
+{
+  "name": "variants/arbitrary",
+  "description": "Pure arbitrary `[&…]` variants. The `&` is substituted with the candidate class; if absent, `&` is prepended.",
+  "candidates": [
+    "[&:hover]:flex",
+    "[&>*]:block",
+    "[html:has(&)]:flex"
+  ]
+}

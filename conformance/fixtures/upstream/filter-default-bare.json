@@ -1,0 +1,12 @@
+{
+  "name": "upstream/filter-default-bare",
+  "description": "Tailwind's `createUtilityPlugin` accepts a `filterDefault: true` option that suppresses the bare-prefix candidate even when the theme has a `DEFAULT` key. `transitionDuration` and `transitionTimingFunction` use it: `theme.transitionDuration.DEFAULT` and `theme.transitionTimingFunction.DEFAULT` exist (consumed by the `transition-property` plugin's append-default behavior) but bare `.duration` / `.ease` are NOT emitted as standalone utilities. The `-linear` / `-in` / `-out` etc. variants do emit.",
+  "candidates": [
+    "duration",
+    "ease",
+    "duration-150",
+    "ease-in",
+    "ease-linear",
+    "ease-out"
+  ]
+}

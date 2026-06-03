@@ -1,0 +1,9 @@
+{
+  "name": "variants/dark-media",
+  "description": "Dark mode default — `darkMode: 'media'` — emits `@media (prefers-color-scheme: dark)`.",
+  "candidates": [
+    "dark:flex",
+    "dark:hidden",
+    "dark:hover:flex"
+  ]
+}

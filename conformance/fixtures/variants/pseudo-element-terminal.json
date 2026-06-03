@@ -1,0 +1,19 @@
+{
+  "name": "variants/pseudo-element-terminal",
+  "description": "Pseudo-element variants (`before`, `after`, `placeholder`, `marker`, `selection`, `file`, `backdrop`, `first-letter`, `first-line`) are CSS-terminal — the `::pseudo-element` portion must sit at the end of the compound selector regardless of where the variant lands in the source-order stack. Mirrors upstream PostCSS's selector normalisation: `checked:before:foo` produces `.foo:checked::before`, NOT `.foo::before:checked`. Likewise `dark:placeholder:foo` -> `.foo:is(.dark *)::placeholder`.",
+  "candidates": [
+    "before:bg-red-500",
+    "checked:before:bg-red-500",
+    "checked:before:!bg-red-500",
+    "hover:before:bg-red-500",
+    "before:hover:bg-red-500",
+    "after:translate-x-1",
+    "placeholder:text-gray-400",
+    "dark:placeholder:!text-white",
+    "first-letter:text-2xl",
+    "first-line:font-bold",
+    "file:bg-blue-100",
+    "checked:before:translate-x-[22px]"
+  ],
+  "config": { "darkMode": "class" }
+}

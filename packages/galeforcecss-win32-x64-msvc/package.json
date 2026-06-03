@@ -1,0 +1,24 @@
+{
+  "name": "@cx/galeforcecss-win32-x64-msvc",
+  "version": "0.1.7",
+  "description": "GaleforceCSS binaries for Windows x86_64 (MSVC).",
+  "license": "MIT",
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "directory": "packages/galeforcecss-win32-x64-msvc"
+  },
+  "files": [
+    "galeforcecss.exe",
+    "galeforcecss.node"
+  ],
+  "publishConfig": {
+    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+  }
+}

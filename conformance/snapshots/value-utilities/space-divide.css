@@ -1,0 +1,149 @@
+.-space-x-1 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(-0.25rem * var(--tw-space-x-reverse));
+    margin-left: calc(-0.25rem * calc(1 - var(--tw-space-x-reverse)))
+}
+.-space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(-1rem * var(--tw-space-x-reverse));
+    margin-left: calc(-1rem * calc(1 - var(--tw-space-x-reverse)))
+}
+.-space-y-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(-0.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(-0.5rem * var(--tw-space-y-reverse))
+}
+.space-x-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0px * var(--tw-space-x-reverse));
+    margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)))
+}
+.space-x-1 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))
+}
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)))
+}
+.space-x-\[12px\] > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(12px * var(--tw-space-x-reverse));
+    margin-left: calc(12px * calc(1 - var(--tw-space-x-reverse)))
+}
+.space-x-px > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1px * var(--tw-space-x-reverse));
+    margin-left: calc(1px * calc(1 - var(--tw-space-x-reverse)))
+}
+.space-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse))
+}
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0.5rem * var(--tw-space-y-reverse))
+}
+.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(2rem * var(--tw-space-y-reverse))
+}
+.space-y-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 1
+}
+.space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1
+}
+.divide-x > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(1px * var(--tw-divide-x-reverse));
+    border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)))
+}
+.divide-x-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(0px * var(--tw-divide-x-reverse));
+    border-left-width: calc(0px * calc(1 - var(--tw-divide-x-reverse)))
+}
+.divide-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(2px * var(--tw-divide-x-reverse));
+    border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)))
+}
+.divide-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(4px * var(--tw-divide-x-reverse));
+    border-left-width: calc(4px * calc(1 - var(--tw-divide-x-reverse)))
+}
+.divide-x-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(8px * var(--tw-divide-x-reverse));
+    border-left-width: calc(8px * calc(1 - var(--tw-divide-x-reverse)))
+}
+.divide-x-\[3px\] > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(3px * var(--tw-divide-x-reverse));
+    border-left-width: calc(3px * calc(1 - var(--tw-divide-x-reverse)))
+}
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-y-reverse: 0;
+    border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+    border-bottom-width: calc(1px * var(--tw-divide-y-reverse))
+}
+.divide-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-y-reverse: 0;
+    border-top-width: calc(0px * calc(1 - var(--tw-divide-y-reverse)));
+    border-bottom-width: calc(0px * var(--tw-divide-y-reverse))
+}
+.divide-y-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-y-reverse: 0;
+    border-top-width: calc(2px * calc(1 - var(--tw-divide-y-reverse)));
+    border-bottom-width: calc(2px * var(--tw-divide-y-reverse))
+}
+.divide-y-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-y-reverse: 0;
+    border-top-width: calc(4px * calc(1 - var(--tw-divide-y-reverse)));
+    border-bottom-width: calc(4px * var(--tw-divide-y-reverse))
+}
+.divide-y-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-y-reverse: 1
+}
+.divide-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 1
+}
+.divide-solid > :not([hidden]) ~ :not([hidden]) {
+    border-style: solid
+}
+.divide-dashed > :not([hidden]) ~ :not([hidden]) {
+    border-style: dashed
+}
+.divide-dotted > :not([hidden]) ~ :not([hidden]) {
+    border-style: dotted
+}
+.divide-double > :not([hidden]) ~ :not([hidden]) {
+    border-style: double
+}
+.divide-none > :not([hidden]) ~ :not([hidden]) {
+    border-style: none
+}
+.divide-\[\#ef4444\] > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-opacity: 1;
+    border-color: rgb(239 68 68 / var(--tw-divide-opacity, 1))
+}
+.divide-blue-500 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-opacity: 1;
+    border-color: rgb(59 130 246 / var(--tw-divide-opacity, 1))
+}
+.divide-current > :not([hidden]) ~ :not([hidden]) {
+    border-color: currentColor
+}
+.divide-red-500\/50 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgb(239 68 68 / 0.5)
+}
+.divide-transparent > :not([hidden]) ~ :not([hidden]) {
+    border-color: transparent
+}

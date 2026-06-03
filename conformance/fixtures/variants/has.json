@@ -1,0 +1,11 @@
+{
+  "name": "variants/has",
+  "description": "`has-[…]`, `group-has-[…]`, `peer-has-[…]` arbitrary :has() variants. Tailwind 3.4.19 only accepts the arbitrary form (no theme.has values table).",
+  "candidates": [
+    "has-[:focus]:flex",
+    "has-[.error]:hidden",
+    "group-has-[:focus]:flex",
+    "peer-has-[:focus]:flex",
+    "group-has-[.is-on]/sidebar:flex"
+  ]
+}

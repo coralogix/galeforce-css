@@ -1,0 +1,11 @@
+{
+  "name": "value-utilities/animation",
+  "description": "`animate-*` value plugin: each candidate emits BOTH an `animation: <shorthand>` declaration on the class AND a top-level `@keyframes <name> { ... }` block at stylesheet scope. Mirrors upstream's `animation` plugin which calls `parseAnimationValue(value)` to extract the name (first whitespace-separated token of the theme value) and looks up `theme.keyframes[name]`. The four built-in animations (spin, ping, pulse, bounce) ship with their keyframes vendored from `vendor/tailwindcss-v3/stubs/config.full.js`. `animate-none` skips the keyframes emission.",
+  "candidates": [
+    "animate-none",
+    "animate-spin",
+    "animate-ping",
+    "animate-pulse",
+    "animate-bounce"
+  ]
+}

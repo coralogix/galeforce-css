@@ -1,0 +1,13 @@
+[package]
+name = "galeforce-sort"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Rule ordering for GaleforceCSS."
+
+[dependencies]
+galeforce-core = { workspace = true }
+galeforce-css = { workspace = true }

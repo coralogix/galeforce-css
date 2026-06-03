@@ -1,0 +1,6 @@
+{
+  "name": "directives/apply-important",
+  "description": "`@apply !flex` propagates `!important` to each generated declaration.",
+  "inputCss": ".btn { @apply !flex; }",
+  "candidates": []
+}

@@ -1,0 +1,7 @@
+{
+  "name": "nesting/deep",
+  "description": "Three-level nesting chains descendant combinators all the way down.",
+  "inputCss": ".a { .b { .c { color: red; } } }",
+  "candidates": [],
+  "nesting": true
+}

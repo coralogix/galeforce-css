@@ -1,0 +1,5 @@
+{
+  "name": "static/sr-only",
+  "description": "sr-only and not-sr-only — multi-declaration accessibility utilities.",
+  "candidates": ["sr-only", "not-sr-only"]
+}

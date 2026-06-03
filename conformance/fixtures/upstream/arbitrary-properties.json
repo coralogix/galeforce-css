@@ -1,0 +1,13 @@
+{
+  "name": "upstream/arbitrary-properties",
+  "description": "`[<property>:<value>]` candidates emit a single declaration with the property/value pulled out of the bracketed form. Custom properties (`--my-var`) are first-class. Variants compose normally. Underscores in the value are spaces (Tailwind's escape for class-attribute whitespace). Mirrors upstream's `arbitrary-properties.test.js`.",
+  "candidates": [
+    "[mask-type:luminance]",
+    "[--my-var:1px]",
+    "[font-size:14px]",
+    "[font-feature-settings:'cv11']",
+    "hover:[mask-type:alpha]",
+    "md:[font-weight:600]",
+    "[grid-template-columns:1fr_2fr_1fr]"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "directives/apply-animation",
+  "description": "`@apply animate-<name>` ships the `@keyframes <name> { … }` block at top level alongside the parent rule's `animation` shorthand. Mirrors how the candidate path emits keyframes when an animate-* utility lands directly.",
+  "inputCss": ".y { @apply animate-spin; }\n.y2 { @apply animate-pulse; }",
+  "candidates": []
+}

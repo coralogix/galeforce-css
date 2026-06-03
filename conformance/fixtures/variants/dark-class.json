@@ -1,0 +1,12 @@
+{
+  "name": "variants/dark-class",
+  "description": "`darkMode: 'class'` rewrites `dark:` to `&:is(.dark *)`. Per the oracle this is the legacy form (see corePlugins.js darkVariants).",
+  "config": {
+    "corePlugins": { "preflight": false },
+    "darkMode": "class"
+  },
+  "candidates": [
+    "dark:flex",
+    "dark:hidden"
+  ]
+}

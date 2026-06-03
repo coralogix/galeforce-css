@@ -1,0 +1,1 @@
+ .super-flex { display: flex } .used, .also-unused { color: blue } @media (min-width: 800px) { .responsive-used { padding: 1rem } .responsive-unused { padding: 2rem } }

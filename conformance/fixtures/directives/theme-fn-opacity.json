@@ -1,0 +1,16 @@
+{
+  "name": "directives/theme-fn-opacity",
+  "description": "`theme('colors.x.500 / 50%')` applies an alpha to the resolved color value, producing `rgb(R G B / 50%)`. Mirrors upstream's `withAlphaValue`.",
+  "inputCss": ".a { color: theme('colors.red.500 / 50%'); } .b { color: theme('colors.blue.500 / 0.5'); } .c { background: theme('colors.green.500 / 25%'); }",
+  "config": {
+    "corePlugins": { "preflight": false },
+    "theme": {
+      "colors": {
+        "red": { "500": "#ef4444" },
+        "blue": { "500": "#3b82f6" },
+        "green": { "500": "#22c55e" }
+      }
+    }
+  },
+  "candidates": []
+}

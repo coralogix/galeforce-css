@@ -1,0 +1,22 @@
+[package]
+name = "galeforce-scanner"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Content scanning + incremental candidate cache."
+
+[dependencies]
+galeforce-core = { workspace = true }
+serde = { workspace = true }
+indexmap = { workspace = true }
+rustc-hash = { workspace = true }
+ahash = { workspace = true }
+ignore = { workspace = true }
+globset = { workspace = true }
+memchr = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

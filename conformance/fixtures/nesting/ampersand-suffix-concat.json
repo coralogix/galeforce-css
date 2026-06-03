@@ -1,0 +1,7 @@
+{
+  "name": "nesting/ampersand-suffix-concat",
+  "description": "Sass-style suffix concatenation: `&-primary` → `.btn-primary`. Rejected by the CSS Nesting spec but supported by `postcss-nested` for Sass-compat, so projects migrating from Sass keep working.",
+  "inputCss": ".btn { &-primary { color: red; } }",
+  "candidates": [],
+  "nesting": true
+}

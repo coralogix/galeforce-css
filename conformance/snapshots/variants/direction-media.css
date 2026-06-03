@@ -1,0 +1,46 @@
+@media (prefers-reduced-motion: no-preference) {
+    .motion-safe\:flex {
+        display: flex
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .motion-reduce\:flex {
+        display: flex
+    }
+}
+@media (prefers-contrast: more) {
+    .contrast-more\:flex {
+        display: flex
+    }
+}
+@media (prefers-contrast: less) {
+    .contrast-less\:flex {
+        display: flex
+    }
+}
+@media (orientation: portrait) {
+    .portrait\:flex {
+        display: flex
+    }
+}
+@media (orientation: landscape) {
+    .landscape\:flex {
+        display: flex
+    }
+}
+.ltr\:flex:where([dir="ltr"], [dir="ltr"] *) {
+    display: flex
+}
+.rtl\:flex:where([dir="rtl"], [dir="rtl"] *) {
+    display: flex
+}
+@media (forced-colors: active) {
+    .forced-colors\:flex {
+        display: flex
+    }
+}
+@media print {
+    .print\:flex {
+        display: flex
+    }
+}
