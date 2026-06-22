@@ -6,7 +6,7 @@ The `galeforcecss` binary ships with the npm package. One-shot builds, file watc
 
 ```bash
 # Recommended — platform binary included
-npm install -D @cx/galeforcecss
+npm install -D @coralogix/galeforcecss
 
 # Or from source
 cargo install --path crates/galeforce-cli

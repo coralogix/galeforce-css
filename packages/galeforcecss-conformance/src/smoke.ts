@@ -1,18 +1,34 @@
+/*
+ * Copyright 2026 Coralogix Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // Smoke test: point Galeforce and the Tailwind v3 oracle at a representative
 // project, diff their output, and report. Reveals divergences that the
 // curated fixtures don't surface — real codebases mix utilities in ways
 // nobody writes in a hand-curated test.
 //
-// Usage: pnpm --filter @cx/galeforcecss-conformance smoke
-//        pnpm --filter @cx/galeforcecss-conformance smoke -- --verbose
-//        pnpm --filter @cx/galeforcecss-conformance smoke -- --project /abs/path/to/project
+// Usage: pnpm --filter @coralogix/galeforcecss-conformance smoke
+//        pnpm --filter @coralogix/galeforcecss-conformance smoke -- --verbose
+//        pnpm --filter @coralogix/galeforcecss-conformance smoke -- --project /abs/path/to/project
 
 import { spawnSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { compile } from '@cx/galeforcecss'
-import { compileWithTailwind3 } from '@cx/galeforcecss-oracle'
+import { compile } from '@coralogix/galeforcecss'
+import { compileWithTailwind3 } from '@coralogix/galeforcecss-oracle'
 import { normalizeCss, diffStylesheets } from './index.js'
 
 const here = dirname(fileURLToPath(import.meta.url))

@@ -1,8 +1,8 @@
 {
-  "name": "@cx/galeforcecss-config-loader",
+  "name": "@coralogix/galeforcecss-config-loader",
   "version": "0.1.7",
   "description": "Load and resolve a tailwind.config.{js,cjs,mjs,ts} file into the JSON shape GaleforceCSS's Rust compiler consumes.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,10 +18,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "url": "git+https://github.com/coralogix/galeforce-css.git",
     "directory": "packages/galeforcecss-config-loader"
   },
-  "homepage": "https://github.com/coralogix/internal-galeforce-css",
+  "homepage": "https://github.com/coralogix/galeforce-css",
   "keywords": [
     "tailwind",
     "tailwindcss",
@@ -29,7 +29,7 @@
     "galeforcecss"
   ],
   "publishConfig": {
-    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+    "access": "public"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

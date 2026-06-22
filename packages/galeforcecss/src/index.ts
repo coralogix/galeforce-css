@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 Coralogix Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // Public GaleforceCSS Node API. Two implementations under the hood:
 //
 //   1. **Native (napi-rs)** — preferred when the platform-specific
@@ -90,7 +106,7 @@ export interface CompileInput {
   inputCss?: string
   /** Path the input CSS came from. Used as `sources[0]` in source maps. */
   inputCssPath?: string
-  /** Resolved Tailwind config (use `@cx/galeforcecss-config-loader` to produce). */
+  /** Resolved Tailwind config (use `@coralogix/galeforcecss-config-loader` to produce). */
   config?: Record<string, unknown>
   /**
    * Content roots to scan for candidates. The Rust side walks these
@@ -132,11 +148,11 @@ const REPO_ROOT_CANDIDATES = [
 
 function getPlatformPackageName(): string | null {
   const { platform, arch } = process
-  if (platform === 'darwin' && arch === 'arm64') return '@cx/galeforcecss-darwin-arm64'
-  if (platform === 'darwin' && arch === 'x64') return '@cx/galeforcecss-darwin-x64'
-  if (platform === 'linux' && arch === 'x64') return '@cx/galeforcecss-linux-x64-gnu'
-  if (platform === 'linux' && arch === 'arm64') return '@cx/galeforcecss-linux-arm64-gnu'
-  if (platform === 'win32' && arch === 'x64') return '@cx/galeforcecss-win32-x64-msvc'
+  if (platform === 'darwin' && arch === 'arm64') return '@coralogix/galeforcecss-darwin-arm64'
+  if (platform === 'darwin' && arch === 'x64') return '@coralogix/galeforcecss-darwin-x64'
+  if (platform === 'linux' && arch === 'x64') return '@coralogix/galeforcecss-linux-x64-gnu'
+  if (platform === 'linux' && arch === 'arm64') return '@coralogix/galeforcecss-linux-arm64-gnu'
+  if (platform === 'win32' && arch === 'x64') return '@coralogix/galeforcecss-win32-x64-msvc'
   return null
 }
 
@@ -162,7 +178,7 @@ let nativeBindingCache: NativeBinding | null | undefined = undefined
  *
  * Search order:
  * 1. `GALEFORCECSS_NATIVE_BIN` env var (escape hatch for dev iteration).
- * 2. The platform-specific optional package (e.g. `@cx/galeforcecss-darwin-arm64`).
+ * 2. The platform-specific optional package (e.g. `@coralogix/galeforcecss-darwin-arm64`).
  * 3. The repo-root `target/release/libgaleforce_node.dylib|.so|.dll` (monorepo dev).
  */
 function loadNative(): NativeBinding | null {
@@ -607,4 +623,4 @@ export {
   DEFAULT_CONFIG_FILES,
   type LoadConfigOptions,
   type LoadedConfig,
-} from '@cx/galeforcecss-config-loader'
+} from '@coralogix/galeforcecss-config-loader'

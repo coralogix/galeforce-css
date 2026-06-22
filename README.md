@@ -55,24 +55,14 @@ Pure compute (no I/O): 1.2 ms on the full corpus. Per-candidate: ~0.4 µs.
 
 ## Installation
 
-GaleforceCSS publishes under the `@cx` scope to Coralogix's internal JFrog
-Artifactory registry. Point the `@cx` scope at that registry once (per machine
-or per project) before installing:
-
-```bash
-# project-local .npmrc
-echo '@cx:registry=https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/' >> .npmrc
-```
-
-You also need to be authenticated to JFrog (`npm login --registry=...` or a
-`_authToken` line in your `~/.npmrc`). Then:
+GaleforceCSS publishes to the public npm registry under the `@coralogix` scope:
 
 ```bash
 # Vite plugin
-npm install -D @cx/vite-plugin-galeforcecss
+npm install -D @coralogix/vite-plugin-galeforcecss
 
 # Node API (optional — the Vite plugin pulls this in automatically)
-npm install -D @cx/galeforcecss
+npm install -D @coralogix/galeforcecss
 ```
 
 > **Alpha notice.** v0.1.0-alpha is the first published release. APIs are
@@ -89,7 +79,7 @@ No build step required.
 ```js
 // vite.config.js
 import { defineConfig } from 'vite'
-import galeforcecss from '@cx/vite-plugin-galeforcecss'
+import galeforcecss from '@coralogix/vite-plugin-galeforcecss'
 
 export default defineConfig({
   plugins: [galeforcecss()],
@@ -187,8 +177,8 @@ and flowbite.
 ### Setup
 
 ```bash
-git clone https://github.com/coralogix/internal-galeforce-css
-cd galeforcecss
+git clone https://github.com/coralogix/galeforce-css
+cd galeforce-css
 git submodule update --init --recursive   # vendor/tailwindcss-v3 source ref
 pnpm install
 ```
@@ -236,4 +226,17 @@ reference. When implementing a utility or variant, read its source in
 
 ## License
 
-MIT. See [`LICENSE`](./LICENSE).
+Apache License 2.0. See [`LICENSE`](./LICENSE).
+
+Copyright 2026 Coralogix Ltd.
+
+## Contributor License Agreement
+
+Contributions to GaleforceCSS require signing the Coralogix Contributor
+License Agreement. See [`CLA.md`](./CLA.md). The CLA is enforced via
+[CLA Assistant](https://cla-assistant.io/) — first-time contributors are
+prompted to sign before their pull request can be merged.
+
+## Security
+
+To report a vulnerability, see [`SECURITY.md`](./SECURITY.md).

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 Coralogix Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // Benchmark Galeforce vs Tailwind 3 oracle on a representative project.
 //
 // Measures three dimensions independently because they're optimised
@@ -15,8 +31,8 @@
 //
 // Each phase runs N iterations and reports mean / min / p95.
 //
-// Usage: pnpm --filter @cx/galeforcecss-conformance bench
-//        pnpm --filter @cx/galeforcecss-conformance bench -- --project /abs/path
+// Usage: pnpm --filter @coralogix/galeforcecss-conformance bench
+//        pnpm --filter @coralogix/galeforcecss-conformance bench -- --project /abs/path
 
 import { spawnSync, spawn } from 'node:child_process'
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
@@ -24,8 +40,8 @@ import { resolve, dirname, join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { fileURLToPath } from 'node:url'
 import { performance } from 'node:perf_hooks'
-import { compile, createCompileStream } from '@cx/galeforcecss'
-import { compileWithTailwind3 } from '@cx/galeforcecss-oracle'
+import { compile, createCompileStream } from '@coralogix/galeforcecss'
+import { compileWithTailwind3 } from '@coralogix/galeforcecss-oracle'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(here, '../../..')

@@ -1,8 +1,8 @@
 {
-  "name": "@cx/galeforcecss-darwin-arm64",
+  "name": "@coralogix/galeforcecss-darwin-arm64",
   "version": "0.1.7",
   "description": "GaleforceCSS binaries for macOS ARM64 (Apple Silicon).",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "os": [
     "darwin"
   ],
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "url": "git+https://github.com/coralogix/galeforce-css.git",
     "directory": "packages/galeforcecss-darwin-arm64"
   },
   "files": [
@@ -19,6 +19,6 @@
     "galeforcecss.node"
   ],
   "publishConfig": {
-    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+    "access": "public"
   }
 }

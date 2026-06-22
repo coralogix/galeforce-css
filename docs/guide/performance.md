@@ -59,8 +59,8 @@ Levers if you need more:
 ## Benchmarking
 
 ```bash
-pnpm --filter @cx/galeforcecss-conformance bench                                 # synthetic
-pnpm --filter @cx/galeforcecss-conformance bench -- --project /path/to/your/app  # real
+pnpm --filter @coralogix/galeforcecss-conformance bench                                 # synthetic
+pnpm --filter @coralogix/galeforcecss-conformance bench -- --project /path/to/your/app  # real
 cargo bench -p galeforce-compiler                                             # pure compute
 ```
 

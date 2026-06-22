@@ -42,7 +42,7 @@ importers:
 
   packages/galeforcecss:
     dependencies:
-      '@cx/galeforcecss-config-loader':
+      '@coralogix/galeforcecss-config-loader':
         specifier: workspace:*
         version: link:../galeforcecss-config-loader
     devDependencies:
@@ -56,19 +56,19 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5(@types/node@20.19.40)(vite@8.0.12(@types/node@20.19.40)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0))
     optionalDependencies:
-      '@cx/galeforcecss-darwin-arm64':
+      '@coralogix/galeforcecss-darwin-arm64':
         specifier: workspace:*
         version: link:../galeforcecss-darwin-arm64
-      '@cx/galeforcecss-darwin-x64':
+      '@coralogix/galeforcecss-darwin-x64':
         specifier: workspace:*
         version: link:../galeforcecss-darwin-x64
-      '@cx/galeforcecss-linux-arm64-gnu':
+      '@coralogix/galeforcecss-linux-arm64-gnu':
         specifier: workspace:*
         version: link:../galeforcecss-linux-arm64-gnu
-      '@cx/galeforcecss-linux-x64-gnu':
+      '@coralogix/galeforcecss-linux-x64-gnu':
         specifier: workspace:*
         version: link:../galeforcecss-linux-x64-gnu
-      '@cx/galeforcecss-win32-x64-msvc':
+      '@coralogix/galeforcecss-win32-x64-msvc':
         specifier: workspace:*
         version: link:../galeforcecss-win32-x64-msvc
 
@@ -93,13 +93,13 @@ importers:
 
   packages/galeforcecss-conformance:
     dependencies:
-      '@cx/galeforcecss':
+      '@coralogix/galeforcecss':
         specifier: workspace:*
         version: link:../galeforcecss
-      '@cx/galeforcecss-config-loader':
+      '@coralogix/galeforcecss-config-loader':
         specifier: workspace:*
         version: link:../galeforcecss-config-loader
-      '@cx/galeforcecss-oracle':
+      '@coralogix/galeforcecss-oracle':
         specifier: workspace:*
         version: link:../galeforcecss-oracle
       postcss:
@@ -147,7 +147,7 @@ importers:
 
   packages/vite-plugin-galeforcecss:
     dependencies:
-      '@cx/galeforcecss':
+      '@coralogix/galeforcecss':
         specifier: workspace:*
         version: link:../galeforcecss
       tinyglobby:

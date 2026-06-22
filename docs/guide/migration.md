@@ -7,13 +7,13 @@ Drop-in replacement for Tailwind v3. Same config, same CSS output
 
 ```bash
 pnpm remove tailwindcss @tailwindcss/vite
-pnpm add -D @cx/galeforcecss @cx/vite-plugin-galeforcecss
+pnpm add -D @coralogix/galeforcecss @coralogix/vite-plugin-galeforcecss
 ```
 
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import galeforce from '@cx/vite-plugin-galeforcecss'
+import galeforce from '@coralogix/vite-plugin-galeforcecss'
 
 export default defineConfig({
   plugins: [
@@ -64,7 +64,7 @@ Run with `--diagnostics diagnostics.json`. Empty array = clean migration.
 For high-confidence validation, diff the CSS output:
 
 ```bash
-pnpm --filter @cx/galeforcecss-conformance exec tsx scripts/galeforcecss-compare.ts --project /path/to/your/app
+pnpm --filter @coralogix/galeforcecss-conformance exec tsx scripts/galeforcecss-compare.ts --project /path/to/your/app
 ```
 
 ## When to stay on Tailwind

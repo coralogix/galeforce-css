@@ -1,8 +1,8 @@
 {
-  "name": "@cx/galeforcecss",
+  "name": "@coralogix/galeforcecss",
   "version": "0.1.7",
   "description": "Rust-powered Tailwind CSS v3-compatible compiler — drop-in replacement for Tailwind v3.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,10 +18,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "url": "git+https://github.com/coralogix/galeforce-css.git",
     "directory": "packages/galeforcecss"
   },
-  "homepage": "https://github.com/coralogix/internal-galeforce-css",
+  "homepage": "https://github.com/coralogix/galeforce-css",
   "keywords": [
     "tailwind",
     "tailwindcss",
@@ -36,14 +36,14 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@cx/galeforcecss-config-loader": "workspace:*"
+    "@coralogix/galeforcecss-config-loader": "workspace:*"
   },
   "optionalDependencies": {
-    "@cx/galeforcecss-darwin-arm64": "workspace:*",
-    "@cx/galeforcecss-darwin-x64": "workspace:*",
-    "@cx/galeforcecss-linux-x64-gnu": "workspace:*",
-    "@cx/galeforcecss-linux-arm64-gnu": "workspace:*",
-    "@cx/galeforcecss-win32-x64-msvc": "workspace:*"
+    "@coralogix/galeforcecss-darwin-arm64": "workspace:*",
+    "@coralogix/galeforcecss-darwin-x64": "workspace:*",
+    "@coralogix/galeforcecss-linux-x64-gnu": "workspace:*",
+    "@coralogix/galeforcecss-linux-arm64-gnu": "workspace:*",
+    "@coralogix/galeforcecss-win32-x64-msvc": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
@@ -51,6 +51,6 @@
     "vitest": "^4.1.5"
   },
   "publishConfig": {
-    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+    "access": "public"
   }
 }

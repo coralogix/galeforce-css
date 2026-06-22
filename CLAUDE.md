@@ -70,7 +70,7 @@ different purposes:
 - **Executable oracle**: `tailwindcss@3.4.19` is also installed as an
   npm dependency at `node_modules/.pnpm/tailwindcss@3.4.19_*/`. Same
   bytes as the submodule, but importable into Node code — that's how
-  `@cx/galeforcecss-oracle` calls into Tailwind for conformance testing. Use
+  `@coralogix/galeforcecss-oracle` calls into Tailwind for conformance testing. Use
   this when you want to run `compileWithTailwind3` to see what Tailwind
   emits for some input.
 
@@ -122,7 +122,7 @@ pnpm oracle:version                         # confirm tailwindcss@3.4.19
 pnpm typecheck
 pnpm test                                   # vitest, all packages
 pnpm conformance:test                       # fixture runner (alias of vitest)
-pnpm --filter @cx/galeforcecss-conformance exec tsx src/cli.ts   # human-readable run
+pnpm --filter @coralogix/galeforcecss-conformance exec tsx src/cli.ts   # human-readable run
 ```
 
 CI mirrors these. The conformance harness needs the Rust binary at
@@ -188,8 +188,8 @@ the test-driven seed the work-queue calls for.
 ## Quick recipe: probing the oracle
 
 ```bash
-pnpm --filter @cx/galeforcecss-oracle exec tsx -e "
-import('@cx/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
+pnpm --filter @coralogix/galeforcecss-oracle exec tsx -e "
+import('@coralogix/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
   const { css } = await compileWithTailwind3({
     candidates: ['hover:flex', 'md:bg-red-500'],
     inputCss: '@tailwind utilities;',
@@ -234,7 +234,7 @@ I. Release                    pending
 
 ## Phase H — current numbers
 
-Run via `pnpm --filter @cx/galeforcecss-conformance bench` (synthetic) or
+Run via `pnpm --filter @coralogix/galeforcecss-conformance bench` (synthetic) or
 `bench -- --project <path>` (real project), `cargo bench -p galeforce-compiler`
 for the pure compute path.
 
@@ -364,7 +364,7 @@ sweep before pre-alpha:
 - **Plugins (full).** `addUtilities`, `addComponents`, `addBase`,
   `addVariant` (string + array + function form), `matchUtilities`,
   `matchComponents`, `matchVariant` are all wired. JS-side
-  `@cx/galeforcecss-config-loader` runs each plugin against a recording
+  `@coralogix/galeforcecss-config-loader` runs each plugin against a recording
   context (`packages/galeforcecss-config-loader/src/plugin-runner.ts`),
   captures the calls into a structured `PluginOutput`, and embeds it
   under `config.__pluginOutput`. The Rust compiler reads that field,
