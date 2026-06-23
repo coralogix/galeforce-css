@@ -1,0 +1,18 @@
+# Custom hawkeye header-style definitions, referenced from licenserc.toml via
+# `additionalHeaders`. This overrides the built-in SLASHSTAR_STYLE (used for
+# .js/.ts/.tsx/.mjs/.cjs) to add `skipLinePattern`, so a leading `#!` shebang is
+# kept on line 1 and the license header is inserted after it. Without this,
+# hawkeye places the block comment above the shebang, which breaks execution of
+# CLI entrypoints (e.g. bin scripts) under Node.
+
+[SLASHSTAR_STYLE]
+firstLine = '/*'
+endLine = " */\n"
+beforeEachLine = ' * '
+afterEachLine = ''
+skipLinePattern = '^#!.*$'
+firstLineDetectionPattern = '(\s|\t)*/\*.*$'
+lastLineDetectionPattern = '.*\*/(\s|\t)*$'
+allowBlankLines = false
+multipleLines = true
+padLines = false

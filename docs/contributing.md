@@ -8,7 +8,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/coralogix/internal-galeforce-css
+git clone https://github.com/coralogix/galeforce-css
 cd galeforcecss
 git submodule update --init --recursive
 pnpm install
@@ -64,8 +64,8 @@ write idiomatic Rust for everything else.**
 ## Probing the oracle
 
 ```bash
-pnpm --filter @cx/galeforcecss-oracle exec tsx -e "
-import('@cx/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
+pnpm --filter @coralogix/galeforcecss-oracle exec tsx -e "
+import('@coralogix/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
   const { css } = await compileWithTailwind3({
     candidates: ['your-candidate-here'],
     inputCss: '@tailwind utilities;',

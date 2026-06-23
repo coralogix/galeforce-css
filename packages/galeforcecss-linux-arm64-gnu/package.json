@@ -1,8 +1,8 @@
 {
-  "name": "@cx/galeforcecss-linux-arm64-gnu",
+  "name": "@coralogix/galeforcecss-linux-arm64-gnu",
   "version": "0.1.7",
   "description": "GaleforceCSS binaries for Linux ARM64 (glibc).",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "os": [
     "linux"
   ],
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coralogix/internal-galeforce-css.git",
+    "url": "git+https://github.com/coralogix/galeforce-css.git",
     "directory": "packages/galeforcecss-linux-arm64-gnu"
   },
   "files": [
@@ -19,6 +19,6 @@
     "galeforcecss.node"
   ],
   "publishConfig": {
-    "registry": "https://cgx.jfrog.io/artifactory/api/npm/internal.npm.coralogix.net/"
+    "access": "public"
   }
 }

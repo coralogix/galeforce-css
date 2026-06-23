@@ -1,0 +1,52 @@
+# cargo-deny configuration
+# https://embarkstudios.github.io/cargo-deny/
+#
+# Verifies that every crate in the dependency tree carries a license we are
+# allowed to redistribute when shipping GaleforceCSS under Apache-2.0.
+# Run `cargo deny check licenses` locally; CI runs it on every PR.
+
+[graph]
+all-features = true
+# Restrict the dependency graph to the native target triples GaleforceCSS ships
+# (the five napi-rs platform packages). This excludes wasm-only transitive deps
+# such as wit-bindgen, whose manifests require Cargo's unstable edition2024 and
+# can't be parsed by the pinned 1.82 toolchain.
+targets = [
+    "aarch64-apple-darwin",
+    "x86_64-apple-darwin",
+    "aarch64-unknown-linux-gnu",
+    "x86_64-unknown-linux-gnu",
+    "x86_64-pc-windows-msvc",
+]
+
+[licenses]
+confidence-threshold = 0.8
+# The allow-list is a curated permissive set kept slightly broader than what the
+# current tree uses, so a routine dependency bump to another permissive license
+# doesn't break CI. Don't warn about entries nothing currently matches.
+unused-allowed-license = "allow"
+
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BSL-1.0",
+    "ISC",
+    "Unicode-3.0",
+    "MPL-2.0",
+    "Unlicense",
+    "CDLA-Permissive-2.0",
+    # Public-domain dedication used by `notify` (the `galeforcecss watch` file
+    # watcher). FSF Free/Libre; compatible with redistribution under Apache-2.0.
+    "CC0-1.0",
+]
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

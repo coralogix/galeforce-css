@@ -5,10 +5,48 @@ on:
     branches: [master]
   pull_request:
 
+# Least privilege: CI only ever reads the repo. Jobs that need more elevate
+# their own permissions (none here do).
+permissions:
+  contents: read
+
 jobs:
+  license-headers:
+    name: License headers
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      # Verifies every first-party source file carries the Apache 2.0 header.
+      # Run `pnpm license:fix` locally to add missing headers. Config in
+      # licenserc.toml.
+      - uses: korandoru/hawkeye@v6
+        with:
+          mode: check
+
+  dependency-licenses:
+    name: Dependency licenses
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      # cargo-deny runs `cargo metadata`, which parses every locked manifest --
+      # including wasm-only transitive deps (wit-bindgen) that require Cargo's
+      # edition2024. The repo is pinned to 1.82 (rust-toolchain.toml) which can't
+      # parse those, so this job alone overrides the toolchain to stable via
+      # RUSTUP_TOOLCHAIN. This affects license resolution only, not the build.
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-deny
+      - run: cargo deny check licenses
+        env:
+          RUSTUP_TOOLCHAIN: stable
+
   rust:
     name: Rust
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -22,6 +60,7 @@ jobs:
   js:
     name: JS / Conformance
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,3 +83,19 @@ jobs:
       - run: cargo build -p galeforce-cli --release
       - run: pnpm test
       - run: pnpm conformance:test
+
+  docs:
+    name: Docs build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Build the VitePress site on every PR so docs breakage is caught here,
+      # not when release.yml / docs.yml tries to deploy it. Build only, no deploy.
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm docs:build

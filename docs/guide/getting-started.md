@@ -11,7 +11,7 @@ same CSS output as Tailwind v3 — 23x faster.
 ## Installation
 
 ```bash
-npm install -D @cx/vite-plugin-galeforcecss
+npm install -D @coralogix/vite-plugin-galeforcecss
 ```
 
 Platform binaries ship in the package. No Rust toolchain required.
@@ -26,7 +26,7 @@ unchanged:
 ```js
 // vite.config.js
 import { defineConfig } from 'vite'
-import galeforcecss from '@cx/vite-plugin-galeforcecss'
+import galeforcecss from '@coralogix/vite-plugin-galeforcecss'
 
 export default defineConfig({
   plugins: [galeforcecss()],

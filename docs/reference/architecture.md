@@ -34,8 +34,8 @@ directive processor works on byte spans, not an AST round-trip.
 | `galeforcecss` | Public Node API. Routes through the CLI bridge. |
 | `galeforcecss-config-loader` | Loads `tailwind.config.*`, runs Tailwind's `resolveConfig`, captures plugin output. |
 | `vite-plugin-galeforcecss` | Vite integration. Drop-in PostCSS plugin + optional `virtual:galeforcecss.css`. |
-| `@cx/galeforcecss-oracle` | Wraps `tailwindcss@3.4.19` for conformance. |
-| `@cx/galeforcecss-conformance` | Fixture runner. Diffs after PostCSS normalization. |
+| `@coralogix/galeforcecss-oracle` | Wraps `tailwindcss@3.4.19` for conformance. |
+| `@coralogix/galeforcecss-conformance` | Fixture runner. Diffs after PostCSS normalization. |
 
 ## Scanner
 

@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a reproducible problem with GaleforceCSS
+title: 'bug: '
+labels: [bug]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened and what did you expect?
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: How are you using GaleforceCSS?
+      options:
+        - Vite plugin (@cx/vite-plugin-galeforcecss)
+        - CLI (galeforcecss build/watch)
+        - Node API (@cx/galeforcecss)
+        - Other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Minimal candidates/CSS, the relevant tailwind.config, and steps.
+      placeholder: |
+        1. tailwind.config.js: ...
+        2. Input CSS / candidates: ...
+        3. Run: ...
+        4. Observed output vs. expected: ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: GaleforceCSS version
+      placeholder: 0.1.0-alpha
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      placeholder: 20.x
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: macOS 14 / Ubuntu 24.04 / Windows 11
+    validations:
+      required: true

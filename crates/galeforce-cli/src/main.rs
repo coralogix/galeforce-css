@@ -1,3 +1,17 @@
+// Copyright 2026 Coralogix Ltd.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 //! `galeforcecss` command-line interface.
 //!
 //! Subcommands:
@@ -710,7 +724,7 @@ fn cmd_watch(args: WatchArgs) -> Result<()> {
 
 fn cmd_init(args: InitArgs) -> Result<()> {
     // Two artifacts: a tailwind config (so users with the
-    // `@cx/galeforcecss-config-loader` get something to load) and an entry
+    // `@coralogix/galeforcecss-config-loader` get something to load) and an entry
     // CSS file (the natural target of `galeforcecss build -i`).
     let cwd = std::env::current_dir().context("getting cwd")?;
     let config_path = cwd.join("tailwind.config.js");

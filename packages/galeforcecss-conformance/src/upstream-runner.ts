@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 Coralogix Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // Run extracted upstream test cases against both the oracle (live
 // `tailwindcss@3.4.19` plugin) and Galeforce, comparing CSS output.
 //
@@ -23,8 +39,8 @@
 
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
-import { compile } from '@cx/galeforcecss'
-import { processRawConfig, processRawConfigAsync } from '@cx/galeforcecss-config-loader'
+import { compile } from '@coralogix/galeforcecss'
+import { processRawConfig, processRawConfigAsync } from '@coralogix/galeforcecss-config-loader'
 import type { ExtractedTest } from './upstream-extract.js'
 
 export interface RunResult {
@@ -73,13 +89,13 @@ export function evalConfigSource(source: string): unknown {
  * enough for the upstream test corpus where every class is inside
  * a `class="…"` attribute.
  */
-// Upstream's `defaultExtractor` re-exported via @cx/galeforcecss-oracle so
+// Upstream's `defaultExtractor` re-exported via @coralogix/galeforcecss-oracle so
 // we can call it from this package (which doesn't have direct access
 // to `tailwindcss/src/...`). Matches the regex set Tailwind ships
 // for content scanning — including the edge cases where embedded
 // quotes / brackets cause sub-tokens like `underline` to fall out
 // of `aria-[labelledby='a_b']:underline`.
-import { extractWithDefaultExtractor } from '@cx/galeforcecss-oracle'
+import { extractWithDefaultExtractor } from '@coralogix/galeforcecss-oracle'
 
 /** True iff `()`, `[]`, `{}` all balance. */
 function bracketsAndParensBalanced(s: string): boolean {
@@ -257,7 +273,7 @@ async function runOracle(input: string, config: any): Promise<string> {
 
 async function runGaleforce(input: string, config: any): Promise<string> {
   const candidates = gatherCandidatesFromConfig(config)
-  // Run the config through `@cx/galeforcecss-config-loader` whenever the
+  // Run the config through `@coralogix/galeforcecss-config-loader` whenever the
   // user supplied anything that needs Tailwind's own
   // `resolveConfig` to merge: plugins, presets, or theme.extend.
   // For pure overrides (`theme: { colors: {...} }`) we keep the

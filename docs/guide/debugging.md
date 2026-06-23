@@ -5,8 +5,8 @@ When output isn't what you expect, work from the outside in.
 ## 1. Compare against the oracle
 
 ```bash
-pnpm --filter @cx/galeforcecss-oracle exec tsx -e "
-import('@cx/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
+pnpm --filter @coralogix/galeforcecss-oracle exec tsx -e "
+import('@coralogix/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
   const { css } = await compileWithTailwind3({
     candidates: ['hover:flex', 'md:bg-red-500'],
     inputCss: '@tailwind utilities;',
@@ -62,7 +62,7 @@ If the count is wildly off from `npx tailwindcss --list`, your
 ## 6. Diff against the oracle on your real project
 
 ```bash
-pnpm --filter @cx/galeforcecss-conformance exec tsx \
+pnpm --filter @coralogix/galeforcecss-conformance exec tsx \
   scripts/galeforcecss-compare.ts \
   --project /path/to/your/app
 ```

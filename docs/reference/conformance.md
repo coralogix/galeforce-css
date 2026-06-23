@@ -37,14 +37,14 @@ pnpm conformance:test
 Against a real project:
 
 ```bash
-pnpm --filter @cx/galeforcecss-conformance exec tsx src/cli.ts --project /path/to/project
+pnpm --filter @coralogix/galeforcecss-conformance exec tsx src/cli.ts --project /path/to/project
 ```
 
 ## Probing the oracle
 
 ```bash
-pnpm --filter @cx/galeforcecss-oracle exec tsx -e "
-import('@cx/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
+pnpm --filter @coralogix/galeforcecss-oracle exec tsx -e "
+import('@coralogix/galeforcecss-oracle').then(async ({ compileWithTailwind3 }) => {
   const { css } = await compileWithTailwind3({
     candidates: ['hover:flex', 'md:bg-red-500'],
     inputCss: '@tailwind utilities;',

@@ -1,9 +1,9 @@
 {
-  "name": "@cx/galeforcecss-conformance",
+  "name": "@coralogix/galeforcecss-conformance",
   "version": "0.0.0",
   "private": true,
   "description": "Conformance harness: oracle (Tailwind 3) vs. GaleforceCSS.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -23,9 +23,9 @@
     "bench": "tsx src/bench.ts"
   },
   "dependencies": {
-    "@cx/galeforcecss-config-loader": "workspace:*",
-    "@cx/galeforcecss-oracle": "workspace:*",
-    "@cx/galeforcecss": "workspace:*",
+    "@coralogix/galeforcecss-config-loader": "workspace:*",
+    "@coralogix/galeforcecss-oracle": "workspace:*",
+    "@coralogix/galeforcecss": "workspace:*",
     "postcss": "^8.4.47"
   },
   "devDependencies": {

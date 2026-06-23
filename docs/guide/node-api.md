@@ -3,7 +3,7 @@
 TypeScript-typed API for integrating GaleforceCSS into custom tooling.
 
 ```bash
-npm install -D @cx/galeforcecss
+npm install -D @coralogix/galeforcecss
 ```
 
 ## `compile()`

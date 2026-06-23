@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-npm install -D @cx/vite-plugin-galeforcecss
+npm install -D @coralogix/vite-plugin-galeforcecss
 ```
 
 ## Configuration
@@ -13,7 +13,7 @@ npm install -D @cx/vite-plugin-galeforcecss
 ```js
 // vite.config.js
 import { defineConfig } from 'vite'
-import galeforcecss from '@cx/vite-plugin-galeforcecss'
+import galeforcecss from '@coralogix/vite-plugin-galeforcecss'
 
 export default defineConfig({
   plugins: [

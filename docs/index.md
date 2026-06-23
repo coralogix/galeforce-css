@@ -11,7 +11,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/coralogix/internal-galeforce-css
+      link: https://github.com/coralogix/galeforce-css
 
 features:
   - title: 23x faster builds
@@ -39,13 +39,13 @@ Synthetic smoke project (734 candidates): **195 ms → 5 ms (38x)**.
 ## Quick start
 
 ```bash
-npm install -D @cx/vite-plugin-galeforcecss
+npm install -D @coralogix/vite-plugin-galeforcecss
 ```
 
 ```js
 // vite.config.js
 import { defineConfig } from 'vite'
-import galeforcecss from '@cx/vite-plugin-galeforcecss'
+import galeforcecss from '@coralogix/vite-plugin-galeforcecss'
 
 export default defineConfig({
   plugins: [galeforcecss()],

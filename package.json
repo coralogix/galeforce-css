@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Rust-powered, Tailwind CSS v3-compatible compiler with Vite integration.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "engines": {
     "node": ">=18.18"
@@ -14,8 +14,10 @@
     "test": "pnpm -r --filter './packages/*' run test",
     "typecheck": "pnpm -r --filter './packages/*' run typecheck",
     "oracle:version": "tsx scripts/verify-tailwind-reference.ts",
-    "conformance:test": "pnpm --filter @cx/galeforcecss-conformance run test",
-    "conformance:update": "pnpm --filter @cx/galeforcecss-conformance run update",
+    "license:check": "hawkeye check",
+    "license:fix": "hawkeye format",
+    "conformance:test": "pnpm --filter @coralogix/galeforcecss-conformance run test",
+    "conformance:update": "pnpm --filter @coralogix/galeforcecss-conformance run update",
     "fixtures:rebuild": "tsx scripts/rebuild-fixture-snapshots.ts",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",

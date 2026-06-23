@@ -1,5 +1,5 @@
 {
-  "name": "@cx/galeforcecss-example-basic-cli",
+  "name": "@coralogix/galeforcecss-example-basic-cli",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,6 +8,6 @@
     "watch": "galeforcecss watch -i src/index.css -o dist/output.css --content ."
   },
   "devDependencies": {
-    "@cx/galeforcecss": "^0.1.0-alpha.0"
+    "@coralogix/galeforcecss": "^0.1.0-alpha.0"
   }
 }
