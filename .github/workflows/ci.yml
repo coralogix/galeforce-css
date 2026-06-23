@@ -17,12 +17,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      # Verifies every first-party source file carries the Apache 2.0 header.
-      # Run `pnpm license:fix` locally to add missing headers. Config in
-      # licenserc.toml.
-      - uses: korandoru/hawkeye@v6
+      - uses: actions/setup-node@v4
         with:
-          mode: check
+          node-version: 20
+      # Verifies every first-party source file carries the Apache 2.0 header.
+      # Self-contained Node script (no extra install). Run `pnpm license:fix`
+      # locally to add missing headers.
+      - run: node scripts/license-header.mjs check
 
   dependency-licenses:
     name: Dependency licenses

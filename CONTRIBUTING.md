@@ -79,24 +79,15 @@ pnpm oracle:version
 ## License headers
 
 Every first-party source file must carry the Apache 2.0 header. This is
-enforced in CI (the **License headers** job) via
-[hawkeye](https://github.com/korandoru/hawkeye); the header template lives in
-[`license-header.txt`](./license-header.txt) and the include/exclude rules in
-[`licenserc.toml`](./licenserc.toml).
+enforced in CI (the **License headers** job) by a self-contained Node script,
+[`scripts/license-header.mjs`](./scripts/license-header.mjs) — no extra tool to
+install. The header text lives in [`license-header.txt`](./license-header.txt).
 
-New files won't have the header until you add it. Install hawkeye once
-(`cargo install hawkeye`, `brew install korandoru/tap/hawkeye`, or use the
-Docker image), then:
+New files won't have the header until you add it:
 
 ```bash
-pnpm license:fix      # insert missing headers
+pnpm license:fix      # insert missing headers (keeps #! shebangs on line 1)
 pnpm license:check    # verify (what CI runs)
-```
-
-Without a local install you can run the same check through Docker:
-
-```bash
-docker run --rm -v "$PWD:/github/workspace" ghcr.io/korandoru/hawkeye:v6 check
 ```
 
 ## Dependency licenses
