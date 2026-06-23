@@ -247,7 +247,7 @@ jobs:
       # backed by the NODE_AUTH_TOKEN env var set on the publish steps below.
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
 
@@ -415,7 +415,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
 
       - name: Install dependencies
