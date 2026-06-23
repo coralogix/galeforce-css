@@ -18,7 +18,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@coralogix/galeforcecss": "^0.1.0-alpha.0",
     "typescript": "^5.7.2",
-    "vite": "^5.4.11",
+    "vite": "^8.0.16",
     "@coralogix/vite-plugin-galeforcecss": "^0.1.0-alpha.0"
   }
 }
