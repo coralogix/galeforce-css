@@ -15,9 +15,9 @@ body:
     attributes:
       label: How are you using GaleforceCSS?
       options:
-        - Vite plugin (@cx/vite-plugin-galeforcecss)
+        - Vite plugin (@coralogix/vite-plugin-galeforcecss)
         - CLI (galeforcecss build/watch)
-        - Node API (@cx/galeforcecss)
+        - Node API (@coralogix/galeforcecss)
         - Other / not sure
     validations:
       required: true
