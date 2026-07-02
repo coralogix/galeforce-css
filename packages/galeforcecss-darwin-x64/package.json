@@ -1,6 +1,6 @@
 {
   "name": "@coralogix/galeforcecss-darwin-x64",
-  "version": "0.1.7",
+  "version": "0.0.0",
   "description": "GaleforceCSS binaries for macOS x86_64 (Intel).",
   "license": "Apache-2.0",
   "os": [

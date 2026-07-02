@@ -1,6 +1,6 @@
 {
   "name": "@coralogix/galeforcecss-linux-arm64-gnu",
-  "version": "0.1.7",
+  "version": "0.0.0",
   "description": "GaleforceCSS binaries for Linux ARM64 (glibc).",
   "license": "Apache-2.0",
   "os": [

@@ -1,6 +1,6 @@
 {
   "name": "@coralogix/galeforcecss",
-  "version": "0.1.7",
+  "version": "0.0.0",
   "description": "Rust-powered Tailwind CSS v3-compatible compiler — drop-in replacement for Tailwind v3.",
   "license": "Apache-2.0",
   "type": "module",

@@ -9,8 +9,11 @@ name: Release
 #   3. stamps the new version into every publishable package.json
 #      ephemerally in CI (rewriting `workspace:*` deps to concrete pins),
 #   4. publishes each package to the public npm registry under the
-#      `@coralogix` scope, authenticating via the NPM_TOKEN secret
-#      (an npm automation token with publish rights to the scope),
+#      `@coralogix` scope via npm trusted publishing (OIDC) — no token;
+#      the job's `id-token: write` grant lets npm mint short-lived
+#      credentials, and each package must have a trusted publisher
+#      configured on npmjs.com (repo `coralogix/galeforce-css`,
+#      workflow `release.yml`). Provenance is generated automatically,
 #   5. tags the workflow's source commit `vX.Y.Z` and pushes only the tag,
 #   6. publishes the VitePress docs to GitHub Pages.
 #
@@ -227,7 +230,8 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: write
-      # Required for `npm publish --provenance` (OIDC-signed provenance).
+      # Required for npm trusted publishing: lets the job request an OIDC
+      # token that npm exchanges for short-lived publish credentials.
       id-token: write
     env:
       VERSION: ${{ needs.prepare.outputs.version }}
@@ -243,13 +247,18 @@ jobs:
 
       - uses: pnpm/action-setup@v4
 
-      # `registry-url:` writes the public-npm registry + a `_authToken` line
-      # backed by the NODE_AUTH_TOKEN env var set on the publish steps below.
+      # `registry-url:` points npm at the public registry. No auth token is
+      # written — trusted publishing supplies credentials via OIDC at publish
+      # time (see the `id-token: write` permission above).
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
+
+      # Node 24 bundles npm 11.3.x; trusted publishing needs >= 11.5.1.
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -305,43 +314,38 @@ jobs:
       # Real publish. Platform packages first so the launcher's
       # optionalDependencies resolve on the registry by the time it's
       # published; config-loader before the launcher (direct dependency);
-      # the launcher before the vite plugin (direct dependency). Auth is the
-      # NODE_AUTH_TOKEN written into ~/.npmrc by setup-node; `--access public`
-      # is required because scoped packages default to restricted.
+      # the launcher before the vite plugin (direct dependency). Auth is via
+      # OIDC trusted publishing (no token); `--access public` is required
+      # because scoped packages default to restricted. Provenance is emitted
+      # automatically under trusted publishing, so no `--provenance` flag.
       - name: Publish platform + config packages
         if: '!inputs.dry_run'
         shell: bash
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           set -euo pipefail
           for pkg in galeforcecss-darwin-arm64 galeforcecss-darwin-x64 \
                      galeforcecss-linux-x64-gnu galeforcecss-linux-arm64-gnu \
                      galeforcecss-win32-x64-msvc galeforcecss-config-loader; do
             echo "::group::publish ${pkg}"
-            (cd "packages/$pkg" && npm publish --loglevel=error --access public --provenance --tag "${DIST}")
+            (cd "packages/$pkg" && npm publish --loglevel=error --access public --tag "${DIST}")
             echo "::endgroup::"
           done
 
       - name: Publish @coralogix/galeforcecss
         if: '!inputs.dry_run'
         shell: bash
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           set -euo pipefail
           cd packages/galeforcecss
-          npm publish --loglevel=error --access public --provenance --tag "${DIST}"
+          npm publish --loglevel=error --access public --tag "${DIST}"
 
       - name: Publish @coralogix/vite-plugin-galeforcecss
         if: '!inputs.dry_run'
         shell: bash
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           set -euo pipefail
           cd packages/vite-plugin-galeforcecss
-          npm publish --loglevel=error --access public --provenance --tag "${DIST}"
+          npm publish --loglevel=error --access public --tag "${DIST}"
 
       # Tag + push only happens after publish succeeds, so a failed publish
       # leaves the remote tag-less. We deliberately do NOT commit or push to

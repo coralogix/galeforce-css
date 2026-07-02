@@ -1,6 +1,6 @@
 {
   "name": "@coralogix/galeforcecss-win32-x64-msvc",
-  "version": "0.1.7",
+  "version": "0.0.0",
   "description": "GaleforceCSS binaries for Windows x86_64 (MSVC).",
   "license": "Apache-2.0",
   "os": [
