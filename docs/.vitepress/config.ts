@@ -20,9 +20,9 @@ export default defineConfig({
   title: 'GaleforceCSS',
   description:
     'Rust-powered Tailwind CSS v3-compatible compiler — 23x faster builds, sub-millisecond HMR.',
-  base: '/galeforcecss/',
+  base: '/galeforce-css/',
 
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/galeforcecss/logo.svg' }]],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/galeforce-css/logo.svg' }]],
 
   themeConfig: {
     logo: '/logo.svg',
