@@ -56,8 +56,8 @@ export default defineConfig({
 
 ## Status
 
-**Alpha.** Zero semantic diff against the official Tailwind v3 oracle on
+**Published: v0.1.0.** Zero semantic diff against the official Tailwind v3 oracle on
 seven real-world projects, 894 conformance fixtures, and 186 byte-sensitive
-snapshots. APIs are stable for the documented surface but may change before 1.0.
+snapshots.
 
 > GaleforceCSS is **not** an official Tailwind Labs project.

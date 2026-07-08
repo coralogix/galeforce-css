@@ -33,7 +33,7 @@ export default defineConfig({
       { text: 'Reference', link: '/reference/architecture' },
       { text: 'Conformance', link: '/reference/conformance' },
       {
-        text: 'v0.1.0-alpha',
+        text: 'v0.1.0',
         items: [
           { text: 'Changelog', link: 'https://github.com/coralogix/galeforce-css/releases' },
           { text: 'Contributing', link: '/contributing' },
@@ -69,9 +69,10 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/coralogix/galeforce-css' }],
 
     footer: {
-      message: 'Released under the MIT License.',
+      message:
+        '<a href="https://coralogix.com" target="_blank" rel="noopener"><img class="cx-logo cx-logo--light" src="/galeforce-css/coralogix-horizontal-light.svg" alt="Coralogix" width="160" /><img class="cx-logo cx-logo--dark" src="/galeforce-css/coralogix-horizontal-dark.svg" alt="Coralogix" width="160" /></a><br />Built and maintained by Coralogix. Released under the Apache 2.0 License.',
       copyright:
-        'Not affiliated with Tailwind Labs. GaleforceCSS is an independent port of Tailwind CSS v3.',
+        'Not affiliated with Tailwind Labs. GaleforceCSS is an independent port of Tailwind CSS v3. Copyright © 2026 Coralogix Ltd.',
     },
 
     editLink: {

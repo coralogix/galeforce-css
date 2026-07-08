@@ -1,0 +1,84 @@
+/*
+ * Copyright 2026 Coralogix Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Coralogix brand theme for VitePress.
+ * Palette source: Coralogix design tokens (CX/Green scale + interactive /
+ * button-primary semantic tokens).
+ *   green-500 #3CC67E · interactive #029449 · button-primary #02763A
+ *   dark interactive #2AA968 · green-400 #50D693
+ */
+
+:root {
+  /* Brand accent — links, active nav, solid buttons */
+  --vp-c-brand-1: #02763a; /* text/links (dark enough for AA on light bg) */
+  --vp-c-brand-2: #029449; /* hover */
+  --vp-c-brand-3: #029449; /* solid accents */
+  --vp-c-brand-soft: rgba(2, 148, 73, 0.14);
+
+  /* Primary buttons — match CXUI solid primary Button
+     (rest #02763A, hover/active #029449, white label, no border) */
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: #02763a;
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-hover-bg: #029449;
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: #ffffff;
+  --vp-button-brand-active-bg: #029449;
+
+  /* Home hero */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #3cc67e 30%, #02763a);
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #3cc67e 50%,
+    #029449 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+.dark {
+  /* Brighter greens for contrast on dark surfaces */
+  --vp-c-brand-1: #3cc67e;
+  --vp-c-brand-2: #2aa968;
+  --vp-c-brand-3: #2aa968;
+  --vp-c-brand-soft: rgba(60, 198, 126, 0.16);
+
+  /* CXUI dark primary Button — rest #029449, hover/active #2AA968 */
+  --vp-button-brand-bg: #029449;
+  --vp-button-brand-hover-bg: #2aa968;
+  --vp-button-brand-active-bg: #2aa968;
+
+  --vp-home-hero-name-background: linear-gradient(120deg, #50d693 30%, #3cc67e);
+}
+
+/* Footer Coralogix wordmark — swap by theme (dark type on dark backgrounds) */
+.cx-logo {
+  display: inline-block;
+  margin: 12px 0;
+  vertical-align: middle;
+}
+.cx-logo--dark {
+  display: none;
+}
+.dark .cx-logo--light {
+  display: none;
+}
+.dark .cx-logo--dark {
+  display: inline-block;
+}

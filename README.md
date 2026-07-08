@@ -7,9 +7,8 @@ Tailwind v3 — same config, same directives, same output — built for speed.
 > port of Tailwind CSS v3, pinned to `tailwindcss@3.4.19` as the conformance
 > oracle.
 
-**Status: alpha.** The compiler reaches zero semantic diff on multiple real
-open-source projects but has not been hardened for production. APIs may change
-before 1.0.
+**Published: v0.1.0.** The compiler reaches zero semantic diff on multiple real
+open-source projects.
 
 ---
 
@@ -44,13 +43,6 @@ Pure compute (no I/O): 1.2 ms on the full corpus. Per-candidate: ~0.4 µs.
   `matchUtilities`, `matchComponents`, `matchVariant` are all supported via
   a JS-side plugin runner that feeds recorded calls into the Rust compiler.
 
-### Not supported in v1
-
-- Third-party Tailwind plugins that rely on deep PostCSS internals.
-- Tailwind v4.
-- Byte-for-byte identical CSS formatting (semantics are identical; whitespace
-  may differ).
-
 ---
 
 ## Installation
@@ -64,10 +56,6 @@ npm install -D @coralogix/vite-plugin-galeforcecss
 # Node API (optional — the Vite plugin pulls this in automatically)
 npm install -D @coralogix/galeforcecss
 ```
-
-> **Alpha notice.** v0.1.0-alpha is the first published release. APIs are
-> stable for the features listed above but may shift before 1.0. Pin your
-> version if you need stability.
 
 GaleforceCSS ships a platform-specific native binary alongside each npm package.
 No build step required.
