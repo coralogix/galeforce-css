@@ -35,6 +35,21 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}coralogix-mark.svg` }],
+    // Nunito Sans + Inconsolata are the Coralogix design system's families
+    // (tailwind.theme.ts `fontFamily`). Served from Google Fonts rather than
+    // vendored: the design system ships TTFs, which are several hundred kB
+    // heavier than the woff2 the CDN negotiates.
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400..800;1,6..12,400..800' +
+          '&family=Inconsolata:wght@400..700&display=swap',
+      },
+    ],
   ],
 
   themeConfig: {
