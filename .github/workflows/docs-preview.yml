@@ -17,8 +17,13 @@ name: Docs preview
 # One-time setup outside this file:
 #   1. Create the Pages project: `wrangler pages project create galeforce-css-docs`
 #      (or via the Cloudflare dashboard). `pages deploy` will not create it.
-#   2. Add repository secrets CLOUDFLARE_API_TOKEN (a token with the
-#      "Cloudflare Pages: Edit" permission) and CLOUDFLARE_ACCOUNT_ID.
+#   2. Add repository secrets CLOUDFLARE_API_TOKEN (an Account API token with
+#      the Account / Cloudflare Pages / Edit permission) and
+#      CLOUDFLARE_ACCOUNT_ID.
+#
+# wrangler-action v4 installs wrangler v4 (`latest`) by default, which is what
+# `pages deploy --project-name --branch` and the alias-url output below are
+# verified against. Pin `wranglerVersion` if that floating default ever bites.
 on:
   pull_request:
     paths:
@@ -82,7 +87,7 @@ jobs:
         if: |
           steps.creds.outputs.configured == 'true' &&
           github.event.pull_request.head.repo.full_name == github.repository
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
