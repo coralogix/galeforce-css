@@ -288,6 +288,22 @@ jobs:
           cp binary-galeforcecss-win32-x64-msvc/galeforcecss.exe  packages/galeforcecss-win32-x64-msvc/
           cp binary-galeforcecss-win32-x64-msvc/galeforcecss.node packages/galeforcecss-win32-x64-msvc/
 
+      # Apache 2.0 section 4(a) requires a copy of the license to travel with
+      # every distributed copy of the work. npm always includes a LICENSE file
+      # in the tarball regardless of the manifest's `files` list, so staging
+      # one next to each publishable manifest is enough. Ephemeral, like the
+      # version stamping below.
+      - name: Stage LICENSE into each publishable package
+        shell: bash
+        run: |
+          set -euo pipefail
+          for pkg in galeforcecss-darwin-arm64 galeforcecss-darwin-x64 \
+                     galeforcecss-linux-x64-gnu galeforcecss-linux-arm64-gnu \
+                     galeforcecss-win32-x64-msvc galeforcecss-config-loader \
+                     galeforcecss vite-plugin-galeforcecss; do
+            cp LICENSE "packages/$pkg/LICENSE"
+          done
+
       # Stamp the resolved version into every publishable package.json and
       # rewrite each `workspace:*` dep to a concrete pin. `npm publish` does
       # not resolve the pnpm `workspace:` protocol, so without this the

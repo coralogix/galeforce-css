@@ -17,7 +17,7 @@ features:
   - title: 23x faster builds
     details: 10 ms vs 246 ms on a 2,551-candidate real project. Pure compute hits 1.2 ms — 0.4 µs per candidate.
   - title: Verified Tailwind v3 parity
-    details: 894 conformance fixtures pass against the live Tailwind oracle; 186 byte-sensitive snapshots confirm formatting matches.
+    details: 941 conformance checks pass against the live Tailwind oracle, including 501 cases ported from upstream's own suite and 186 byte-sensitive snapshots.
   - title: Incremental HMR
     details: Per-file candidate cache. Content-file edits trigger a single-file scan and selective recompile; no-op edits produce zero traffic.
   - title: Full Tailwind v3 surface
@@ -54,10 +54,9 @@ export default defineConfig({
 
 [Full guide →](/guide/getting-started)
 
-## Status
+## Conformance
 
-**Alpha.** Zero semantic diff against the official Tailwind v3 oracle on
-seven real-world projects, 894 conformance fixtures, and 186 byte-sensitive
-snapshots. APIs are stable for the documented surface but may change before 1.0.
+Zero semantic diff against the official Tailwind v3 oracle on eight real-world
+projects, across 941 conformance checks including 186 byte-sensitive snapshots.
 
 > GaleforceCSS is **not** an official Tailwind Labs project.

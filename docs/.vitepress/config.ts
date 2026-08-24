@@ -16,16 +16,21 @@
 
 import { defineConfig } from 'vitepress'
 
+// Tagged so OSS-driven traffic to coralogix.com is attributable per project.
+const CORALOGIX_URL =
+  'https://coralogix.com/?utm_source=galeforcecss-docs&utm_medium=oss&utm_campaign=galeforcecss'
+
 export default defineConfig({
   title: 'GaleforceCSS',
   description:
     'Rust-powered Tailwind CSS v3-compatible compiler — 23x faster builds, sub-millisecond HMR.',
   base: '/galeforce-css/',
 
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/galeforce-css/logo.svg' }]],
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/galeforce-css/coralogix-mark.svg' }],
+  ],
 
   themeConfig: {
-    logo: '/logo.svg',
     siteTitle: 'GaleforceCSS',
 
     nav: [
@@ -33,7 +38,7 @@ export default defineConfig({
       { text: 'Reference', link: '/reference/architecture' },
       { text: 'Conformance', link: '/reference/conformance' },
       {
-        text: 'v0.1.0-alpha',
+        text: 'v0.1.0',
         items: [
           { text: 'Changelog', link: 'https://github.com/coralogix/galeforce-css/releases' },
           { text: 'Contributing', link: '/contributing' },
@@ -69,9 +74,16 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/coralogix/galeforce-css' }],
 
     footer: {
-      message: 'Released under the MIT License.',
-      copyright:
-        'Not affiliated with Tailwind Labs. GaleforceCSS is an independent port of Tailwind CSS v3.',
+      message:
+        'Released under the Apache License 2.0. Not affiliated with Tailwind Labs. ' +
+        'GaleforceCSS is an independent port of Tailwind CSS v3.',
+      copyright: [
+        'Built with 💚 by',
+        `<a href="${CORALOGIX_URL}">`,
+        '<img src="/galeforce-css/coralogix-mark.svg" alt="" width="14" height="14"' +
+        ' style="display:inline-block;vertical-align:-2px">',
+        'Coralogix</a>',
+      ].join(' '),
     },
 
     editLink: {

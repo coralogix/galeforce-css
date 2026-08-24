@@ -5,11 +5,20 @@ push. Two layers:
 
 | Layer | Passing | What it checks |
 | --- | ---: | --- |
-| Fixture diff | **894** | Compile each fixture with both compilers, diff after PostCSS normalization. |
+| Fixture diff | **88** | Compile each fixture with both compilers, diff after PostCSS normalization. |
+| Ported upstream suite | **501** | Test cases lifted from `tailwindcss@3.4.19`'s own `tests/` directory. |
 | Byte-sensitive snapshot | **186** | Exact-byte output for utilities where formatting/order matters. |
-| Real-world projects | 7 | Full project compiles produce zero semantic diff. |
+| Ordering / plugins / config | **166** | Emission order, plugin runner, safelist, preflight overrides, opacity. |
+| Real-world projects | 8 | Full project compiles produce zero semantic diff. |
 
-Skipped: 67 upstream tests that rely on deep PostCSS internals GaleforceCSS doesn't model.
+941 checks pass in total. Skipped: 68 upstream tests that rely on deep PostCSS
+internals GaleforceCSS doesn't model.
+
+The eight real-world projects (notus-nextjs, notus-react,
+horizon-tailwind-react, material-tailwind, shadcn-nextjs-boilerplate, merakiui,
+soft-ui-dashboard, flowbite) are not vendored into the repo. Clone them into
+`smoke-real/` to run those comparisons; without them the harness reports the
+project tests as skipped.
 
 ## How a fixture works
 

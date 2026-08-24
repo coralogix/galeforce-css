@@ -2,7 +2,7 @@
 
 GaleforceCSS targets Tailwind v3. The core utility/variant/directive surface
 is fully implemented and reaches **zero diffs** against the official
-Tailwind v3 oracle on seven real-world projects. The list below captures
+Tailwind v3 oracle on eight real-world projects. The list below captures
 what's out of scope or deferred.
 
 ## Out of scope
