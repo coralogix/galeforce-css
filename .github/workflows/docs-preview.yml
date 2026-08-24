@@ -1,0 +1,147 @@
+name: Docs preview
+
+# Builds the VitePress site for every pull request that touches it and uploads
+# it to Cloudflare Pages as a preview deployment, then keeps a single comment
+# on the PR pointing at the URL.
+#
+# Production docs are untouched by this: they still go to GitHub Pages from
+# `release.yml`'s `deploy-docs` job on tag, or `docs.yml` on manual dispatch.
+#
+# A `pull_request` run from a fork gets no repository secrets, so the upload is
+# guarded on the head branch living in this repo, and on the secrets existing.
+# Fork PRs still build, which is the half that catches broken docs, and just
+# skip the upload. If previews for fork PRs are wanted later, split this into a
+# `pull_request` build that uploads an artifact plus a `workflow_run` job that
+# holds the token and deploys it.
+#
+# One-time setup outside this file:
+#   1. Create the Pages project: `wrangler pages project create galeforce-css-docs`
+#      (or via the Cloudflare dashboard). `pages deploy` will not create it.
+#   2. Add repository secrets CLOUDFLARE_API_TOKEN (a token with the
+#      "Cloudflare Pages: Edit" permission) and CLOUDFLARE_ACCOUNT_ID.
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/docs-preview.yml'
+
+permissions:
+  contents: read
+
+# One preview per PR; a new push supersedes the build in flight.
+concurrency:
+  group: docs-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    name: Build and deploy preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write # for the preview comment
+    steps:
+      # No submodules: the docs build doesn't read vendor/tailwindcss-v3.
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Cloudflare serves previews from the root of a *.pages.dev host, so the
+      # GitHub Pages `/galeforce-css/` prefix must not be baked in or every
+      # asset 404s.
+      - name: Build docs
+        run: pnpm docs:build
+        env:
+          DOCS_BASE: /
+
+      # The `secrets` context can't be read from a step `if`, so surface it as
+      # an output instead. Without this the job goes red on every docs PR until
+      # someone adds the secrets, which is a bad trade for an optional preview.
+      - name: Check for Cloudflare credentials
+        id: creds
+        env:
+          HAS_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+        run: |
+          echo "configured=${HAS_TOKEN}" >> "$GITHUB_OUTPUT"
+          if [ "${HAS_TOKEN}" != 'true' ]; then
+            echo "::notice::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID not set; skipping preview deploy."
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        if: |
+          steps.creds.outputs.configured == 'true' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # `--branch` is what makes this a preview rather than a production
+          # deployment: any value other than the project's production branch
+          # lands on a preview URL, and reusing `pr-<n>` gives each PR a stable
+          # alias across pushes.
+          command: >-
+            pages deploy docs/.vitepress/dist
+            --project-name=galeforce-css-docs
+            --branch=pr-${{ github.event.pull_request.number }}
+
+      - name: Comment the preview URL
+        if: steps.deploy.outcome == 'success'
+        uses: actions/github-script@v7
+        env:
+          ALIAS_URL: ${{ steps.deploy.outputs['pages-deployment-alias-url'] }}
+          DEPLOY_URL: ${{ steps.deploy.outputs['deployment-url'] }}
+        with:
+          script: |
+            const url = process.env.ALIAS_URL || process.env.DEPLOY_URL
+            if (!url) {
+              core.warning('wrangler returned no deployment URL; skipping comment')
+              return
+            }
+
+            // Marker lets us update one comment instead of appending on every
+            // push to the PR.
+            const marker = '<!-- docs-preview -->'
+            const body = [
+              marker,
+              `Docs preview: ${url}`,
+              '',
+              `Built from ${context.sha.slice(0, 7)} with \`DOCS_BASE=/\`, so asset paths`,
+              'differ from the GitHub Pages production build.',
+            ].join('\n')
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            })
+            const existing = comments.find(
+              (c) => c.user.type === 'Bot' && c.body?.includes(marker),
+            )
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              })
+            }

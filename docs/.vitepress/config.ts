@@ -20,14 +20,21 @@ import { defineConfig } from 'vitepress'
 const CORALOGIX_URL =
   'https://coralogix.com/?utm_source=galeforcecss-docs&utm_medium=oss&utm_campaign=galeforcecss'
 
+// GitHub Pages serves the site under the repo name, so the production build
+// needs a `/galeforce-css/` prefix. Cloudflare Pages PR previews serve it from
+// the root of a `*.pages.dev` host, where that prefix would 404 every asset —
+// the preview workflow sets DOCS_BASE=/ for those builds. Anything that hand-
+// writes an absolute asset URL (favicon, footer mark) must go through `base`.
+const base = process.env.DOCS_BASE ?? '/galeforce-css/'
+
 export default defineConfig({
   title: 'GaleforceCSS',
   description:
     'Rust-powered Tailwind CSS v3-compatible compiler — 23x faster builds, sub-millisecond HMR.',
-  base: '/galeforce-css/',
+  base,
 
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/galeforce-css/coralogix-mark.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}coralogix-mark.svg` }],
   ],
 
   themeConfig: {
@@ -80,7 +87,7 @@ export default defineConfig({
       copyright: [
         'Built with 💚 by',
         `<a href="${CORALOGIX_URL}">`,
-        '<img src="/galeforce-css/coralogix-mark.svg" alt="" width="14" height="14"' +
+        `<img src="${base}coralogix-mark.svg" alt="" width="14" height="14"` +
         ' style="display:inline-block;vertical-align:-2px">',
         'Coralogix</a>',
       ].join(' '),
