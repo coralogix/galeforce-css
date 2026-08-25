@@ -1,3 +1,13 @@
+<p>
+  Built with 💚 by
+  <a href="https://coralogix.com/?utm_source=github&amp;utm_medium=oss&amp;utm_campaign=galeforcecss">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-white-inline.svg">
+      <img src="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-black-inline.svg" alt="Coralogix" height="24" align="middle">
+    </picture>
+  </a>
+</p>
+
 # GaleforceCSS
 
 A Rust-powered Tailwind CSS v3-compatible compiler. Drop-in replacement for
@@ -251,15 +261,3 @@ prompted to sign before their pull request can be merged.
 ## Security
 
 To report a vulnerability, see [`SECURITY.md`](./SECURITY.md).
-
----
-
-<p align="center">
-  Built with 💚 by
-  <a href="https://coralogix.com/?utm_source=github&amp;utm_medium=oss&amp;utm_campaign=galeforcecss">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-white.svg">
-      <img src="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-black.svg" alt="Coralogix" height="20" align="middle">
-    </picture>
-  </a>
-</p>

@@ -24,10 +24,17 @@ name: Docs preview
 # wrangler-action v4 installs wrangler v4 (`latest`) by default, which is what
 # `pages deploy --project-name --branch` and the alias-url output below are
 # verified against. Pin `wranglerVersion` if that floating default ever bites.
+# `README.md` and `assets/**` are in the filter even though the VitePress site
+# renders neither today. They are the repo's front door, and a preview build is
+# cheap next to shipping a broken one; if the docs ever start pulling either in
+# (a shared logo, a README-derived landing page), the preview keeps working
+# without anyone remembering to update this list.
 on:
   pull_request:
     paths:
       - 'docs/**'
+      - 'README.md'
+      - 'assets/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/docs-preview.yml'

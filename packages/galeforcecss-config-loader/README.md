@@ -34,8 +34,8 @@ Apache License 2.0. Copyright 2026 Coralogix Ltd.
   Built with 💚 by
   <a href="https://coralogix.com/?utm_source=npm&amp;utm_medium=oss&amp;utm_campaign=galeforcecss">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-white.svg">
-      <img src="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-black.svg" alt="Coralogix" height="20" align="middle">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-white-inline.svg">
+      <img src="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-black-inline.svg" alt="Coralogix" height="24" align="middle">
     </picture>
   </a>
 </p>
