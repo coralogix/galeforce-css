@@ -26,7 +26,7 @@ jobs:
       - run: node scripts/license-header.mjs check
 
   dependency-licenses:
-    name: Dependency licenses
+    name: Dependency licenses + advisories
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -41,6 +41,11 @@ jobs:
         with:
           tool: cargo-deny
       - run: cargo deny check licenses
+        env:
+          RUSTUP_TOOLCHAIN: stable
+      # Known-vulnerability gate. Exceptions live in deny.toml's `[advisories]
+      # ignore` list, each with the reason it does not apply to us.
+      - run: cargo deny check advisories
         env:
           RUSTUP_TOOLCHAIN: stable
 

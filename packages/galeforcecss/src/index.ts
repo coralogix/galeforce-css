@@ -263,6 +263,15 @@ function resolveBinary(): string | null {
   return null
 }
 
+/**
+ * Absolute path to the `galeforcecss` CLI binary for this platform, or
+ * `null` if no binary could be found. Exported for the `bin/` launcher,
+ * which needs the same resolution order as the API.
+ */
+export function binaryPath(): string | null {
+  return resolveBinary()
+}
+
 function requireBinary(): string {
   const bin = resolveBinary()
   if (!bin) {

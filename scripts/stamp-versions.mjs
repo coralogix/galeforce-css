@@ -78,5 +78,17 @@ for (const pkgPath of pkgPaths) {
   updated.push(path.relative(repoRoot, pkgPath));
 }
 
+// The public Node API re-exports its own version string. Left unstamped it
+// would ship as 0.0.0 and misreport in consumer logs / bug reports.
+const versionSrc = path.join(packagesDir, 'galeforcecss', 'src', 'index.ts');
+const src = fs.readFileSync(versionSrc, 'utf8');
+const stamped = src.replace(/^export const version = '[^']*'$/m, `export const version = '${version}'`);
+if (stamped === src) {
+  console.error(`stamp-versions: could not find the version constant in ${versionSrc}`);
+  process.exit(1);
+}
+fs.writeFileSync(versionSrc, stamped, 'utf8');
+
 console.log(`stamp-versions: set version ${version} in ${updated.length} package.json file(s):`);
 for (const p of updated) console.log(`  - ${p}`);
+console.log(`  - ${path.relative(repoRoot, versionSrc)} (version constant)`);

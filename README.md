@@ -7,9 +7,10 @@ Tailwind v3 — same config, same directives, same output — built for speed.
 > port of Tailwind CSS v3, pinned to `tailwindcss@3.4.19` as the conformance
 > oracle.
 
-**Status: alpha.** The compiler reaches zero semantic diff on multiple real
-open-source projects but has not been hardened for production. APIs may change
-before 1.0.
+The compiler reaches zero semantic diff against the official Tailwind v3
+oracle on eight real open-source projects.
+
+Documentation: <https://coralogix.github.io/galeforce-css/>
 
 ---
 
@@ -65,10 +66,6 @@ npm install -D @coralogix/vite-plugin-galeforcecss
 npm install -D @coralogix/galeforcecss
 ```
 
-> **Alpha notice.** v0.1.0-alpha is the first published release. APIs are
-> stable for the features listed above but may shift before 1.0. Pin your
-> version if you need stability.
-
 GaleforceCSS ships a platform-specific native binary alongside each npm package.
 No build step required.
 
@@ -118,20 +115,27 @@ set `input` and import the virtual module — see
 
 ## CLI
 
+`@coralogix/galeforcecss` installs a `galeforcecss` command (use `npx
+galeforcecss` outside an npm script):
+
 ```bash
 # One-shot build
-galeforcecss build --input src/index.css --output dist/output.css --content src
+npx galeforcecss build --input src/index.css --output dist/output.css --content src
 
 # Scan content and print candidates as JSON
-galeforcecss scan --content src --json
+npx galeforcecss scan --content src --json
 ```
+
+Also available: `watch` (debounced rebuilds), `init` (scaffold a config),
+`list-classes` / `list-variants` (editor tooling). See
+[docs/guide/cli.md](./docs/guide/cli.md).
 
 ---
 
 ## Node API
 
 ```ts
-import { compile } from 'galeforcecss'
+import { compile } from '@coralogix/galeforcecss'
 
 const result = await compile({
   candidates: ['flex', 'hover:bg-blue-500', 'md:px-4'],
@@ -145,7 +149,7 @@ console.log(result.css)
 For long-running tooling (avoiding per-call process startup):
 
 ```ts
-import { createCompileStream } from 'galeforcecss'
+import { createCompileStream } from '@coralogix/galeforcecss'
 
 const stream = createCompileStream()
 
@@ -159,11 +163,18 @@ stream.close()
 
 ## Conformance
 
-GaleforceCSS maintains a fixture-based conformance harness that compares its
-output against the live Tailwind v3.4.19 oracle after PostCSS normalization.
-619 fixtures pass. Zero semantic diffs on six real open-source projects:
-notus-nextjs, notus-react, horizon-tailwind-react, merakiui, soft-ui-dashboard,
-and flowbite.
+GaleforceCSS maintains a conformance harness that compares its output against
+the live Tailwind v3.4.19 oracle after PostCSS normalization. 941 checks pass:
+88 fixture diffs, 501 test cases ported from upstream's suite, 186
+byte-sensitive snapshots, and 166 ordering / plugin / config cases. 68 upstream
+cases are skipped where they depend on PostCSS internals GaleforceCSS doesn't
+model.
+
+Eight real open-source projects compile with zero semantic diff: notus-nextjs,
+notus-react, horizon-tailwind-react, material-tailwind,
+shadcn-nextjs-boilerplate, merakiui, soft-ui-dashboard, and flowbite. Those
+runs are local-only, since the projects aren't vendored into the repo. See
+[docs/reference/conformance.md](./docs/reference/conformance.md).
 
 ---
 
@@ -172,7 +183,7 @@ and flowbite.
 ### Prerequisites
 
 - Rust 1.82+ (`rust-toolchain.toml` pins the version)
-- Node 18.18+, pnpm 9.x
+- Node 20.19+ or 22.12+, pnpm 10.x
 
 ### Setup
 
@@ -240,3 +251,15 @@ prompted to sign before their pull request can be merged.
 ## Security
 
 To report a vulnerability, see [`SECURITY.md`](./SECURITY.md).
+
+---
+
+<p align="center">
+  Built with 💚 by
+  <a href="https://coralogix.com/?utm_source=github&amp;utm_medium=oss&amp;utm_campaign=galeforcecss">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-white.svg">
+      <img src="https://raw.githubusercontent.com/coralogix/galeforce-css/master/assets/coralogix-horizontal-black.svg" alt="Coralogix" height="20" align="middle">
+    </picture>
+  </a>
+</p>

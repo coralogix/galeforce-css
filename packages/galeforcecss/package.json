@@ -12,8 +12,12 @@
       "import": "./dist/index.js"
     }
   },
+  "bin": {
+    "galeforcecss": "./bin/galeforcecss.mjs"
+  },
   "files": [
     "dist",
+    "bin",
     "README.md"
   ],
   "repository": {

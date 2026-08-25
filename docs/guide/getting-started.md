@@ -71,7 +71,7 @@ export default defineConfig({
    ```
 
 Your `tailwind.config.{js,ts}` and CSS files are untouched. Output is
-semantically identical (verified on 894 fixtures + 7 real projects).
+semantically identical (verified on 941 conformance checks + 8 real projects).
 
 ## Plugin options
 

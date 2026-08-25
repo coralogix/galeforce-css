@@ -14,18 +14,67 @@
  * limitations under the License.
  */
 
+import { execFileSync } from 'node:child_process'
+
 import { defineConfig } from 'vitepress'
+
+// Tagged so OSS-driven traffic to coralogix.com is attributable per project.
+const CORALOGIX_URL =
+  'https://coralogix.com/?utm_source=galeforcecss-docs&utm_medium=oss&utm_campaign=galeforcecss'
+
+// GitHub Pages serves the site under the repo name, so the production build
+// needs a `/galeforce-css/` prefix. Cloudflare Pages PR previews serve it from
+// the root of a `*.pages.dev` host, where that prefix would 404 every asset —
+// the preview workflow sets DOCS_BASE=/ for those builds. Anything that hand-
+// writes an absolute asset URL (favicon, footer mark) must go through `base`.
+const base = process.env.DOCS_BASE ?? '/galeforce-css/'
+
+// The nav's version label is derived from the newest git tag, not hardcoded.
+// `release.yml` resolves the version from tags and never commits a bump, so a
+// literal here goes stale the moment we ship -- it read `v0.1.0-alpha` for a
+// while after v0.1.0 was tagged. Shallow CI checkouts have no tags (PR preview
+// builds), which is what the fallback is for; the production builds in
+// `docs.yml` and `release.yml` both check out with fetch-depth: 0.
+function releasedVersion(): string {
+  try {
+    return execFileSync('git', ['describe', '--tags', '--abbrev=0'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+  } catch {
+    return 'Releases'
+  }
+}
 
 export default defineConfig({
   title: 'GaleforceCSS',
   description:
     'Rust-powered Tailwind CSS v3-compatible compiler — 23x faster builds, sub-millisecond HMR.',
-  base: '/galeforce-css/',
+  base,
 
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/galeforce-css/logo.svg' }]],
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}coralogix-mark.svg` }],
+    // Nunito Sans + Inconsolata are the Coralogix design system's families
+    // (tailwind.theme.ts `fontFamily`). Served from Google Fonts rather than
+    // vendored: the design system ships TTFs, which are several hundred kB
+    // heavier than the woff2 the CDN negotiates.
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400..800;1,6..12,400..800' +
+          '&family=Inconsolata:wght@400..700&display=swap',
+      },
+    ],
+  ],
 
   themeConfig: {
-    logo: '/logo.svg',
+    // VitePress prefixes `logo` with `base` itself, unlike the hand-written
+    // asset URLs elsewhere in this file.
+    logo: '/coralogix-mark.svg',
     siteTitle: 'GaleforceCSS',
 
     nav: [
@@ -33,7 +82,7 @@ export default defineConfig({
       { text: 'Reference', link: '/reference/architecture' },
       { text: 'Conformance', link: '/reference/conformance' },
       {
-        text: 'v0.1.0-alpha',
+        text: releasedVersion(),
         items: [
           { text: 'Changelog', link: 'https://github.com/coralogix/galeforce-css/releases' },
           { text: 'Contributing', link: '/contributing' },
@@ -69,9 +118,16 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/coralogix/galeforce-css' }],
 
     footer: {
-      message: 'Released under the MIT License.',
-      copyright:
-        'Not affiliated with Tailwind Labs. GaleforceCSS is an independent port of Tailwind CSS v3.',
+      message:
+        'Released under the Apache License 2.0. Not affiliated with Tailwind Labs. ' +
+        'GaleforceCSS is an independent port of Tailwind CSS v3.',
+      copyright: [
+        'Built with 💚 by',
+        `<a href="${CORALOGIX_URL}">`,
+        `<img src="${base}coralogix-mark.svg" alt="" width="14" height="14"` +
+        ' style="display:inline-block;vertical-align:-2px">',
+        'Coralogix</a>',
+      ].join(' '),
     },
 
     editLink: {

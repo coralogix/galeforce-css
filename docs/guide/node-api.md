@@ -11,7 +11,7 @@ npm install -D @coralogix/galeforcecss
 One-shot. Spawns the binary, compiles, exits.
 
 ```ts
-import { compile } from 'galeforcecss'
+import { compile } from '@coralogix/galeforcecss'
 
 const { css, diagnostics } = await compile({
   candidates: ['flex', 'hover:bg-blue-500', 'md:px-4'],
@@ -40,7 +40,7 @@ Keeps the Rust binary alive between calls. Use this for Vite plugins,
 language servers, and any tool that compiles repeatedly.
 
 ```ts
-import { createCompileStream } from 'galeforcecss'
+import { createCompileStream } from '@coralogix/galeforcecss'
 
 const stream = createCompileStream()
 
@@ -65,10 +65,10 @@ stream.close()
 ## `loadConfig()` / `findConfigPath()`
 
 ```ts
-import { loadConfig, findConfigPath } from 'galeforcecss'
+import { loadConfig, findConfigPath } from '@coralogix/galeforcecss'
 
-const configPath = await findConfigPath()
-const { resolved } = await loadConfig({ configPath })
+const configPath = findConfigPath()
+const { resolved } = await loadConfig({ path: configPath ?? undefined })
 ```
 
 `resolved` is the JSON-serialisable config object Galeforce consumes.
