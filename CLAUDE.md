@@ -137,7 +137,8 @@ than failing.
 - Cargo workspace deps use exact `=x.y.z` pins because indexmap 2.14+
   needs edition 2024 which 1.82 doesn't have. Don't loosen them; bump
   the toolchain instead if a newer dep is needed.
-- pnpm **9.x**, Node **18.18+** (CI uses 20).
+- pnpm **10.x** (pinned by `packageManager`), Node **20.19+ / 22.12+**
+  (the floor comes from Vite 8 in the dev dependencies; CI uses 24).
 - `tailwindcss@3.4.19` is a hard pin — `pnpm oracle:version` will fail
   CI if it drifts.
 
@@ -402,8 +403,10 @@ sweep before pre-alpha:
   config + content roots, calls the same `do_one_build` body as
   `build`. `galeforcecss init` scaffolds `tailwind.config.js` +
   `src/index.css` with `--force` and `--input <path>` overrides.
-  Carry-over: `--minify` and `--diagnostics` flags on `build` /
-  `watch`.
+  `--minify` and `--diagnostics` have since shipped on `build` / `watch`.
+  Carry-over: `--config` still takes resolved-config JSON only, so the
+  standalone CLI ignores `tailwind.config.js` (documented in
+  `docs/guide/cli.md` and `docs/guide/unsupported.md`).
 
 - **Phase F — Vite plugin scanner wiring.** The plugin compiles via
   the Rust compiler and HMRs on file change, but the candidate set

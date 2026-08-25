@@ -20,6 +20,8 @@ what's out of scope or deferred.
 - **`@tailwind` banner.** Oracle emits `/* ! tailwindcss ... */`; Galeforce doesn't. Output is semantically equivalent.
 - **napi-rs native bindings** deferred. JS package + Vite plugin route through the `compile-stream` CLI bridge. Bindings will replace the bridge without changing `compile` / `createCompileStream`.
 - **`@apply` inside nested `@media` / `@supports` `@layer` blocks.** Pre-collect pass is top-level only; nested layers are silently dropped.
+- **`tailwind.config.js` in the standalone CLI.** `galeforcecss build` / `watch` take resolved-config JSON via `--config`, and do not discover or evaluate a JS config; with no `--config` they compile against the default theme. The Vite plugin and Node API are unaffected. See [CLI](./cli#build) for the workaround.
+- **Editing `tailwind.config.js` during `vite dev`.** A CommonJS config cannot be re-read inside a process that has already loaded it, so theme edits are picked up only after restarting the dev server. Editing content files, CSS and utilities all hot-reload normally.
 - **Source maps.** Not generated.
 - **Lightning CSS prefixing.** Output unprefixed. Add a downstream autoprefixer pass for legacy browsers.
 

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { execFileSync } from 'node:child_process'
+
 import { defineConfig } from 'vitepress'
 
 // Tagged so OSS-driven traffic to coralogix.com is attributable per project.
@@ -26,6 +28,23 @@ const CORALOGIX_URL =
 // the preview workflow sets DOCS_BASE=/ for those builds. Anything that hand-
 // writes an absolute asset URL (favicon, footer mark) must go through `base`.
 const base = process.env.DOCS_BASE ?? '/galeforce-css/'
+
+// The nav's version label is derived from the newest git tag, not hardcoded.
+// `release.yml` resolves the version from tags and never commits a bump, so a
+// literal here goes stale the moment we ship -- it read `v0.1.0-alpha` for a
+// while after v0.1.0 was tagged. Shallow CI checkouts have no tags (PR preview
+// builds), which is what the fallback is for; the production builds in
+// `docs.yml` and `release.yml` both check out with fetch-depth: 0.
+function releasedVersion(): string {
+  try {
+    return execFileSync('git', ['describe', '--tags', '--abbrev=0'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+  } catch {
+    return 'Releases'
+  }
+}
 
 export default defineConfig({
   title: 'GaleforceCSS',
@@ -60,7 +79,7 @@ export default defineConfig({
       { text: 'Reference', link: '/reference/architecture' },
       { text: 'Conformance', link: '/reference/conformance' },
       {
-        text: 'v0.1.0',
+        text: releasedVersion(),
         items: [
           { text: 'Changelog', link: 'https://github.com/coralogix/galeforce-css/releases' },
           { text: 'Contributing', link: '/contributing' },
