@@ -10,8 +10,9 @@ the CLA is signed.
 
 ## Prerequisites
 
-- Node.js 18.18+ (see `engines` in `package.json`)
-- pnpm 9.x
+- Node.js 20.19+ or 22.12+ (see `engines` in `package.json`; the floor comes
+  from Vite 8 in the dev dependencies)
+- pnpm 10.x (pinned by `packageManager` in `package.json`)
 - Rust toolchain pinned by [`rust-toolchain.toml`](./rust-toolchain.toml)
 
 ## First-time setup

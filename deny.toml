@@ -43,6 +43,25 @@ allow = [
     "CC0-1.0",
 ]
 
+[advisories]
+# `cargo deny check advisories` gates known RUSTSEC vulnerabilities on every PR.
+# Anything listed here is a conscious, argued exception -- not a way to quiet the
+# gate. Re-check on every dependency bump and delete entries that no longer apply.
+ignore = [
+    # rkyv 0.7.46: insufficient archive validation lets a crafted archive
+    # containing Rc/Arc forge a slice length, so `rkyv::access` /
+    # `rkyv::from_bytes` can read out of bounds. Reached only via
+    # lightningcss -> parcel_sourcemap, both pinned exactly, and the fix landed
+    # in rkyv 0.8.17 -- a semver-major that upstream has to adopt first, so we
+    # cannot bump it from here.
+    #
+    # Not reachable for us: GaleforceCSS never deserializes an rkyv archive. We
+    # hand lightningcss CSS text and read back CSS text plus a source map; no
+    # archive from any source, trusted or otherwise, crosses that boundary.
+    # Revisit when lightningcss ships a release built on rkyv 0.8.
+    "RUSTSEC-2026-0235",
+]
+
 [bans]
 multiple-versions = "warn"
 wildcards = "deny"

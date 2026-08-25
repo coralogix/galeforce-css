@@ -8,6 +8,6 @@
     "watch": "galeforcecss watch -i src/index.css -o dist/output.css --content ."
   },
   "devDependencies": {
-    "@coralogix/galeforcecss": "^0.1.0-alpha.0"
+    "@coralogix/galeforcecss": "^0.1.0"
   }
 }

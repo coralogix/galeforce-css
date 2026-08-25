@@ -7,6 +7,9 @@ license.workspace = true
 repository.workspace = true
 authors.workspace = true
 description = "Shared types, errors, and diagnostics for GaleforceCSS."
+# Not published to crates.io: the crate names are unreserved and the public
+# surface is the npm packages. Guards against an accidental `cargo publish`.
+publish = false
 
 [dependencies]
 serde = { workspace = true }

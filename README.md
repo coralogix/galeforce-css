@@ -183,7 +183,7 @@ runs are local-only, since the projects aren't vendored into the repo. See
 ### Prerequisites
 
 - Rust 1.82+ (`rust-toolchain.toml` pins the version)
-- Node 18.18+, pnpm 9.x
+- Node 20.19+ or 22.12+, pnpm 10.x
 
 ### Setup
 

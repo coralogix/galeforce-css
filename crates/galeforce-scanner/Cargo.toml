@@ -7,6 +7,9 @@ license.workspace = true
 repository.workspace = true
 authors.workspace = true
 description = "Content scanning + incremental candidate cache."
+# Not published to crates.io: the crate names are unreserved and the public
+# surface is the npm packages. Guards against an accidental `cargo publish`.
+publish = false
 
 [dependencies]
 galeforce-core = { workspace = true }
