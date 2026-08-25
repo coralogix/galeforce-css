@@ -72,6 +72,9 @@ export default defineConfig({
   ],
 
   themeConfig: {
+    // VitePress prefixes `logo` with `base` itself, unlike the hand-written
+    // asset URLs elsewhere in this file.
+    logo: '/coralogix-mark.svg',
     siteTitle: 'GaleforceCSS',
 
     nav: [
