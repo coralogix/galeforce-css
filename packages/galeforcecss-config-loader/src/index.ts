@@ -33,7 +33,7 @@
 //      can be passed through to the Rust compiler over the napi
 //      boundary or via the JSON CLI bridge.
 
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { resolve as resolvePath, dirname } from 'node:path'
 import { createJiti } from 'jiti'
 import postcss from 'postcss'
@@ -179,9 +179,16 @@ export async function loadConfig(opts: LoadConfigOptions = {}): Promise<LoadedCo
       fsCache: false,
       moduleCache: false,
     })
-    const mod = await jiti.import<{ default?: Record<string, unknown> } & Record<string, unknown>>(
-      path,
-    )
+    // `jiti.import` hands plain .js/.mjs/.cjs to Node's native import(),
+    // which caches for the life of the process regardless of
+    // `moduleCache`, so a reload would return the first version.
+    // Forcing jiti's own transpile path re-reads the file every time.
+    // Modules the config itself requires can still come from Node's cache.
+    const mod = (await jiti.evalModule(readFileSync(path, 'utf8'), {
+      filename: path,
+      async: true,
+      forceTranspile: true,
+    })) as { default?: Record<string, unknown> } & Record<string, unknown>
     // Handle both ESM (`export default {...}`) and CJS (`module.exports = {...}`).
     raw = (mod.default ?? mod) as Record<string, unknown>
   }

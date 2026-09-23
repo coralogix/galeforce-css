@@ -18,6 +18,7 @@ import { execFileSync } from 'node:child_process'
 import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
+import postcss from 'postcss'
 import { build, type InlineConfig } from 'vite'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import galeforcecss from './index.js'
@@ -539,6 +540,57 @@ describe('vite-plugin-galeforcecss', () => {
       expect(warn).toHaveBeenCalledWith(expect.stringContaining('matched no files under it'))
     } finally {
       warn.mockRestore()
+    }
+  })
+
+  // Drives the dev-server hooks directly and reads CSS through the
+  // PostCSS plugin, which only sees the scanned token set.
+  async function devServer(dir: string, opts: Parameters<typeof galeforcecss>[0]) {
+    const plugin = galeforcecss(opts) as any
+    const postcssPlugin = plugin.config().css.postcss.plugins[0]
+    plugin.configResolved({ root: dir, command: 'serve', build: {} })
+    plugin.buildStart()
+    const server = { moduleGraph: { getModuleById: () => undefined, invalidateModule() {} } }
+    return {
+      css: async () =>
+        (await postcss([postcssPlugin]).process('@tailwind utilities;', { from: undefined })).css,
+      hot: (file: string) => plugin.handleHotUpdate({ file, server }),
+      close: () => plugin.buildEnd(),
+    }
+  }
+
+  it('HMR picks up edits to files matched only by a content glob', async () => {
+    const dir = project({ 'src/a.ts': 'const c = "flex"' })
+    const dev = await devServer(dir, { content: [`${dir}/src/**/*.ts`] })
+    try {
+      expect(await dev.css()).toContain('.flex')
+      writeFileSync(join(dir, 'src/a.ts'), 'const c = "hidden"')
+      await dev.hot(join(dir, 'src/a.ts'))
+      const css = await dev.css()
+      expect(css).toContain('.hidden')
+      expect(css).not.toContain('.flex')
+    } finally {
+      await dev.close()
+    }
+  })
+
+  it('config reload re-scans content newly covered by the config', async () => {
+    const dir = project({
+      'tailwind.config.js': `module.exports = { content: ['./a/**/*.ts'] }`,
+      'a/x.ts': 'const c = "flex"',
+      'b/y.ts': 'const c = "hidden"',
+    })
+    const configPath = join(dir, 'tailwind.config.js')
+    const dev = await devServer(dir, { config: configPath })
+    try {
+      expect(await dev.css()).not.toContain('.hidden')
+      writeFileSync(configPath, `module.exports = { content: ['./a/**/*.ts', './b/**/*.ts'] }`)
+      await dev.hot(configPath)
+      const css = await dev.css()
+      expect(css).toContain('.flex')
+      expect(css).toContain('.hidden')
+    } finally {
+      await dev.close()
     }
   })
 })

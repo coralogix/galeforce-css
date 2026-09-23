@@ -86,6 +86,22 @@ describe('loadConfig', () => {
     expect(loaded.resolved.prefix).toBe('tw-')
   })
 
+  it.each(['js', 'cjs', 'mjs', 'ts'])(
+    're-reads an edited .%s config in the same process',
+    async (ext) => {
+      // Node's native import() caches forever, so a plain jiti.import()
+      // of a .js/.cjs/.mjs config returned the first version on every reload.
+      const body = (prefix: string): string =>
+        ext === 'js' || ext === 'cjs'
+          ? `module.exports = { prefix: '${prefix}' }`
+          : `export default { prefix: '${prefix}' }`
+      const dir = tempProject({ [`tailwind.config.${ext}`]: body('a-') })
+      expect((await loadConfig({ cwd: dir })).resolved.prefix).toBe('a-')
+      writeFileSync(join(dir, `tailwind.config.${ext}`), body('b-'))
+      expect((await loadConfig({ cwd: dir })).resolved.prefix).toBe('b-')
+    },
+  )
+
   it('strips plugins and surfaces their names', async () => {
     const dir = tempProject({
       'tailwind.config.js': `

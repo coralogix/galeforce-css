@@ -47,10 +47,12 @@
   },
   "dependencies": {
     "@coralogix/galeforcecss": "workspace:*",
+    "picomatch": "^4.0.4",
     "tinyglobby": "^0.2.15"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
+    "@types/picomatch": "^4.0.3",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.4.0",
     "postcss-load-config": "^6.0.1",

@@ -14,3 +14,17 @@
   before.
 - The plugin now warns when a content glob covers the Vite root but
   matches no files under it.
+- `@coralogix/vite-plugin-galeforcecss`: dev-server HMR now picks up edits
+  to files matched only by a `content` glob. Previously a file counted as
+  content only if its path started with a content entry, which no glob
+  pattern satisfies, so such edits never updated the generated classes.
+- `@coralogix/vite-plugin-galeforcecss`: editing the Tailwind config in dev
+  now re-scans content, so files newly covered by `content` contribute
+  classes and files no longer covered stop contributing, without a server
+  restart.
+- `@coralogix/galeforcecss-config-loader`: reloading an edited `.js`,
+  `.mjs` or `.cjs` config in the same process returned the first version,
+  because jiti handed it to Node's native `import()`, which caches for the
+  life of the process. The config file is now re-read on every load.
+  Modules the config itself requires can still be served from Node's
+  cache.

@@ -42,6 +42,7 @@
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { isAbsolute, parse, resolve, sep } from 'node:path'
+import picomatch from 'picomatch'
 import { glob as tinyGlob } from 'tinyglobby'
 import postcss, { type Plugin as PostcssPlugin, type Root as PostcssRoot } from 'postcss'
 import {
@@ -258,6 +259,18 @@ function looksLikeGlob(p: string): boolean {
     if (c === '!' && p[i + 1] === '(') return true
   }
   return false
+}
+
+/**
+ * Build a predicate for "is this file content?". Globs match with the
+ * same options expansion uses; plain roots match as directory prefixes.
+ */
+function contentMatcher(roots: readonly string[]): (file: string) => boolean {
+  const isGlobMatch = picomatch(roots.filter(looksLikeGlob), { nocase: true })
+  const dirs = roots.filter((r) => !looksLikeGlob(r))
+  return (file) =>
+    isGlobMatch(file) ||
+    dirs.some((r) => file === r || file.startsWith(r + '/') || file.startsWith(r + sep))
 }
 
 /**
@@ -786,6 +799,17 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
             state.opts.contentRoots !== null
               ? state.opts.contentRoots
               : readConfigContent(reloaded, viteRoot)
+          // The config may cover different files now: rebuild the
+          // token map from scratch so dropped files lose their tokens.
+          const perFile = (await state.stream.scanPerFile(
+            await expandContentRoots(effectiveContentRoots),
+          )) as Record<string, string[]>
+          fileTokens.clear()
+          state.globalTokens.clear()
+          for (const [f, candidates] of Object.entries(perFile)) {
+            fileTokens.set(f, new Set(candidates))
+            for (const t of candidates) state.globalTokens.add(t)
+          }
         }
         if (state.opts.input) {
           const css = await compileVirtual()
@@ -795,10 +819,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
         return []
       }
 
-      const isContent = effectiveContentRoots.some(
-        (r) => file.startsWith(r + '/') || file.startsWith(r + sep) || file === r,
-      )
-      if (!isContent) return
+      if (!contentMatcher(effectiveContentRoots)(file)) return
 
       const newFileTokens = new Set<string>((await state.stream.scan([file])) as string[])
       const oldFileTokens = fileTokens.get(file) ?? new Set<string>()
