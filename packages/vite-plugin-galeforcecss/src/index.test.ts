@@ -19,7 +19,7 @@ import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import postcss from 'postcss'
-import { build, type InlineConfig } from 'vite'
+import { build, createServer, type InlineConfig } from 'vite'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import galeforcecss from './index.js'
 
@@ -589,6 +589,83 @@ describe('vite-plugin-galeforcecss', () => {
       const css = await dev.css()
       expect(css).toContain('.flex')
       expect(css).toContain('.hidden')
+    } finally {
+      await dev.close()
+    }
+  })
+
+  // Real dev server, so these go through Vite's file watcher rather than
+  // calling handleHotUpdate by hand.
+  async function realDevServer(root: string, opts: Parameters<typeof galeforcecss>[0]) {
+    const plugin = galeforcecss(opts) as any
+    const postcssPlugin = plugin.config().css.postcss.plugins[0]
+    const server = await createServer({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      server: { port: 0 },
+      plugins: [plugin],
+    })
+    await server.listen()
+    await new Promise((r) => setTimeout(r, 300)) // let the watcher settle
+    const css = async () =>
+      (await postcss([postcssPlugin]).process('@tailwind utilities;', { from: undefined })).css
+    return { css, close: () => server.close() }
+  }
+
+  it('dev server picks up edits to content inside the Vite root', async () => {
+    const dir = realpathSync(project({ 'src/a.ts': 'const c = "flex"' }))
+    const dev = await realDevServer(dir, { content: [`${dir}/src/**/*.ts`] })
+    try {
+      expect(await dev.css()).toContain('.flex')
+      writeFileSync(join(dir, 'src/a.ts'), 'const c = "hidden"')
+      await vi.waitFor(async () => expect(await dev.css()).toContain('.hidden'), {
+        timeout: 3000,
+      })
+    } finally {
+      await dev.close()
+    }
+  })
+
+  it('dev server reloads an auto-discovered tailwind config on edit', async () => {
+    const dir = realpathSync(
+      project({
+        'tailwind.config.js': `module.exports = { content: ['./a/**/*.ts'] }`,
+        'a/x.ts': 'const c = "flex"',
+        'b/y.ts': 'const c = "hidden"',
+      }),
+    )
+    const dev = await realDevServer(dir, {})
+    try {
+      expect(await dev.css()).not.toContain('.hidden')
+      writeFileSync(
+        join(dir, 'tailwind.config.js'),
+        `module.exports = { content: ['./a/**/*.ts', './b/**/*.ts'] }`,
+      )
+      await vi.waitFor(async () => expect(await dev.css()).toContain('.hidden'), {
+        timeout: 3000,
+      })
+    } finally {
+      await dev.close()
+    }
+  })
+
+  it('dev server picks up edits to content outside the Vite root', async () => {
+    const dir = realpathSync(
+      project({
+        'app/index.html': '<div></div>',
+        'libs/toggle/src/toggle.ts': 'const c = "flex"',
+      }),
+    )
+    const dev = await realDevServer(join(dir, 'app'), {
+      content: [`${dir}/libs/**/src/**/*.ts`],
+    })
+    try {
+      expect(await dev.css()).toContain('.flex')
+      writeFileSync(join(dir, 'libs/toggle/src/toggle.ts'), 'const c = "hidden"')
+      await vi.waitFor(async () => expect(await dev.css()).toContain('.hidden'), {
+        timeout: 3000,
+      })
     } finally {
       await dev.close()
     }

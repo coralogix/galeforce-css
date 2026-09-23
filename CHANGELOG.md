@@ -22,6 +22,12 @@
   now re-scans content, so files newly covered by `content` contribute
   classes and files no longer covered stop contributing, without a server
   restart.
+- `@coralogix/vite-plugin-galeforcecss`: the dev server now reloads an
+  auto-discovered Tailwind config when it is edited. Previously only a
+  config passed via the `config` option was recognised.
+- `@coralogix/vite-plugin-galeforcecss`: content outside the Vite root
+  (for example sibling libraries covered by a monorepo glob) is now
+  watched, so edits there update the generated classes in dev.
 - `@coralogix/galeforcecss-config-loader`: reloading an edited `.js`,
   `.mjs` or `.cjs` config in the same process returned the first version,
   because jiti handed it to Node's native `import()`, which caches for the

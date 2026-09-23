@@ -330,6 +330,13 @@ async function expandContentRoots(roots: readonly string[]): Promise<string[]> {
   return out
 }
 
+/** The directory part of a pattern before its first glob segment. */
+function staticBase(p: string): string {
+  if (!looksLikeGlob(p)) return p
+  const parts = p.split(/[\\/]/)
+  return parts.slice(0, parts.findIndex(looksLikeGlob)).join(sep)
+}
+
 /**
  * Warn when a glob's static base contains the Vite root but nothing
  * under the Vite root was matched. That is how a cwd-dependent glob
@@ -344,12 +351,7 @@ function warnIfRootUnscanned(
   const under = (p: string, dir: string): boolean =>
     p === dir || p.startsWith(dir + sep) || p.startsWith(dir + '/')
   if (files.some((f) => under(f, viteRoot))) return
-  const covering = patterns.find((p) => {
-    if (!looksLikeGlob(p)) return false
-    const parts = p.split(/[\\/]/)
-    const base = parts.slice(0, parts.findIndex(looksLikeGlob)).join(sep)
-    return under(viteRoot, base)
-  })
+  const covering = patterns.find((p) => looksLikeGlob(p) && under(viteRoot, staticBase(p)))
   if (covering) {
     console.warn(
       `[vite-plugin-galeforcecss] Content pattern ${JSON.stringify(covering)} covers the Vite root ` +
@@ -545,6 +547,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
   }
   let isDev = false
   let viteRoot = ''
+  let devServer: ViteDevServer | null = null
   // Per-file candidate sets — used by handleHotUpdate to compute deltas.
   const fileTokens: Map<string, Set<string>> = new Map()
   // Effective scan roots — resolved from plugin options OR config.content.
@@ -613,8 +616,16 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
     if (!state.opts) return []
     const files: string[] = []
     if (state.opts.input) files.push(state.opts.input)
-    if (state.opts.configPath) files.push(state.opts.configPath)
+    const configPath = state.opts.configPath ?? state.cachedConfig?.path
+    if (configPath) files.push(configPath)
     return files
+  }
+
+  // Vite only watches its root. Content globs (e.g. sibling libraries in
+  // Vitest browser mode) and an auto-discovered config can live outside
+  // it, so add them explicitly once they are known.
+  function watchInputs(): void {
+    devServer?.watcher.add([...watchedFiles(), ...effectiveContentRoots.map(staticBase)])
   }
 
   function invalidateTransformed(server: ViteDevServer): void {
@@ -683,6 +694,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
           state.opts!.contentRoots !== null
             ? state.opts!.contentRoots!
             : readConfigContent(config, viteRoot)
+        watchInputs()
 
         if (isDev) {
           const tStream = performance.now()
@@ -777,7 +789,8 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
     },
 
     configureServer(srv) {
-      for (const f of watchedFiles()) srv.watcher.add(f)
+      devServer = srv
+      watchInputs()
     },
 
     async handleHotUpdate({ file, server }) {
@@ -792,7 +805,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
 
       const files = watchedFiles()
       if (files.includes(file)) {
-        if (file === state.opts.configPath) {
+        if (file === (state.opts.configPath ?? state.cachedConfig?.path)) {
           state.cachedConfig = null
           const reloaded = await getConfig()
           effectiveContentRoots =
@@ -810,6 +823,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
             fileTokens.set(f, new Set(candidates))
             for (const t of candidates) state.globalTokens.add(t)
           }
+          watchInputs()
         }
         if (state.opts.input) {
           const css = await compileVirtual()
