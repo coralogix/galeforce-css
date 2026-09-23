@@ -41,7 +41,7 @@
 
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { isAbsolute, resolve, sep } from 'node:path'
+import { isAbsolute, parse, resolve, sep } from 'node:path'
 import { glob as tinyGlob } from 'tinyglobby'
 import postcss, { type Plugin as PostcssPlugin, type Root as PostcssRoot } from 'postcss'
 import {
@@ -280,9 +280,21 @@ async function expandContentRoots(roots: readonly string[]): Promise<string[]> {
       out.push(r)
     }
   }
-  if (globPatterns.length > 0) {
+  // Glob with cwd at the filesystem root, never process.cwd().
+  // tinyglobby rewrites absolute patterns relative to cwd
+  // (`/repo/libs/**/src/**` -> `../**/src/**` when cwd is
+  // `/repo/libs/a`), and files inside cwd then fail to match. That
+  // silently dropped the library under test in Vitest browser mode.
+  // Patterns are grouped per root so Windows drive letters still work.
+  const byRoot = new Map<string, string[]>()
+  for (const p of globPatterns) {
+    const fsRoot = parse(p).root
+    byRoot.set(fsRoot, [...(byRoot.get(fsRoot) ?? []), p])
+  }
+  for (const [cwd, patterns] of byRoot) {
     try {
-      const expanded = await tinyGlob(globPatterns, {
+      const expanded = await tinyGlob(patterns, {
+        cwd,
         absolute: true,
         onlyFiles: true,
         // Tailwind's config globs are case-sensitive on Linux but
@@ -303,6 +315,34 @@ async function expandContentRoots(roots: readonly string[]): Promise<string[]> {
     }
   }
   return out
+}
+
+/**
+ * Warn when a glob's static base contains the Vite root but nothing
+ * under the Vite root was matched. That is how a cwd-dependent glob
+ * expansion hid: the library under test contributed no classes and
+ * nothing said so.
+ */
+function warnIfRootUnscanned(
+  patterns: readonly string[],
+  files: readonly string[],
+  viteRoot: string,
+): void {
+  const under = (p: string, dir: string): boolean =>
+    p === dir || p.startsWith(dir + sep) || p.startsWith(dir + '/')
+  if (files.some((f) => under(f, viteRoot))) return
+  const covering = patterns.find((p) => {
+    if (!looksLikeGlob(p)) return false
+    const parts = p.split(/[\\/]/)
+    const base = parts.slice(0, parts.findIndex(looksLikeGlob)).join(sep)
+    return under(viteRoot, base)
+  })
+  if (covering) {
+    console.warn(
+      `[vite-plugin-galeforcecss] Content pattern ${JSON.stringify(covering)} covers the Vite root ` +
+        `(${viteRoot}) but matched no files under it. Classes used only there will not be generated.`,
+    )
+  }
 }
 
 /**
@@ -653,6 +693,8 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
                 `pattern(s) configured in tailwind.config — utility classes will not be generated. ` +
                 `Check your \`content\` globs (e.g. ${JSON.stringify(effectiveContentRoots[0])}).`,
             )
+          } else {
+            warnIfRootUnscanned(effectiveContentRoots, scanRoots, viteRoot)
           }
 
           // FAST PATH: get just the union of candidates for the first

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { build, type InlineConfig } from 'vite'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import galeforcecss from './index.js'
 
 let tmpDirs: string[] = []
@@ -31,6 +32,7 @@ function project(files: Record<string, string>): string {
   const dir = mkdtempSync(join(tmpdir(), 'vite-galeforce-'))
   tmpDirs.push(dir)
   for (const [name, content] of Object.entries(files)) {
+    mkdirSync(dirname(join(dir, name)), { recursive: true })
     writeFileSync(join(dir, name), content)
   }
   return dir
@@ -464,5 +466,79 @@ describe('vite-plugin-galeforcecss', () => {
     expect(css).toContain('color: red')
     expect(css).toContain('.card')
     expect(css).toContain('padding: 1rem')
+  })
+
+  // Vitest browser mode runs with cwd = Vite root = the library under
+  // test, while the content globs are absolute and rooted above it.
+  // tinyglobby (<= 0.2.17) relativises absolute patterns against cwd
+  // (`../**/src/**`), so every file inside cwd stopped matching and the
+  // library's own classes were silently never generated. tinyglobby
+  // reads process.cwd() once at import, so the build runs in a child
+  // process started in the Vite root rather than via process.chdir().
+  it.each([
+    ['inside the glob base (Vitest browser mode)', 'libs/time-picker'],
+    ['above every pattern (repo-root dev server)', '.'],
+  ])('absolute content globs scan every file with cwd %s', (_label, sub) => {
+    // realpath: macOS tmpdir is a symlink (/var -> /private/var) and
+    // process.cwd() reports the resolved form. The bug needs the
+    // pattern and cwd to share a textual prefix, as they do in a repo.
+    const dir = realpathSync(
+      project({
+        'libs/time-picker/main.ts': `import './styles.css'\nexport {}`,
+        'libs/time-picker/styles.css': `@tailwind utilities;\n`,
+        'libs/time-picker/src/time-picker.ts': 'const c = "w-[304px] rounded-l-sm"',
+        'libs/time-picker/src/time-picker.spec.ts': 'const c = "rotate-180"',
+        'libs/toggle/src/toggle.ts': 'const c = "inset-0"',
+      }),
+    )
+    const root = join(dir, sub)
+    const script = `
+      import { build } from ${JSON.stringify(import.meta.resolve('vite'))}
+      import galeforcecss from ${JSON.stringify(import.meta.resolve('./index.ts'))}
+      const out = await build({
+        root: process.cwd(),
+        logLevel: 'silent',
+        build: {
+          write: false,
+          lib: { entry: ${JSON.stringify(join(dir, 'libs/time-picker/main.ts'))}, formats: ['es'], fileName: 'main' },
+        },
+        plugins: [galeforcecss({ content: [${JSON.stringify(`${dir}/libs/**/src/**/!(*.stories|*.spec).{ts,html}`)}] })],
+      })
+      const asset = out[0].output.find((a) => a.type === 'asset' && a.fileName.endsWith('.css'))
+      process.stdout.write(String(asset.source))
+    `
+    const css = execFileSync(
+      process.execPath,
+      ['--import', import.meta.resolve('tsx'), '--input-type=module', '-e', script],
+      { cwd: root, encoding: 'utf8' },
+    )
+    expect(css, 'library under test').toContain('.w-\\[304px\\]')
+    expect(css, 'library under test').toContain('.rounded-l-sm')
+    expect(css, 'sibling library').toContain('.inset-0')
+    expect(css, 'extglob exclusion').not.toContain('.rotate-180')
+  })
+
+  it('warns when a glob covers the Vite root but matches nothing under it', async () => {
+    const dir = project({
+      'libs/time-picker/main.ts': `import './styles.css'\nexport {}`,
+      'libs/time-picker/styles.css': `@tailwind utilities;\n`,
+      'libs/time-picker/src/time-picker.ts': 'const c = "flex"',
+      'libs/toggle/src/toggle.html': '<div class="hidden"></div>',
+    })
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    try {
+      await build({
+        root: join(dir, 'libs/time-picker'),
+        logLevel: 'silent',
+        build: {
+          write: false,
+          lib: { entry: join(dir, 'libs/time-picker/main.ts'), formats: ['es'], fileName: 'main' },
+        },
+        plugins: [galeforcecss({ content: [`${dir}/libs/**/src/*.html`] })],
+      })
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('matched no files under it'))
+    } finally {
+      warn.mockRestore()
+    }
   })
 })
