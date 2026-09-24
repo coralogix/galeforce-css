@@ -23,7 +23,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "postcss": "^8.4.47",
+    "postcss": "^8.5.23",
     "tailwindcss": "3.4.19"
   },
   "devDependencies": {

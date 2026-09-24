@@ -26,7 +26,7 @@
     "@coralogix/galeforcecss-config-loader": "workspace:*",
     "@coralogix/galeforcecss-oracle": "workspace:*",
     "@coralogix/galeforcecss": "workspace:*",
-    "postcss": "^8.4.47"
+    "postcss": "^8.5.23"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
