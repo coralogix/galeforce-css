@@ -41,7 +41,8 @@
 
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { isAbsolute, resolve, sep } from 'node:path'
+import { isAbsolute, parse, resolve, sep } from 'node:path'
+import picomatch from 'picomatch'
 import { glob as tinyGlob } from 'tinyglobby'
 import postcss, { type Plugin as PostcssPlugin, type Root as PostcssRoot } from 'postcss'
 import {
@@ -261,6 +262,18 @@ function looksLikeGlob(p: string): boolean {
 }
 
 /**
+ * Build a predicate for "is this file content?". Globs match with the
+ * same options expansion uses; plain roots match as directory prefixes.
+ */
+function contentMatcher(roots: readonly string[]): (file: string) => boolean {
+  const isGlobMatch = picomatch(roots.filter(looksLikeGlob), { nocase: true })
+  const dirs = roots.filter((r) => !looksLikeGlob(r))
+  return (file) =>
+    isGlobMatch(file) ||
+    dirs.some((r) => file === r || file.startsWith(r + '/') || file.startsWith(r + sep))
+}
+
+/**
  * Expand a list of content roots into concrete file paths the Rust
  * scanner can walk directly. Plain directory / file paths pass
  * through unchanged; entries with glob metacharacters are expanded
@@ -280,9 +293,21 @@ async function expandContentRoots(roots: readonly string[]): Promise<string[]> {
       out.push(r)
     }
   }
-  if (globPatterns.length > 0) {
+  // Glob with cwd at the filesystem root, never process.cwd().
+  // tinyglobby rewrites absolute patterns relative to cwd
+  // (`/repo/libs/**/src/**` -> `../**/src/**` when cwd is
+  // `/repo/libs/a`), and files inside cwd then fail to match. That
+  // silently dropped the library under test in Vitest browser mode.
+  // Patterns are grouped per root so Windows drive letters still work.
+  const byRoot = new Map<string, string[]>()
+  for (const p of globPatterns) {
+    const fsRoot = parse(p).root
+    byRoot.set(fsRoot, [...(byRoot.get(fsRoot) ?? []), p])
+  }
+  for (const [cwd, patterns] of byRoot) {
     try {
-      const expanded = await tinyGlob(globPatterns, {
+      const expanded = await tinyGlob(patterns, {
+        cwd,
         absolute: true,
         onlyFiles: true,
         // Tailwind's config globs are case-sensitive on Linux but
@@ -303,6 +328,36 @@ async function expandContentRoots(roots: readonly string[]): Promise<string[]> {
     }
   }
   return out
+}
+
+/** The directory part of a pattern before its first glob segment. */
+function staticBase(p: string): string {
+  if (!looksLikeGlob(p)) return p
+  const parts = p.split(/[\\/]/)
+  return parts.slice(0, parts.findIndex(looksLikeGlob)).join(sep)
+}
+
+/**
+ * Warn when a glob's static base contains the Vite root but nothing
+ * under the Vite root was matched. That is how a cwd-dependent glob
+ * expansion hid: the library under test contributed no classes and
+ * nothing said so.
+ */
+function warnIfRootUnscanned(
+  patterns: readonly string[],
+  files: readonly string[],
+  viteRoot: string,
+): void {
+  const under = (p: string, dir: string): boolean =>
+    p === dir || p.startsWith(dir + sep) || p.startsWith(dir + '/')
+  if (files.some((f) => under(f, viteRoot))) return
+  const covering = patterns.find((p) => looksLikeGlob(p) && under(viteRoot, staticBase(p)))
+  if (covering) {
+    console.warn(
+      `[vite-plugin-galeforcecss] Content pattern ${JSON.stringify(covering)} covers the Vite root ` +
+        `(${viteRoot}) but matched no files under it. Classes used only there will not be generated.`,
+    )
+  }
 }
 
 /**
@@ -492,6 +547,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
   }
   let isDev = false
   let viteRoot = ''
+  let devServer: ViteDevServer | null = null
   // Per-file candidate sets — used by handleHotUpdate to compute deltas.
   const fileTokens: Map<string, Set<string>> = new Map()
   // Effective scan roots — resolved from plugin options OR config.content.
@@ -560,8 +616,16 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
     if (!state.opts) return []
     const files: string[] = []
     if (state.opts.input) files.push(state.opts.input)
-    if (state.opts.configPath) files.push(state.opts.configPath)
+    const configPath = state.opts.configPath ?? state.cachedConfig?.path
+    if (configPath) files.push(configPath)
     return files
+  }
+
+  // Vite only watches its root. Content globs (e.g. sibling libraries in
+  // Vitest browser mode) and an auto-discovered config can live outside
+  // it, so add them explicitly once they are known.
+  function watchInputs(): void {
+    devServer?.watcher.add([...watchedFiles(), ...effectiveContentRoots.map(staticBase)])
   }
 
   function invalidateTransformed(server: ViteDevServer): void {
@@ -630,6 +694,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
           state.opts!.contentRoots !== null
             ? state.opts!.contentRoots!
             : readConfigContent(config, viteRoot)
+        watchInputs()
 
         if (isDev) {
           const tStream = performance.now()
@@ -653,6 +718,8 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
                 `pattern(s) configured in tailwind.config — utility classes will not be generated. ` +
                 `Check your \`content\` globs (e.g. ${JSON.stringify(effectiveContentRoots[0])}).`,
             )
+          } else {
+            warnIfRootUnscanned(effectiveContentRoots, scanRoots, viteRoot)
           }
 
           // FAST PATH: get just the union of candidates for the first
@@ -722,7 +789,8 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
     },
 
     configureServer(srv) {
-      for (const f of watchedFiles()) srv.watcher.add(f)
+      devServer = srv
+      watchInputs()
     },
 
     async handleHotUpdate({ file, server }) {
@@ -737,13 +805,25 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
 
       const files = watchedFiles()
       if (files.includes(file)) {
-        if (file === state.opts.configPath) {
+        if (file === (state.opts.configPath ?? state.cachedConfig?.path)) {
           state.cachedConfig = null
           const reloaded = await getConfig()
           effectiveContentRoots =
             state.opts.contentRoots !== null
               ? state.opts.contentRoots
               : readConfigContent(reloaded, viteRoot)
+          // The config may cover different files now: rebuild the
+          // token map from scratch so dropped files lose their tokens.
+          const perFile = (await state.stream.scanPerFile(
+            await expandContentRoots(effectiveContentRoots),
+          )) as Record<string, string[]>
+          fileTokens.clear()
+          state.globalTokens.clear()
+          for (const [f, candidates] of Object.entries(perFile)) {
+            fileTokens.set(f, new Set(candidates))
+            for (const t of candidates) state.globalTokens.add(t)
+          }
+          watchInputs()
         }
         if (state.opts.input) {
           const css = await compileVirtual()
@@ -753,10 +833,7 @@ export default function galeforcecss(rawOptions: GaleforceCssPluginOptions = {})
         return []
       }
 
-      const isContent = effectiveContentRoots.some(
-        (r) => file.startsWith(r + '/') || file.startsWith(r + sep) || file === r,
-      )
-      if (!isContent) return
+      if (!contentMatcher(effectiveContentRoots)(file)) return
 
       const newFileTokens = new Set<string>((await state.stream.scan([file])) as string[])
       const oldFileTokens = fileTokens.get(file) ?? new Set<string>()
