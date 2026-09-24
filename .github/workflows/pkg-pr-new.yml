@@ -1,0 +1,76 @@
+name: Preview packages
+
+# Publishes installable preview builds of every @coralogix package to
+# pkg.pr.new on each PR and each push to master, and comments the install
+# commands on the PR. Nothing is published to npm. Requires the pkg.pr.new
+# GitHub App (https://github.com/apps/pkg-pr-new) to be installed on the
+# repo; no token is needed.
+#
+# pkg-pr-new rewrites the `workspace:*` dependencies and the launcher's
+# platform `optionalDependencies` to the matching preview URLs, so
+# installing the preview `@coralogix/galeforcecss` pulls the preview binary
+# for the host platform.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A new push supersedes the previous preview for the same branch or PR.
+concurrency:
+  group: pkg-pr-new-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-binary:
+    uses: ./.github/workflows/build-binaries.yml
+
+  publish:
+    name: Publish preview
+    needs: build-binary
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build JS packages
+        run: pnpm build
+
+      - name: Download binary artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: binary-*
+          merge-multiple: false
+
+      - name: Stage binaries and LICENSE
+        run: scripts/stage-packages.sh
+
+      # No `--pnpm`: `pnpm pack` drops the executable bit on the CLI binary,
+      # `npm pack` keeps it. pkg-pr-new rewrites `workspace:*` itself, so
+      # npm packing the workspace manifests is fine.
+      - name: Publish to pkg.pr.new
+        run: >-
+          pnpm dlx pkg-pr-new@0.0.88 publish --compact
+          './packages/galeforcecss-darwin-arm64'
+          './packages/galeforcecss-darwin-x64'
+          './packages/galeforcecss-linux-x64-gnu'
+          './packages/galeforcecss-linux-arm64-gnu'
+          './packages/galeforcecss-win32-x64-msvc'
+          './packages/galeforcecss-config-loader'
+          './packages/galeforcecss'
+          './packages/vite-plugin-galeforcecss'

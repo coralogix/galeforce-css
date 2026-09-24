@@ -119,108 +119,8 @@ jobs:
 
   # ── 1. Build platform binaries + napi addons ─────────────────────────────
   build-binary:
-    name: Binary / ${{ matrix.pkg }}
     needs: prepare
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-latest
-            target: aarch64-apple-darwin
-            pkg: galeforcecss-darwin-arm64
-            bin: galeforcecss
-            node_artifact: libgaleforce_node.dylib
-          # macos-13 (Intel) runners were retired by GitHub in 2025.
-          # Cross-compile to x86_64-apple-darwin from a macos-latest
-          # (arm64) host — Xcode ships both architectures of the system
-          # frameworks/linker, so the only extra setup is `rustup target
-          # add` (handled by `dtolnay/rust-toolchain` via `targets`).
-          - os: macos-latest
-            target: x86_64-apple-darwin
-            pkg: galeforcecss-darwin-x64
-            bin: galeforcecss
-            node_artifact: libgaleforce_node.dylib
-          # Pin to ubuntu-22.04 (GLIBC 2.35) rather than ubuntu-latest
-          # (24.04 → GLIBC 2.39). The Rust binary links against the host
-          # GLIBC at build time, and consumers running on common LTS
-          # images — including `mcr.microsoft.com/playwright:*-jammy`
-          # (Ubuntu 22.04) — fail to load a 2.38+-linked binary with
-          # `version 'GLIBC_2.38' not found`. 2.35 is the floor.
-          - os: ubuntu-22.04
-            target: x86_64-unknown-linux-gnu
-            pkg: galeforcecss-linux-x64-gnu
-            bin: galeforcecss
-            node_artifact: libgaleforce_node.so
-          # aarch64 builds via `cross` in a manylinux container, so the
-          # host runner's GLIBC doesn't matter — ubuntu-latest is fine.
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            pkg: galeforcecss-linux-arm64-gnu
-            bin: galeforcecss
-            node_artifact: libgaleforce_node.so
-            cross: true
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            pkg: galeforcecss-win32-x64-msvc
-            bin: galeforcecss.exe
-            node_artifact: galeforce_node.dll
-
-    steps:
-      # No `ref:` — build the workflow's source commit (GITHUB_SHA). The
-      # release tag does not exist yet; it is created only after publish
-      # succeeds.
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      # Pin to the toolchain in `rust-toolchain.toml` (1.82.0). Using
-      # `@stable` adds the cross-compile target to stable (1.95+), but
-      # `cargo build` then re-selects 1.82.0 via rust-toolchain.toml and
-      # finds no rust-std for the target — `can't find crate for core`.
-      - uses: dtolnay/rust-toolchain@1.82.0
-        with:
-          targets: ${{ matrix.target }}
-
-      - uses: Swatinem/rust-cache@v2
-        with:
-          key: ${{ matrix.target }}
-
-      - name: Install cross (Linux ARM64)
-        if: matrix.cross == true
-        run: cargo install cross --locked
-
-      # Build both the CLI binary and the napi-rs `.node` artifact in one
-      # go. `cargo build -p galeforce-cli -p galeforce-node` reuses the
-      # workspace compile cache across both crates.
-      - name: Build (cross)
-        if: matrix.cross == true
-        run: cross build -p galeforce-cli -p galeforce-node --release --target ${{ matrix.target }}
-
-      - name: Build (native)
-        if: matrix.cross != true
-        run: cargo build -p galeforce-cli -p galeforce-node --release --target ${{ matrix.target }}
-
-      # Rename the napi-rs library to `galeforcecss.node` so Node can
-      # `require()` it directly. Cargo emits the platform-default name
-      # (libgaleforce_node.dylib / .so / .dll).
-      - name: Stage napi artifact
-        shell: bash
-        run: |
-          src="target/${{ matrix.target }}/release/${{ matrix.node_artifact }}"
-          dst="target/${{ matrix.target }}/release/galeforcecss.node"
-          cp "$src" "$dst"
-
-      - name: Upload binary artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: binary-${{ matrix.pkg }}
-          path: |
-            target/${{ matrix.target }}/release/${{ matrix.bin }}
-            target/${{ matrix.target }}/release/galeforcecss.node
-          if-no-files-found: error
-          retention-days: 1
+    uses: ./.github/workflows/build-binaries.yml
 
   # ── 2. Publish all npm packages to npm & tag ─────────────────────────────
   publish-npm:
@@ -273,36 +173,11 @@ jobs:
           pattern: binary-*
           merge-multiple: false
 
-      # Copy each binary + napi addon into its npm package directory and
-      # restore the executable bit (upload-artifact@v4 strips it, so the
-      # launcher would otherwise hit EACCES spawning the CLI).
-      - name: Stage binaries
-        shell: bash
-        run: |
-          set -euo pipefail
-          for pkg in darwin-arm64 darwin-x64 linux-x64-gnu linux-arm64-gnu; do
-            cp binary-galeforcecss-${pkg}/galeforcecss      packages/galeforcecss-${pkg}/
-            cp binary-galeforcecss-${pkg}/galeforcecss.node packages/galeforcecss-${pkg}/
-            chmod 0755 packages/galeforcecss-${pkg}/galeforcecss
-          done
-          cp binary-galeforcecss-win32-x64-msvc/galeforcecss.exe  packages/galeforcecss-win32-x64-msvc/
-          cp binary-galeforcecss-win32-x64-msvc/galeforcecss.node packages/galeforcecss-win32-x64-msvc/
-
-      # Apache 2.0 section 4(a) requires a copy of the license to travel with
-      # every distributed copy of the work. npm always includes a LICENSE file
-      # in the tarball regardless of the manifest's `files` list, so staging
-      # one next to each publishable manifest is enough. Ephemeral, like the
-      # version stamping below.
-      - name: Stage LICENSE into each publishable package
-        shell: bash
-        run: |
-          set -euo pipefail
-          for pkg in galeforcecss-darwin-arm64 galeforcecss-darwin-x64 \
-                     galeforcecss-linux-x64-gnu galeforcecss-linux-arm64-gnu \
-                     galeforcecss-win32-x64-msvc galeforcecss-config-loader \
-                     galeforcecss vite-plugin-galeforcecss; do
-            cp LICENSE "packages/$pkg/LICENSE"
-          done
+      # Copy binaries + napi addons into their platform packages and a
+      # LICENSE into every publishable package. Ephemeral, like the version
+      # stamping below.
+      - name: Stage binaries and LICENSE
+        run: scripts/stage-packages.sh
 
       # Stamp the resolved version into every publishable package.json and
       # rewrite each `workspace:*` dep to a concrete pin. `npm publish` does

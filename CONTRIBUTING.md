@@ -113,6 +113,20 @@ licenses` (CI does this automatically).
 - Keep PRs focused. A new utility + its fixture is one PR.
 - Conformance changes need oracle snapshot regeneration in the same PR.
 
+## Preview builds
+
+Every PR and every push to `master` publishes installable preview builds of
+all `@coralogix` packages to [pkg.pr.new](https://pkg.pr.new) via the
+**Preview packages** workflow. The workflow comments the install commands on
+the PR, for example:
+
+```bash
+npm i https://pkg.pr.new/@coralogix/vite-plugin-galeforcecss@<sha>
+```
+
+Installing a preview `@coralogix/galeforcecss` pulls the preview platform
+binary for the host. Nothing is published to npm.
+
 ## Releases
 
 Releases are cut manually via the **Release** workflow (`workflow_dispatch`
