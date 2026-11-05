@@ -20,7 +20,7 @@ import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import postcss from 'postcss'
 import { build, createServer, type InlineConfig } from 'vite'
-import { build as buildWithViteNext } from 'vite-next'
+import { build as buildWithViteNext, createServer as createServerWithViteNext } from 'vite-next'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import galeforcecss from './index.js'
 
@@ -594,6 +594,35 @@ describe('vite-plugin-galeforcecss', () => {
       await dev.close()
     }
   })
+
+  it.each([
+    ['vite', createServer],
+    ['vite-next', createServerWithViteNext as unknown as typeof createServer],
+  ])(
+    'dev server keeps relative url()s from @imported stylesheets pointing at their own directory (%s)',
+    async (_name, createServerFn) => {
+      const dir = realpathSync(
+        project({
+          'styles.css': `@import './vendor/font.css';\n@tailwind utilities;\n`,
+          'vendor/font.css': `@font-face { font-family: Vendor; src: url(./files/vendor.woff2) format('woff2'); }\n`,
+          'vendor/files/vendor.woff2': 'not-a-real-font',
+        }),
+      )
+      const server = await createServerFn({
+        root: dir,
+        configFile: false,
+        logLevel: 'silent',
+        plugins: [galeforcecss({ content: [`${dir}/*.css`] })],
+      })
+      try {
+        const result = await server.transformRequest('/styles.css?direct')
+        expect(result?.code).toContain('/vendor/files/vendor.woff2')
+        expect(result?.code).not.toContain('./files/vendor.woff2')
+      } finally {
+        await server.close()
+      }
+    },
+  )
 
   // Real dev server, so these go through Vite's file watcher rather than
   // calling handleHotUpdate by hand.
