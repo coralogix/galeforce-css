@@ -20,6 +20,7 @@ import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import postcss from 'postcss'
 import { build, createServer, type InlineConfig } from 'vite'
+import { build as buildWithViteNext } from 'vite-next'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import galeforcecss from './index.js'
 
@@ -670,4 +671,45 @@ describe('vite-plugin-galeforcecss', () => {
       await dev.close()
     }
   })
+
+  // Vite <= 8.1 rewrites urls before this plugin's OnceExit; >= 8.2 after it.
+  it.each([
+    ['vite', build],
+    ['vite-next', buildWithViteNext as unknown as typeof build],
+  ])(
+    'keeps relative url()s from @imported stylesheets pointing at their own directory (%s)',
+    async (_name, buildFn) => {
+      // The plugin re-parses the whole stylesheet with the entry file as the
+      // source of every node. An `@import`ed sheet's `url(./files/x)` (the
+      // @fontsource layout) must still resolve against the imported sheet's
+      // directory.
+      const dir = project({
+        'main.ts': `import './styles.css'\nexport {}`,
+        'styles.css': `@import './vendor/font.css';\n@tailwind utilities;\n`,
+        'vendor/font.css': `@font-face { font-family: Vendor; src: url(./files/vendor.woff2) format('woff2'); }\n`,
+        'vendor/files/vendor.woff2': 'not-a-real-font',
+      })
+      const config: InlineConfig = {
+        root: dir,
+        logLevel: 'silent',
+        build: {
+          write: false,
+          lib: { entry: join(dir, 'main.ts'), formats: ['es'], fileName: 'main' },
+        },
+        plugins: [galeforcecss({ content: ['./main.ts'] })],
+      }
+      const out = await buildFn(config)
+      const result = Array.isArray(out) ? out[0] : out
+      if (!result || !('output' in result)) throw new Error('expected RollupOutput')
+      const cssAsset = result.output.find(
+        (a): a is Extract<typeof a, { type: 'asset' }> =>
+          a.type === 'asset' && a.fileName.endsWith('.css'),
+      )
+      const css = String(cssAsset!.source)
+      // Lib mode inlines assets, so a url that resolved becomes a data URI.
+      const inlined = `data:font/woff2;base64,${Buffer.from('not-a-real-font').toString('base64')}`
+      expect(css).toContain(inlined)
+      expect(css).not.toContain('./files/vendor.woff2')
+    },
+  )
 })

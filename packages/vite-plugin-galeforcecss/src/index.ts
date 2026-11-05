@@ -41,7 +41,7 @@
 
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { isAbsolute, parse, resolve, sep } from 'node:path'
+import { dirname, isAbsolute, parse, relative, resolve, sep } from 'node:path'
 import picomatch from 'picomatch'
 import { glob as tinyGlob } from 'tinyglobby'
 import postcss, { type Plugin as PostcssPlugin, type Root as PostcssRoot } from 'postcss'
@@ -469,10 +469,13 @@ function postcssGaleforcePlugin(state: PluginState): PostcssPlugin {
       if (!config) return
 
       const sourceId = (root.source?.input as { from?: string } | undefined)?.from ?? undefined
+      // replaceRoot attributes every node to this file, so imported
+      // sheets' relative urls must be rebased onto it first.
+      const compileCss = rebaseImportedUrls(root) ? root.toString() : inputCss
       const result = state.stream
         ? await state.stream.compile({
             candidates,
-            inputCss,
+            inputCss: compileCss,
             inputCssPath: sourceId,
             config: config.resolved,
             // Don't pass `content` here — the candidate set was already
@@ -492,7 +495,7 @@ function postcssGaleforcePlugin(state: PluginState): PostcssPlugin {
           })
         : await compile({
             candidates,
-            inputCss,
+            inputCss: compileCss,
             inputCssPath: sourceId,
             config: config.resolved,
             features: {
@@ -520,6 +523,39 @@ function postcssGaleforcePlugin(state: PluginState): PostcssPlugin {
   }
 }
 postcssGaleforcePlugin.postcss = true
+
+const CSS_URL_RE = /url\(\s*(['"]?)([^'")]+)\1\s*\)/g
+const NON_RELATIVE_URL_RE = /^(?:[a-z][a-z\d+.-]*:|\/|#|~|@)/i
+
+/**
+ * Rebase relative `url()`s in nodes `@import`ed from another file onto
+ * `root`'s file, so they still resolve after replaceRoot attributes every
+ * node to it. Vite <= 8.1 rewrites urls before this plugin runs, leaving
+ * nothing relative to rebase; Vite >= 8.2 rewrites them afterwards, against
+ * the re-parsed source. Returns whether any declaration changed.
+ */
+function rebaseImportedUrls(root: PostcssRoot): boolean {
+  const entry = root.source?.input.file
+  if (!entry) return false
+  const entryDir = dirname(entry)
+  let changed = false
+  root.walkDecls((decl) => {
+    const from = decl.source?.input.file
+    if (!from || from === entry || !decl.value.includes('url(')) return
+    const fromDir = dirname(from)
+    if (fromDir === entryDir) return
+    const value = decl.value.replace(CSS_URL_RE, (match, quote: string, url: string) => {
+      if (NON_RELATIVE_URL_RE.test(url.trim())) return match
+      const rebased = relative(entryDir, resolve(fromDir, url)).split(sep).join('/')
+      return `url(${quote}${rebased.startsWith('.') ? rebased : `./${rebased}`}${quote})`
+    })
+    if (value !== decl.value) {
+      decl.value = value
+      changed = true
+    }
+  })
+  return changed
+}
 
 /**
  * Replace `root`'s children with the parsed contents of `css`. Re-uses
