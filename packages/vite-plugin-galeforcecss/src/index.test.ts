@@ -612,9 +612,13 @@ describe('vite-plugin-galeforcecss', () => {
         root: dir,
         configFile: false,
         logLevel: 'silent',
+        server: { port: 0 },
         plugins: [galeforcecss({ content: [`${dir}/*.css`] })],
       })
       try {
+        // Vite 5 initialises its CSS plugin caches in buildStart, which
+        // only runs once the server is listening.
+        await server.listen()
         const result = await server.transformRequest('/styles.css?direct')
         expect(result?.code).toContain('/vendor/files/vendor.woff2')
         expect(result?.code).not.toContain('./files/vendor.woff2')
